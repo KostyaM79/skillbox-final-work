@@ -23,6 +23,11 @@ namespace WebClient.Controllers
             return View();
         }
 
+        public IActionResult Admin()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
