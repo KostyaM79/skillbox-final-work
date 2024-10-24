@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApiService.Data;
+using WebApiService.Services;
 
 namespace WebApiService
 {
@@ -28,6 +29,7 @@ namespace WebApiService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("connStr")));
+            services.AddScoped<IOrderService, OrderService>();
 
 
             services.AddControllers();
