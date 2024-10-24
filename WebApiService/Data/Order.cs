@@ -17,6 +17,8 @@ namespace WebApiService.Data
 
         public int OrderStatusId { get; set; }
 
-        public ICollection<Client> Clients { get; set; }
+        public Client Client { get; set; }
+
+        public OrderOrderStatus OrderStatus { get; set; }
     }
 }

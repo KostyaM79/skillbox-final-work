@@ -14,5 +14,11 @@ namespace WebApiService.Data
         public int FirstNameId { get; set; }
 
         public int EmailId { get; set; }
+
+        public ClientLastName LastName { get; set; }
+
+        public ClientFirstName FirstName { get; set; }
+
+        public ClientEmail Email { get; set; }
     }
 }

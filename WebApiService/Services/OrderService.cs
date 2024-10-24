@@ -35,5 +35,33 @@ namespace WebApiService.Services
                 return false;
             }
         }
+
+        public OrderFullDataModel[] GetAll()
+        {
+            Order[] orders = context.Orders.AsNoTracking()
+                .Include(c => c.Client).ThenInclude(c => c.LastName)
+                .Include(c => c.Client).ThenInclude(c => c.FirstName)
+                .Include(c => c.Client).ThenInclude(c => c.Email)
+                .Include(c => c.OrderStatus)
+                .ToArray();
+
+            List<OrderFullDataModel> data = new();
+            foreach (Order o in orders)
+            {
+                data.Add(new OrderFullDataModel()
+                {
+                    LastName = o.Client.LastName.LastName,
+                    FirstName = o.Client.FirstName.FirstName,
+                    Email = o.Client.Email.Email,
+                    ClientId = o.ClientId,
+                    CreatingDate = o.CreatingDate,
+                    Id = o.Id,
+                    OrderStatus = o.OrderStatus,
+                    OrderText = o.OrderText
+                });
+            }
+
+            return data.ToArray();
+        }
     }
 }

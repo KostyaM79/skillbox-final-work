@@ -26,10 +26,19 @@ namespace WebApiService.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (service.Add(model)) return Ok();
-                else return StatusCode(500);
+                if (service.Add(model)) return Ok(new { Message = "Данные успешно добавлены." });
+                else return StatusCode(500, new { Message = "При добавлении данных в БД произошла ошибка!" });
             }
-            else return BadRequest();
+            else return BadRequest(new { Message = "Получены некорректные данные!" });
+        }
+
+        [HttpGet]
+        [Route(nameof(ReadAll))]
+        public IActionResult ReadAll()
+        {
+            OrderFullDataModel[] data = service.GetAll();
+            if (data != null) return Ok(data);
+            else return StatusCode(500, new { Message = "Не удалось получить данные из БД." });
         }
     }
 }

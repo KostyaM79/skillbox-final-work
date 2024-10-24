@@ -9,5 +9,7 @@ namespace WebApiService.Services
     public interface IOrderService
     {
         bool Add(OrderModel model);
+
+        OrderFullDataModel[] GetAll();
     }
 }
