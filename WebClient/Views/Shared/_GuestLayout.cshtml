@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная</title>
+    <link rel="stylesheet" href="~/css/normalize.css">
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body class="body">
+    <header class="header">
+        <div class="container header-container">
+            <nav class="nav guest-nav">
+                <ul class="guest-nav-items flex">
+                    <li class="guest-nav-item">
+                        <a class="guest-nav-link" asp-controller="Guest" asp-action="IndexGuest">Главная</a>
+                    </li>
+
+                    <li class="guest-nav-item">
+                        <a class="guest-nav-link" href="#">Услуги</a>
+                    </li>
+
+                    <li class="guest-nav-item">
+                        <a class="guest-nav-link" asp-controller="Guest" asp-action="Projects">Проекты</a>
+                    </li>
+
+                    <li class="guest-nav-item">
+                        <a class="guest-nav-link" href="#">Блог</a>
+                    </li>
+
+                    <li class="guest-nav-item">
+                        <a class="guest-nav-link" href="#">Контакты</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="guest-header-text flex">
+                <h2 class="guest-header-title-2">Какой-то текст</h2>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer>
+
+    </footer>
+</body>
+</html>
+
+<script src="~/js/site.js"></script>

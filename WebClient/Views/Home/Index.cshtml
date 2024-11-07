@@ -1,7 +1,40 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body class="body login-body">
+    <header>
+    </header>
 
-<div class="text-center">
-    <h1 class="display-4">Главная страница гостя</h1>
-</div>
+    <main class="main login-main">
+        <div class="container login-container flex">
+            <div class="form-container flex">
+                <a class="start-link" asp-controller="Guest" asp-action="IndexGuest">Продолжить как гость</a>
+
+                <form class="frm login-form" asp-controller="Authenticate" asp-action="Login" method="post">
+                    <div class="form-item flex">
+                        <label class="form-label">Логин</label>
+                        <input class="frm-input login-input" type="text" name="Username" placeholder="Логин" />
+                    </div>
+
+                    <div class="form-item flex">
+                        <label class="form-label">Пароль</label>
+                        <input class="frm-input login-input" type="password" name="Password" placeholder="Пароль" />
+                    </div>
+
+                    <div class="form-item flex">
+                        <input class="login-btn" type="submit" value="Войти">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+    </footer>
+</body>
+</html>

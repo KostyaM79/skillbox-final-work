@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApiService.Data;
-using WebApiService.Models;
+using Models;
 
 namespace WebApiService.Services
 {
@@ -26,7 +26,7 @@ namespace WebApiService.Services
                 SqlParameter param1 = new SqlParameter("@lastName", model.LastName);
                 SqlParameter param2 = new SqlParameter("@firstName", model.FirstName);
                 SqlParameter param3 = new SqlParameter("@email", model.Email);
-                SqlParameter param4 = new SqlParameter("@orderText", model.OrderText);
+                SqlParameter param4 = new SqlParameter("@orderText", model.Message);
                 context.Database.ExecuteSqlRaw("AddOrderProc @lastName, @firstName, @email, @orderText", param1, param2, param3, param4);
                 return true;
             }
@@ -38,13 +38,45 @@ namespace WebApiService.Services
 
         public OrderFullDataModel[] GetAll()
         {
-            Order[] orders = context.Orders.AsNoTracking()
+            Order[] orders = GetOrders();
+            return CreateOrderModelsArray(orders);
+        }
+
+        public ModifyOrderModel GetOrder(int id)
+        {
+            Order order = context.Orders.AsNoTracking()
+                .Include(c => c.Client).ThenInclude(c => c.LastName)
+                .Include(c => c.Client).ThenInclude(c => c.FirstName)
+                .Include(c => c.Client).ThenInclude(c => c.Email)
+                .Include(c => c.OrderStatus)
+                .FirstOrDefault(e => e.Id == id);
+
+            return new ModifyOrderModel()
+            {
+                Id = order.Id,
+                LastName = order.Client.LastName.LastName,
+                FirstName = order.Client.FirstName.FirstName,
+                ClientId = order.ClientId,
+                CreatingDate = order.CreatingDate,
+                Email = order.Client.Email.Email,
+                Message = order.OrderText,
+                OrderStatus = new OrderStatusModel() { Id = order.OrderStatus.Id, OrderStatus = order.OrderStatus.OrderStatus },
+                Statuses = context.OrderStatuses.Select(e => new OrderStatusModel() { Id = e.Id, OrderStatus = e.OrderStatus }).ToArray()
+            };
+        }
+
+        private Order[] GetOrders()
+        {
+            return context.Orders.AsNoTracking()
                 .Include(c => c.Client).ThenInclude(c => c.LastName)
                 .Include(c => c.Client).ThenInclude(c => c.FirstName)
                 .Include(c => c.Client).ThenInclude(c => c.Email)
                 .Include(c => c.OrderStatus)
                 .ToArray();
+        }
 
+        private OrderFullDataModel[] CreateOrderModelsArray(Order[] orders)
+        {
             List<OrderFullDataModel> data = new();
             foreach (Order o in orders)
             {
@@ -56,12 +88,19 @@ namespace WebApiService.Services
                     ClientId = o.ClientId,
                     CreatingDate = o.CreatingDate,
                     Id = o.Id,
-                    OrderStatus = o.OrderStatus,
-                    OrderText = o.OrderText
+                    OrderStatus = new() { Id = o.OrderStatus.Id, OrderStatus = o.OrderStatus.OrderStatus },
+                    Message = o.OrderText
                 });
             }
 
             return data.ToArray();
+        }
+
+        public bool Update(UpdateOrderModel model)
+        {
+            Order order = context.Orders.FirstOrDefault(e => e.Id == model.Id);
+            order.OrderStatusId = model.StatusId;
+            return context.SaveChanges() > 0;
         }
     }
 }

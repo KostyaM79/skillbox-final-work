@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApiService.Models;
+using Models;
 
 namespace WebApiService.Services
 {
@@ -11,5 +11,9 @@ namespace WebApiService.Services
         bool Add(OrderModel model);
 
         OrderFullDataModel[] GetAll();
+
+        ModifyOrderModel GetOrder(int id);
+
+        bool Update(UpdateOrderModel model);
     }
 }

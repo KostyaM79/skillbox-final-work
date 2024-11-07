@@ -1,0 +1,52 @@
+﻿@{ 
+    Layout = "_AdminLayout";
+}
+
+@model ModifyOrderModel
+
+<h2 class="section-title">
+    Управление заявкой
+</h2>
+
+<div class="section-content flex">
+    <form class="edit-frm flex grow" asp-action="Update">
+        <div class="edit-frm__content flex">
+            <div class="edit-frm__text">
+                @Model.Id
+            </div>
+
+            <div class="edit-frm__text">
+                @Model.CreatingDate.ToString("dd.MM.yyyy hh:mm")
+            </div>
+
+            <div class="edit-frm__text">
+                @Model.LastName
+            </div>
+
+            <div class="edit-frm__text">
+                @Model.FirstName
+            </div>
+
+            <div class="edit-frm__text grow">
+                @Model.Message
+            </div>
+
+            <div class="edit-frm__text">
+                @Model.Email
+            </div>
+
+            <select class="edit-frm__select" name="StatusId">
+                @foreach (OrderStatusModel t in Model.Statuses)
+                {
+                    <option value="@t.Id" selected="@(t.Id == Model.OrderStatus.Id)">
+                        @t.OrderStatus
+                    </option>
+                }
+            </select>
+
+            <input type="hidden" value="@Model.Id" name="Id" />
+        </div>
+
+        <button class="btn edit-frm__btn" type="submit">Сохранить</button>
+    </form>
+</div>

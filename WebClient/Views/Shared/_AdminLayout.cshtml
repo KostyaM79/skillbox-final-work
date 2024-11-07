@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование главной страницы</title>
+    <link rel="stylesheet" href="~/css/normalize.css">
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body class="body">
+    <header class="header admin-header">
+        <div class="container admin-header__container">
+            <div class="header__content">
+                Admin
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container flex admin-container">
+            <aside class="vertical-menu">
+                <nav class="main-menu__nav">
+                    <ul class="main-menu__content list-reset">
+                        <li class="main-menu__item">
+                            <a class="main-menu__link" asp-controller="Admin" asp-action="AdminDesktop">Рабочий стол</a>
+                        </li>
+
+                        <li class="main-menu__item">
+                            <a class="main-menu__link" asp-controller="Admin" asp-action="AdminMain">Главная</a>
+                        </li>
+
+                        <li class="main-menu__item">
+                            <a class="main-menu__link" asp-controller="Admin" asp-action="AdminProjects">Проекты</a>
+                        </li>
+
+                        <li class="main-menu__item">
+                            <a class="main-menu__link" asp-controller="Admin" asp-action="AdminServices">Услуги</a>
+                        </li>
+
+                        <li class="main-menu__item">
+                            <a class="main-menu__link" asp-controller="Admin" asp-action="AdminArticles">Блог</a>
+                        </li>
+
+                        <li class="main-menu__item">
+                            <a class="main-menu__link" asp-controller="Admin" asp-action="AdminContacts">Контакты</a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <div class="admin-content flex">
+                @RenderBody()
+            </div>
+        </div>
+    </main>
+
+    <footer>
+    </footer>
+</body>
+</html>
+
+<script src="~/js/site.js"></script>

@@ -1,0 +1,31 @@
+﻿using Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Json;
+using Microsoft.Extensions.Configuration;
+
+namespace WebClient.Services
+{
+    public class AuthService : IAuthService
+    {
+        private readonly IConfiguration configuration;
+
+        public AuthService(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
+        public string Authenticate(LoginModel model)
+        {
+            using HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(configuration["AuthApiLocation"]);
+            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Authenticate/Login", JsonContent.Create(model)).Result;
+            string[] s = responseMessage.Headers.GetValues("jwt").ToArray();
+            return s[0];
+        }
+    }
+}

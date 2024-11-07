@@ -1,0 +1,63 @@
+﻿@{
+    Layout = "_AdminLayout";
+}
+
+@model OrderFullDataModel[];
+
+<div class="orders">
+    <div class="orders__filter-panel flex">
+        <div class="orders__filter-panel_text">Всего заявок: 63</div>
+
+        <div class="orders__filter-items flex">
+            <button class="orders__filter-items_button">Сегодня</button>
+
+            <button class="orders__filter-items_button">Вчера</button>
+
+            <button class="orders__filter-items_button">Неделя</button>
+
+            <button class="orders__filter-items_button">Месяц</button>
+
+            @*<button class="orders__filter-items_button flex">*@
+                <input type="date">
+                -
+                <input type="date">
+            @*</button>*@
+        </div>
+    </div>
+
+    <div class="orders__content flex">
+        <table class="orders__content_table">
+            <colgroup>
+                <col class="orders__content1">
+                <col class="orders__content2">
+                <col class="orders__content3">
+                <col class="orders__content4">
+                <col class="orders__content5">
+            </colgroup>
+
+            <thead class="orders__content_head">
+                <tr>
+                    <th class="orders__content_h-sel">Номер заявки</th>
+                    <th class="orders__content_h-sel">Вреся заявки</th>
+                    <th class="orders__content_h-sel">Имя</th>
+                    <th class="orders__content_h-sel">Текст заявки</th>
+                    <th class="orders__content_h-sel">Контактя</th>
+                </tr>
+            </thead>
+
+            <tbody class="orders__content_body">
+
+                @foreach (OrderFullDataModel t in Model)
+                {
+                    <tr class="orders__content_row">
+                        <td class="orders__content_table-cell"><a class="orders__content__link" asp-controller="Order" asp-action="EditOrder" asp-route-id="@t.Id">@t.Id</a></td>
+                        <td class="orders__content_table-cell"><time datetime="11.11.1987 11:08">@t.CreatingDate.ToString("dd.MM.yyyy hh:mm")</time></td>
+                        <td class="orders__content_table-cell">@t.LastName @t.FirstName</td>
+                        <td class="orders__content_table-cell">@t.Message</td>
+                        <td class="orders__content_table-cell">@t.Email</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApiService.Models;
+using Models;
 using WebApiService.Services;
 
 namespace WebApiService.Controllers
@@ -38,7 +38,24 @@ namespace WebApiService.Controllers
         {
             OrderFullDataModel[] data = service.GetAll();
             if (data != null) return Ok(data);
-            else return StatusCode(500, new { Message = "Не удалось получить данные из БД." });
+            else return StatusCode(500, new { Message = "Не удалось получить список заявок из БД." });
+        }
+
+        [HttpGet]
+        [Route("read/{id}")]
+        public IActionResult Read(int id)
+        {
+            ModifyOrderModel data = service.GetOrder(id);
+            if (data != null) return Ok(data);
+            else return StatusCode(500, new { Message = "Не удалось получить заявку из БД." });
+        }
+
+        [HttpPost]
+        [Route(nameof(Update))]
+        public IActionResult Update(UpdateOrderModel model)
+        {
+            if (service.Update(model)) return Ok();
+            else return StatusCode(500, new { Message = "Не удалось обновить статус заявки!" });
         }
     }
 }
