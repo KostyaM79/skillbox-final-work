@@ -29,20 +29,20 @@ namespace WebClient.Data
             return responseMessage.IsSuccessStatusCode;
         }
 
-        public OrderFullDataModel[] GetAllOrders()
+        public OrdersListModel GetAllOrders()
         {
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
             HttpResponseMessage responseMessage = httpClient.GetAsync("api/Orders/ReadAll").Result;
-            return responseMessage.Content.ReadFromJsonAsync<OrderFullDataModel[]>().Result;
+            return responseMessage.Content.ReadFromJsonAsync<OrdersListModel>().Result;
         }
 
-        public OrderFullDataModel[] GetOrders(string filterName, int startOffset, int endOffset)
+        public OrdersListModel GetOrders(string filterName, int startOffset, int endOffset)
         {
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
             HttpResponseMessage responseMessage = httpClient.GetAsync($"api/Orders/Read/{filterName}/startOffset/{startOffset}/endOffset/{endOffset}").Result;
-            return responseMessage.Content.ReadFromJsonAsync<OrderFullDataModel[]>().Result;
+            return responseMessage.Content.ReadFromJsonAsync<OrdersListModel>().Result;
         }
 
         public ModifyOrderModel GetOrder(int id)
@@ -53,28 +53,28 @@ namespace WebClient.Data
             return responseMessage.Content.ReadFromJsonAsync<ModifyOrderModel>().Result;
         }
 
-        public OrderFullDataModel[] GetOrdersByToday()
+        public OrdersListModel GetOrdersByToday()
         {
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
             HttpResponseMessage responseMessage = httpClient.GetAsync($"api/Orders/ReadByDate").Result;
-            return responseMessage.Content.ReadFromJsonAsync<OrderFullDataModel[]>().Result;
+            return responseMessage.Content.ReadFromJsonAsync<OrdersListModel>().Result;
         }
 
-        public OrderFullDataModel[] GetOrdersByYesterday()
+        public OrdersListModel GetOrdersByYesterday()
         {
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
             HttpResponseMessage responseMessage = httpClient.GetAsync($"api/Orders/ReadByYesterday").Result;
-            return responseMessage.Content.ReadFromJsonAsync<OrderFullDataModel[]>().Result;
+            return responseMessage.Content.ReadFromJsonAsync<OrdersListModel>().Result;
         }
 
-        public OrderFullDataModel[] GetOrdersByWeek()
+        public OrdersListModel GetOrdersByWeek()
         {
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
             HttpResponseMessage responseMessage = httpClient.GetAsync($"api/Orders/ReadByWeek").Result;
-            return responseMessage.Content.ReadFromJsonAsync<OrderFullDataModel[]>().Result;
+            return responseMessage.Content.ReadFromJsonAsync<OrdersListModel>().Result;
         }
 
 

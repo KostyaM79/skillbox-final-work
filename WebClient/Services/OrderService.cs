@@ -27,27 +27,27 @@ namespace WebClient.Services
             return database.GetOrder(id);
         }
 
-        public OrderFullDataModel[] Get(string filterName, int startOffset = 0, int endOffset = 0)
+        public OrdersListModel Get(string filterName, int startOffset = 0, int endOffset = 0)
         {
             return database.GetOrders(filterName, startOffset, endOffset);
         }
 
-        public OrderFullDataModel[] GetAll()
+        public OrdersListModel GetAll()
         {
             return database.GetAllOrders();
         }
 
-        public OrderFullDataModel[] GetByToday()
+        public OrdersListModel GetByToday()
         {
             return database.GetOrders("Today", 0, 0);
         }
 
-        public OrderFullDataModel[] GetByYesterday()
+        public OrdersListModel GetByYesterday()
         {
             return database.GetOrdersByYesterday();
         }
 
-        public OrderFullDataModel[] GetByWeek()
+        public OrdersListModel GetByWeek()
         {
             return database.GetOrdersByWeek();
         }

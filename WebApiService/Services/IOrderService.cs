@@ -11,13 +11,13 @@ namespace WebApiService.Services
     {
         bool Add(OrderModel model);
 
-        OrderFullDataModel[] GetAll();
+        OrdersListModel GetAll();
 
-        OrderFullDataModel[] Get(Func<Order, bool> predicate);
+        OrdersListModel Get(Func<Order, bool> predicate);
 
-        OrderFullDataModel[] GetByDate(DateTime date);
+        OrdersListModel GetByDate(DateTime date);
 
-        OrderFullDataModel[] GetByWeek();
+        OrdersListModel GetByWeek();
 
         ModifyOrderModel GetOrder(int id);
 

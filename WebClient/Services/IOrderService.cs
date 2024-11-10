@@ -10,17 +10,17 @@ namespace WebClient.Services
     {
         bool Add(OrderModel model);
 
-        OrderFullDataModel[] GetAll();
+        OrdersListModel GetAll();
 
-        OrderFullDataModel[] GetByToday();
+        OrdersListModel GetByToday();
 
-        OrderFullDataModel[] GetByYesterday();
+        OrdersListModel GetByYesterday();
 
-        OrderFullDataModel[] GetByWeek();
+        OrdersListModel GetByWeek();
 
         OrderFullDataModel Get(int id);
 
-        OrderFullDataModel[] Get(string filterName, int startOffset = 0, int endOffset = 0);
+        OrdersListModel Get(string filterName, int startOffset = 0, int endOffset = 0);
 
         bool UpdateOrder(UpdateOrderModel model);
     }

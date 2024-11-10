@@ -37,7 +37,7 @@ namespace WebApiService.Controllers
         [Route(nameof(ReadAll))]
         public IActionResult ReadAll()
         {
-            OrderFullDataModel[] data = service.GetAll();
+            OrdersListModel data = service.GetAll();
             if (data != null) return Ok(data);
             else return StatusCode(500, new { Message = "Не удалось получить список заявок из БД." });
         }
@@ -61,7 +61,7 @@ namespace WebApiService.Controllers
         [Route(nameof(ReadByDate))]
         public IActionResult ReadByDate()
         {
-            OrderFullDataModel[] data = service.GetByDate(DateTime.Now);
+            OrdersListModel data = service.GetByDate(DateTime.Now);
             if (data != null) return Ok(data);
             else return StatusCode(500, new { Message = "Не удалось получить список заявок из БД." });
         }
@@ -71,7 +71,7 @@ namespace WebApiService.Controllers
         public IActionResult ReadByYesterday()
         {
             DateTime date = DateTime.Now.AddDays(-1);
-            OrderFullDataModel[] data = service.GetByDate(date);
+            OrdersListModel data = service.GetByDate(date);
             if (data != null) return Ok(data);
             else return StatusCode(500, new { Message = "Не удалось получить список заявок из БД." });
         }
@@ -80,7 +80,7 @@ namespace WebApiService.Controllers
         [Route(nameof(ReadByWeek))]
         public IActionResult ReadByWeek()
         {
-            OrderFullDataModel[] data = service.GetByWeek();
+            OrdersListModel data = service.GetByWeek();
             if (data != null) return Ok(data);
             else return StatusCode(500, new { Message = "Не удалось получить список заявок из БД." });
         }

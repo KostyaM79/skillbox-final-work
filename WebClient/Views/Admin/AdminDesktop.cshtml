@@ -2,11 +2,11 @@
     Layout = "_AdminLayout";
 }
 
-@model OrderFullDataModel[];
+@model OrdersListModel;
 
 <div class="content content_desktop">
     <div class="content__filter-panel flex">
-        <div class="orders__filter-panel_text">Всего заявок: 63</div>
+        <div class="orders__filter-panel_text">Всего заявок: @Model.AllOrdersCount</div>
 
         <div class="orders__filter-items flex">
             <a class="orders__filter-items_button" asp-controller="Admin" asp-action="AdminDesktop" asp-route-filterName="Today">Сегодня</a>
@@ -45,7 +45,7 @@
 
             <tbody class="orders__content_body">
 
-                @foreach (OrderFullDataModel t in Model)
+                @foreach (OrderFullDataModel t in Model.OrdersList)
                 {
                     <tr class="orders__content_row">
                         <td class="orders__content_table-cell"><a class="orders__content__link" asp-controller="Order" asp-action="EditOrder" asp-route-id="@t.Id">@t.Id</a></td>

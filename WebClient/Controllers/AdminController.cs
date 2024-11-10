@@ -31,12 +31,6 @@ namespace WebClient.Controllers
         }
 
         [Authorize]
-        public IActionResult AdminDesktopRange(DateTime d1, DateTime d2)
-        {
-            return View("AdminDesktop", orderService.Get("Range"));
-        }
-
-        [Authorize]
         public IActionResult AdminMain()
         {
             return View();

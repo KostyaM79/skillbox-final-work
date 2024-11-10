@@ -36,31 +36,31 @@ namespace WebApiService.Services
             }
         }
 
-        public OrderFullDataModel[] GetAll()
+        public OrdersListModel GetAll()
         {
             Order[] orders = GetOrders();
-            return CreateOrderModelsArray(orders);
+            return CreateOrdersList(orders, context.Orders.Count());
         }
 
-        public OrderFullDataModel[] Get(Func<Order, bool> predicate)
+        public OrdersListModel Get(Func<Order, bool> predicate)
         {
             Order[] orders = GetOrders().Where(predicate).ToArray();
-            return CreateOrderModelsArray(orders);
+            return CreateOrdersList(orders, context.Orders.Count());
         }
 
-        public OrderFullDataModel[] GetByDate(DateTime date)
+        public OrdersListModel GetByDate(DateTime date)
         {
             Order[] orders = GetOrders().Where(e => e.CreatingDate.Date == date.Date).ToArray();
-            return CreateOrderModelsArray(orders);
+            return CreateOrdersList(orders, context.Orders.Count());
         }
 
-        public OrderFullDataModel[] GetByWeek()
+        public OrdersListModel GetByWeek()
         {
             DateTime today = DateTime.Today;
             DateTime startDate = today.AddDays(-6);
             
             Order[] orders = GetOrders().Where(e => e.CreatingDate.Date >= startDate && e.CreatingDate.Date <=today).ToArray();
-            return CreateOrderModelsArray(orders);
+            return CreateOrdersList(orders, context.Orders.Count());
         }
 
 
@@ -97,25 +97,21 @@ namespace WebApiService.Services
                 .ToArray();
         }
 
-        private OrderFullDataModel[] CreateOrderModelsArray(Order[] orders)
+        private OrdersListModel CreateOrdersList(Order[] orders, int allOrdersCount)
         {
-            List<OrderFullDataModel> data = new();
-            foreach (Order o in orders)
+            OrderFullDataModel[] m = orders.Select(e => new OrderFullDataModel()
             {
-                data.Add(new OrderFullDataModel()
-                {
-                    LastName = o.Client.LastName.LastName,
-                    FirstName = o.Client.FirstName.FirstName,
-                    Email = o.Client.Email.Email,
-                    ClientId = o.ClientId,
-                    CreatingDate = o.CreatingDate,
-                    Id = o.Id,
-                    OrderStatus = new() { Id = o.OrderStatus.Id, OrderStatus = o.OrderStatus.OrderStatus },
-                    Message = o.OrderText
-                });
-            }
+                LastName = e.Client.LastName.LastName,
+                FirstName = e.Client.FirstName.FirstName,
+                Email = e.Client.Email.Email,
+                ClientId = e.ClientId,
+                CreatingDate = e.CreatingDate,
+                Id = e.Id,
+                OrderStatus = new() { Id = e.OrderStatus.Id, OrderStatus = e.OrderStatus.OrderStatus },
+                Message = e.OrderText
+            }).ToArray();
 
-            return data.ToArray();
+            return new OrdersListModel() { AllOrdersCount = allOrdersCount, OrdersList = m };
         }
 
         public bool Update(UpdateOrderModel model)

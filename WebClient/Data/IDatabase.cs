@@ -10,15 +10,15 @@ namespace WebClient.Data
     {
         bool AddOrder(OrderModel model);
 
-        OrderFullDataModel[] GetAllOrders();
+        OrdersListModel GetAllOrders();
 
-        OrderFullDataModel[] GetOrders(string filterName, int startOffset, int endOffset);
+        OrdersListModel GetOrders(string filterName, int startOffset, int endOffset);
 
-        OrderFullDataModel[] GetOrdersByToday();
+        OrdersListModel GetOrdersByToday();
 
-        OrderFullDataModel[] GetOrdersByYesterday();
+        OrdersListModel GetOrdersByYesterday();
 
-        OrderFullDataModel[] GetOrdersByWeek();
+        OrdersListModel GetOrdersByWeek();
 
         ModifyOrderModel GetOrder(int id);
 
