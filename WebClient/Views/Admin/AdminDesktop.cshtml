@@ -5,21 +5,23 @@
 @model OrdersListModel;
 
 <div class="content content_desktop">
-    <div class="content__filter-panel flex">
+    <div class="content__orders-filter-panel">
         <div class="orders__filter-panel_text">Всего заявок: @Model.AllOrdersCount</div>
 
-        <div class="orders__filter-items flex">
-            <a class="orders__filter-items_button" asp-controller="Admin" asp-action="AdminDesktop" asp-route-filterName="Today">Сегодня</a>
+        <div class="content__orders-filter-items">
+            <a class="content__orders-filter-item content__orders-filter-item_btn" asp-controller="Admin" asp-action="AdminDesktop" asp-route-filterName="Today">Сегодня</a>
 
-            <a class="orders__filter-items_button" asp-controller="Admin" asp-action="AdminDesktop" asp-route-filterName="Yesterday">Вчера</a>
+            <a class="content__orders-filter-item content__orders-filter-item_btn" asp-controller="Admin" asp-action="AdminDesktop" asp-route-filterName="Yesterday">Вчера</a>
 
-            <a class="orders__filter-items_button" asp-controller="Admin" asp-action="AdminDesktop" asp-route-filterName="Week">Неделя</a>
+            <a class="content__orders-filter-item content__orders-filter-item_btn" asp-controller="Admin" asp-action="AdminDesktop" asp-route-filterName="Week">Неделя</a>
 
-            <a class="orders__filter-items_button" asp-controller="Admin" asp-action="AdminDesktop" asp-route-filterName="Month">Месяц</a>
+            <a class="content__orders-filter-item content__orders-filter-item_btn" asp-controller="Admin" asp-action="AdminDesktop" asp-route-filterName="Month">Месяц</a>
 
-            <input id="date1" type="date" onchange="setDateRange()">
-            -
-            <input id="date2" type="date" onchange="setDateRange()">
+            <input id="date1" class="content__orders-filter-item content__orders-filter-item_date" type="date" onchange="setDateRange()">
+
+            <div class="content__orders-filter-item content__orders-filter-item_dash">-</div>
+
+            <input id="date2" class="content__orders-filter-item content__orders-filter-item_date" type="date" onchange="setDateRange()">
         </div>
     </div>
 

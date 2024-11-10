@@ -1,7 +1,11 @@
-﻿@import url("__filter-panel/content__filter-panel.css");
+﻿@import url("__orders-filter-panel/content__orders-filter-panel.css");
+@import url("__orders-filter-items/content__orders-filter-items.css");
+@import url("__orders-filter-item/content__orders-filter-item.css");
 @import url("_desktop/content_desktop.css");
 
 .content {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
     padding: 20px;
 }

@@ -466,11 +466,11 @@ a {
   padding: 10px;
 }
 
-.orders__filter-items {
+/*.orders__filter-items {
   align-items: stretch;
-}
+}*/
 
-.orders__filter-items_button {
+/*.orders__filter-items_button {
   flex-basis: 20%;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -478,7 +478,7 @@ a {
   outline: 1px solid #ccc;
   background-color: #fff;
   cursor: pointer;
-}
+}*/
 
 .orders__filter-panel_text {
   padding-left: 30px;
