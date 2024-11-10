@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "_GuestLayout";
+}
+
+<section class="section frm-section">
+    <div class="container frm-section-container">
+        <form id="orderForm" class="frm guest-frm flex" asp-action="Order" method="post">
+            <div class="guest-frm-content flex">
+                <div class="top-frm-items flex">
+                    <div class="guest-form-item flex">
+                        <label class="guest-form-label">Фамилия:</label>
+                        <input class="frm-input" type="text" name="LastName" placeholder="Фамилия" />
+                    </div>
+
+                    <div class="guest-form-item flex">
+                        <label class="guest-form-label">Имя</label>
+                        <input class="frm-input" type="text" name="FirstName" placeholder="Имя" />
+                    </div>
+
+                    <div class="guest-form-item flex">
+                        <label class="guest-form-label">Email:</label>
+                        <input class="frm-input" type="text" name="Email" placeholder="Email" />
+                    </div>
+                </div>
+
+                <div class="guest-form-item multi-line-item flex">
+                    <label class="guest-form-label">Текст сообщения</label>
+                    <textarea class="frm-input multi-line-input" name="Message" placeholder="Текст сообщения"></textarea>
+                </div>
+
+                <input class="btn guest-btn" type="submit">
+            </div>
+        </form>
+    </div>
+</section>

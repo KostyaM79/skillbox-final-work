@@ -22,9 +22,13 @@ namespace WebClient.Controllers
         public IActionResult Login(LoginModel model)
         {
             string token = authenticationService.Authenticate(model);
-            HttpContext.Response.Cookies.Append("jwt", token);
-            return Redirect("/Admin/AdminDesktop");
-            //return Ok();
+            if (!string.IsNullOrEmpty(token))
+            {
+                HttpContext.Response.Cookies.Append("jwt", token);
+                return Redirect("/Admin/AdminDesktop");
+            }
+            else
+                return Unauthorized();
         }
     }
 }

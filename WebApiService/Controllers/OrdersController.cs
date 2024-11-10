@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Models;
 using WebApiService.Services;
+using WebApiService.Data;
 
 namespace WebApiService.Controllers
 {
@@ -37,6 +38,49 @@ namespace WebApiService.Controllers
         public IActionResult ReadAll()
         {
             OrderFullDataModel[] data = service.GetAll();
+            if (data != null) return Ok(data);
+            else return StatusCode(500, new { Message = "Не удалось получить список заявок из БД." });
+        }
+
+        [HttpGet]
+        [Route("Read/{filterName}/startOffset/{startOffset}/endOffset/{endOffset}")]
+        public IActionResult Read(string filterName, int startOffset, int endOffset)
+        {
+            switch (filterName)
+            {
+                case "Today": return Ok(service.Get((Order e) => e.CreatingDate.Date == DateTime.Today));
+                case "Yesterday": return Ok(service.Get((Order e) => e.CreatingDate.Date == DateTime.Today.AddDays(-1)));
+                case "Week": return Ok(service.Get((Order e) => e.CreatingDate.Date >= DateTime.Today.AddDays(-6) && e.CreatingDate.Date <= DateTime.Today));
+                case "Month": return Ok(service.Get((Order e) => e.CreatingDate.Date > DateTime.Today.AddMonths(-1) && e.CreatingDate.Date <= DateTime.Today));
+                case "Range": return Ok(service.Get((Order e) => e.CreatingDate.Date >= DateTime.Today.AddDays(-startOffset) && e.CreatingDate.Date <= DateTime.Today.AddDays(-endOffset)));
+            }
+            return Problem();
+        }
+
+        [HttpGet]
+        [Route(nameof(ReadByDate))]
+        public IActionResult ReadByDate()
+        {
+            OrderFullDataModel[] data = service.GetByDate(DateTime.Now);
+            if (data != null) return Ok(data);
+            else return StatusCode(500, new { Message = "Не удалось получить список заявок из БД." });
+        }
+
+        [HttpGet]
+        [Route(nameof(ReadByYesterday))]
+        public IActionResult ReadByYesterday()
+        {
+            DateTime date = DateTime.Now.AddDays(-1);
+            OrderFullDataModel[] data = service.GetByDate(date);
+            if (data != null) return Ok(data);
+            else return StatusCode(500, new { Message = "Не удалось получить список заявок из БД." });
+        }
+
+        [HttpGet]
+        [Route(nameof(ReadByWeek))]
+        public IActionResult ReadByWeek()
+        {
+            OrderFullDataModel[] data = service.GetByWeek();
             if (data != null) return Ok(data);
             else return StatusCode(500, new { Message = "Не удалось получить список заявок из БД." });
         }

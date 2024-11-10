@@ -466,21 +466,6 @@ a {
   padding: 10px;
 }
 
-.orders {
-  flex-grow: 1;
-  padding: 20px;
-  background-color: #ddd;
-}
-
-
-
-.orders__filter-panel {
-  flex-direction: column;
-  margin-bottom: 20px;
-  /* min-height: 100px; */
-  background-color: #fff;
-}
-
 .orders__filter-items {
   align-items: stretch;
 }
@@ -558,9 +543,9 @@ a {
 
 .admin-content {
     flex-grow: 1;
-    padding-left: 20px;
+    /*padding-left: 20px;
     padding-top: 20px;
-    flex-direction: column;
+    flex-direction: column;*/
 }
 
 .main-content {
@@ -723,4 +708,17 @@ a {
 .edit-frm__btn {
     border: none;
     align-self: flex-end;
+}
+
+.link-btn {
+    background-color: white;
+}
+
+.admin-main-btn {
+    align-self: end;
+}
+
+.main-content__title__text {
+    min-width: 200px;
+    font-size: 24px;
 }

@@ -4,24 +4,22 @@
 
 @model OrderFullDataModel[];
 
-<div class="orders">
-    <div class="orders__filter-panel flex">
+<div class="content content_desktop">
+    <div class="content__filter-panel flex">
         <div class="orders__filter-panel_text">Всего заявок: 63</div>
 
         <div class="orders__filter-items flex">
-            <button class="orders__filter-items_button">Сегодня</button>
+            <a class="orders__filter-items_button" asp-controller="Admin" asp-action="AdminDesktop" asp-route-filterName="Today">Сегодня</a>
 
-            <button class="orders__filter-items_button">Вчера</button>
+            <a class="orders__filter-items_button" asp-controller="Admin" asp-action="AdminDesktop" asp-route-filterName="Yesterday">Вчера</a>
 
-            <button class="orders__filter-items_button">Неделя</button>
+            <a class="orders__filter-items_button" asp-controller="Admin" asp-action="AdminDesktop" asp-route-filterName="Week">Неделя</a>
 
-            <button class="orders__filter-items_button">Месяц</button>
+            <a class="orders__filter-items_button" asp-controller="Admin" asp-action="AdminDesktop" asp-route-filterName="Month">Месяц</a>
 
-            @*<button class="orders__filter-items_button flex">*@
-                <input type="date">
-                -
-                <input type="date">
-            @*</button>*@
+            <input id="date1" type="date" onchange="setDateRange()">
+            -
+            <input id="date2" type="date" onchange="setDateRange()">
         </div>
     </div>
 

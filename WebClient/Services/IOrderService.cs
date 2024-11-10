@@ -12,7 +12,15 @@ namespace WebClient.Services
 
         OrderFullDataModel[] GetAll();
 
+        OrderFullDataModel[] GetByToday();
+
+        OrderFullDataModel[] GetByYesterday();
+
+        OrderFullDataModel[] GetByWeek();
+
         OrderFullDataModel Get(int id);
+
+        OrderFullDataModel[] Get(string filterName, int startOffset = 0, int endOffset = 0);
 
         bool UpdateOrder(UpdateOrderModel model);
     }

@@ -24,6 +24,19 @@ namespace WebClient.Controllers
         }
 
         [Authorize]
+        [Route("AdminDesktop/{filterName}/{startOffset?}/{endOffset?}")]
+        public IActionResult AdminDesktop(string filterName, int startOffset, int endOffset)
+        {
+            return View(orderService.Get(filterName, startOffset, endOffset));
+        }
+
+        [Authorize]
+        public IActionResult AdminDesktopRange(DateTime d1, DateTime d2)
+        {
+            return View("AdminDesktop", orderService.Get("Range"));
+        }
+
+        [Authorize]
         public IActionResult AdminMain()
         {
             return View();

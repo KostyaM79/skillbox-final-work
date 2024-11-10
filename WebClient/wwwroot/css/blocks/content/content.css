@@ -1,0 +1,7 @@
+﻿@import url("__filter-panel/content__filter-panel.css");
+@import url("_desktop/content_desktop.css");
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+}

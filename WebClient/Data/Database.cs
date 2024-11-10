@@ -37,6 +37,14 @@ namespace WebClient.Data
             return responseMessage.Content.ReadFromJsonAsync<OrderFullDataModel[]>().Result;
         }
 
+        public OrderFullDataModel[] GetOrders(string filterName, int startOffset, int endOffset)
+        {
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            HttpResponseMessage responseMessage = httpClient.GetAsync($"api/Orders/Read/{filterName}/startOffset/{startOffset}/endOffset/{endOffset}").Result;
+            return responseMessage.Content.ReadFromJsonAsync<OrderFullDataModel[]>().Result;
+        }
+
         public ModifyOrderModel GetOrder(int id)
         {
             HttpClient httpClient = httpClientFactory.CreateClient();
@@ -44,6 +52,31 @@ namespace WebClient.Data
             HttpResponseMessage responseMessage = httpClient.GetAsync($"api/Orders/Read/{id}").Result;
             return responseMessage.Content.ReadFromJsonAsync<ModifyOrderModel>().Result;
         }
+
+        public OrderFullDataModel[] GetOrdersByToday()
+        {
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            HttpResponseMessage responseMessage = httpClient.GetAsync($"api/Orders/ReadByDate").Result;
+            return responseMessage.Content.ReadFromJsonAsync<OrderFullDataModel[]>().Result;
+        }
+
+        public OrderFullDataModel[] GetOrdersByYesterday()
+        {
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            HttpResponseMessage responseMessage = httpClient.GetAsync($"api/Orders/ReadByYesterday").Result;
+            return responseMessage.Content.ReadFromJsonAsync<OrderFullDataModel[]>().Result;
+        }
+
+        public OrderFullDataModel[] GetOrdersByWeek()
+        {
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            HttpResponseMessage responseMessage = httpClient.GetAsync($"api/Orders/ReadByWeek").Result;
+            return responseMessage.Content.ReadFromJsonAsync<OrderFullDataModel[]>().Result;
+        }
+
 
         public bool UpdateOrder(UpdateOrderModel model)
         {

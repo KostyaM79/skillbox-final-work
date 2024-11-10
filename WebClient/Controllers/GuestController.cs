@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebClient.Models;
+using Models;
 
 namespace WebClient.Controllers
 {
@@ -20,6 +21,11 @@ namespace WebClient.Controllers
         }
 
         public IActionResult Project()
+        {
+            return View();
+        }
+
+        public IActionResult Order()
         {
             return View();
         }

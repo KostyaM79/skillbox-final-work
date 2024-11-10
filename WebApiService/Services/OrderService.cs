@@ -42,6 +42,28 @@ namespace WebApiService.Services
             return CreateOrderModelsArray(orders);
         }
 
+        public OrderFullDataModel[] Get(Func<Order, bool> predicate)
+        {
+            Order[] orders = GetOrders().Where(predicate).ToArray();
+            return CreateOrderModelsArray(orders);
+        }
+
+        public OrderFullDataModel[] GetByDate(DateTime date)
+        {
+            Order[] orders = GetOrders().Where(e => e.CreatingDate.Date == date.Date).ToArray();
+            return CreateOrderModelsArray(orders);
+        }
+
+        public OrderFullDataModel[] GetByWeek()
+        {
+            DateTime today = DateTime.Today;
+            DateTime startDate = today.AddDays(-6);
+            
+            Order[] orders = GetOrders().Where(e => e.CreatingDate.Date >= startDate && e.CreatingDate.Date <=today).ToArray();
+            return CreateOrderModelsArray(orders);
+        }
+
+
         public ModifyOrderModel GetOrder(int id)
         {
             Order order = context.Orders.AsNoTracking()

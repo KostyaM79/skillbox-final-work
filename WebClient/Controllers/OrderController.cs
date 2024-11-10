@@ -17,7 +17,7 @@ namespace WebClient.Controllers
             orderService = service;
         }
 
-
+        [HttpGet]
         public IActionResult Order()
         {
             return View();
@@ -45,7 +45,7 @@ namespace WebClient.Controllers
         }
 
         [HttpGet]
-        [Route("order/{id}")]
+        [Route("edit/{id}")]
         public IActionResult EditOrder(int id)
         {
             return View(orderService.Get(id));

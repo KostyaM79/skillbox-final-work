@@ -24,8 +24,12 @@ namespace WebClient.Services
             using HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(configuration["AuthApiLocation"]);
             HttpResponseMessage responseMessage = httpClient.PostAsync("api/Authenticate/Login", JsonContent.Create(model)).Result;
-            string[] s = responseMessage.Headers.GetValues("jwt").ToArray();
-            return s[0];
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                string[] s = responseMessage.Headers.GetValues("jwt").ToArray();
+                return s[0];
+            }
+            else return default;
         }
     }
 }
