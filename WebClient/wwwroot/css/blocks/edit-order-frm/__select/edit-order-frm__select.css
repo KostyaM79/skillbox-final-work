@@ -1,0 +1,9 @@
+﻿.edit-order-frm__select {
+    border: none;
+    cursor: pointer;
+}
+
+.edit-order-frm__select:hover {
+    background-color: #ddf;
+    transition: background-color 0.3s ease-in-out;
+}

@@ -1,0 +1,7 @@
+﻿@import url("../frm/frm.css");
+@import url("__content/edit-order-frm__content.css");
+@import url("__select/edit-order-frm__select.css");
+
+.edit-order-frm {
+    flex-grow: 1;
+}

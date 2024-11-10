@@ -1,0 +1,10 @@
+﻿
+.btn_link-btn {
+    background-color: #fff;
+    color: black;
+}
+
+.btn_link-btn:hover {
+    background-color: #ccf;
+    transition: background-color 0.3s ease-in-out;
+}

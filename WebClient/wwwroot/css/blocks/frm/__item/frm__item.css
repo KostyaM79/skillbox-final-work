@@ -1,0 +1,9 @@
+﻿.frm__item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.frm__item:not(:last-child) {
+    margin-bottom: 20px;
+}

@@ -1,0 +1,7 @@
+﻿@import url("../add-project-frm/add-project-frm.css");
+@import url("__item/frm__item.css");
+
+.frm {
+    display: flex;
+    flex-direction: column;
+}

@@ -4,18 +4,16 @@
 
 @model ModifyOrderModel
 
-<h2 class="section-title">
-    Управление заявкой
-</h2>
+<div class="content flex">
+    <h2 class="section-title">Управление заявкой</h2>
 
-<div class="section-content flex">
-    <form class="edit-frm flex grow" asp-action="Update">
-        <div class="edit-frm__content flex">
-            <div class="edit-frm__text">
+    <form class="frm edit-order-frm grow" asp-action="Update">
+        <div class="edit-order-frm__content flex">
+            <div class="edit-frm__text no-shrink">
                 @Model.Id
             </div>
 
-            <div class="edit-frm__text">
+            <div class="edit-frm__text no-shrink">
                 @Model.CreatingDate.ToString("dd.MM.yyyy hh:mm")
             </div>
 
@@ -35,7 +33,7 @@
                 @Model.Email
             </div>
 
-            <select class="edit-frm__select" name="StatusId">
+            <select class="edit-order-frm__select" name="StatusId" title="title">
                 @foreach (OrderStatusModel t in Model.Statuses)
                 {
                     <option value="@t.Id" selected="@(t.Id == Model.OrderStatus.Id)">

@@ -1,0 +1,9 @@
+﻿@import url("_link-btn/btn_link-btn.css");
+@import url("_projects-btn/btn_projects-btn.css");
+
+.btn {
+    padding: 6px 15px;
+    border-radius: 5px;
+    border-width: 0;
+    cursor: pointer;
+}
