@@ -33,5 +33,10 @@ namespace WebClient.Controllers
 
             return Redirect("Admin/AdminProjects");
         }
+
+        public IActionResult ReadAll()
+        {
+            return View();
+        }
     }
 }

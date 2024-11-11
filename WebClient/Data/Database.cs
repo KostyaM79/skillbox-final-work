@@ -92,7 +92,10 @@ namespace WebClient.Data
         {
             MultipartFormDataContent form = new MultipartFormDataContent();
 
-            StreamContent streamContent = new StreamContent(fileStream);
+            Stream s = new MemoryStream();
+            fileStream.CopyTo(s);
+            //StreamContent streamContent = new StreamContent(fileStream);
+            StreamContent streamContent = new StreamContent(s);
             streamContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
 
             form.Add(new StringContent(model.ProjectTitle), "ProjectTitle");
@@ -105,7 +108,7 @@ namespace WebClient.Data
 
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
-            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Project/Create", form).Result;
+            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Projects/Create", form).Result;
             return responseMessage.IsSuccessStatusCode;
         }
     }

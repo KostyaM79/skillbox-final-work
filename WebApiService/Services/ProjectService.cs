@@ -18,6 +18,21 @@ namespace WebApiService.Services
             this.context = context;
         }
 
+        public int Add(string title, string descr, string imgFileName)
+        {
+            Project project = new Project()
+            {
+                ProjectCaption = title,
+                ProjectDescription = descr,
+                ProjectImageFileName = imgFileName
+            };
+
+            context.Projects.Add(project);
+            context.SaveChanges();
+
+            return project.Id;
+        }
+
         public ProjectModel[] GetAll()
         {
             Project[] projects = context.Projects.AsNoTracking().ToArray();

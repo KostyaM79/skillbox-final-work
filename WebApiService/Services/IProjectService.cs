@@ -9,5 +9,7 @@ namespace WebApiService.Services
     public interface IProjectService
     {
         ProjectModel[] GetAll();
+
+        int Add(string title, string descr, string imgFileName);
     }
 }

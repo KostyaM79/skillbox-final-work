@@ -14,6 +14,6 @@ namespace Models
 
         public string ProjectDescr { get; set; }
 
-        public string ProjectPhotoLink { get; set; }
+        public string ProjectImageFileName { get; set; }
     }
 }
