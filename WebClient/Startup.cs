@@ -31,6 +31,8 @@ namespace WebClient
             services.AddScoped<IDatabase, Database>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IProjectService, ProjectService>();
+
             services.AddHttpClient();
             services.AddControllersWithViews();
             services.AddAuthentication(option =>

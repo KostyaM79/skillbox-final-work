@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.IO;
 using Models;
+using System.Net.Http.Headers;
 
 namespace WebClient.Data
 {
@@ -83,6 +85,27 @@ namespace WebClient.Data
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
             HttpResponseMessage responseMessage = httpClient.PostAsync($"api/Orders/Update", JsonContent.Create(model)).Result;
+            return responseMessage.IsSuccessStatusCode;
+        }
+
+        public bool AddProject(ProjectModel model, string contentType, Stream fileStream, string fileName)
+        {
+            MultipartFormDataContent form = new MultipartFormDataContent();
+
+            StreamContent streamContent = new StreamContent(fileStream);
+            streamContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+
+            form.Add(new StringContent(model.ProjectTitle), "ProjectTitle");
+            form.Add(new StringContent(model.ProjectDescr), "ProjectDescr");
+            form.Add(streamContent, "File", fileName);
+
+            //Dictionary<string, string> parameters = new Dictionary<string, string>();
+            //HttpContent dictionaryItems = new FormUrlEncodedContent(parameters);
+            //form.Add(dictionaryItems, "model");
+
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Project/Create", form).Result;
             return responseMessage.IsSuccessStatusCode;
         }
     }
