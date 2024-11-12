@@ -1,0 +1,14 @@
+﻿@import url("_item/content__project-items_item.css");
+@import url("_link_pen/content__project-items_link_pen.css");
+@import url("_link_basket/content__project-items_link_basket.css");
+
+.content__project-items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    flex-wrap: wrap;
+    justify-content: start;
+    column-gap: 15px;
+    row-gap: 40px;
+    margin-bottom: 20px;
+}

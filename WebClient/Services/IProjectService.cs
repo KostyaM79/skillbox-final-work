@@ -10,5 +10,11 @@ namespace WebClient.Services
     public interface IProjectService
     {
         bool Add(ProjectModel model, string contentType, Stream fileStream, string fileName);
+
+        ProjectModel[] GetAll();
+
+        ProjectModel Get(int id);
+
+        bool Edit(ProjectModel model, string contentType, Stream fileStream, string fileName);
     }
 }

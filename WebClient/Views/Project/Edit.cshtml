@@ -1,0 +1,37 @@
+﻿@{
+    Layout = "_AdminLayout";
+}
+
+@model ProjectModel
+
+<div class="content">
+    <h2 class="section-title">Редактирование проекта</h2>
+
+    <form class="frm add-project-frm" asp-action="Edit" method="post" enctype="multipart/form-data">
+        <div class="add-project-frm__content">
+            <div class="add-project-frm__left">
+                <div class="frm__item">
+                    <label for="proj-title">Название проекта</label>
+                    <input id="proj-title" type="text" name="projectTitle" required value="@Model.ProjectTitle"/>
+                </div>
+
+                <div class="frm__item">
+                    <label for="proj-descr">Описание проекта</label>
+                    <textarea id="proj-descr" class="add-project-frm__textarea" type="text" name="projectDescr" required>@Model.ProjectDescr</textarea>
+                </div>
+            </div>
+
+            <div class="add-project-frm__right">
+                <div id="frm-image" class="frm__item add-project-frm__file-item">
+                    <label for="proj-photo">Фото</label>
+
+                    <input id="proj-photo" class="add-project-frm__file" type="file" name="projectPhoto" onchange="show_picture()" />
+
+                    <img id="proj-img" class="add-project-frm_img" src="@Model.ProjectImageFileName" alt="Изображение" />
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn_projects-btn" type="submit">Сохранить</button>
+    </form>
+</div>

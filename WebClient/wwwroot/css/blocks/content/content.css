@@ -4,6 +4,7 @@
 @import url("../edit-order-frm/edit-order-frm.css");
 @import url("../btn/btn.css");
 @import url("_desktop/content_desktop.css");
+@import url("__project-items/content__project-items.css");
 
 .content {
     display: flex;

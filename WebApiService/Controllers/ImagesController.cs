@@ -17,7 +17,7 @@ namespace WebApiService.Controllers
         public IActionResult Read(string dir, string file)
         {
             FileStream fs = new FileStream($"img\\{dir}\\{file}", FileMode.Open);
-            return File(fs, "image/jpeg");
+            return File(fs, "image/jpg");
         }
     }
 }

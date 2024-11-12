@@ -88,27 +88,59 @@ namespace WebClient.Data
             return responseMessage.IsSuccessStatusCode;
         }
 
+        public ProjectModel GetProject(int id)
+        {
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            HttpResponseMessage responseMessage = httpClient.GetAsync($"api/Projects/Read/{id}").Result;
+            return responseMessage.Content.ReadFromJsonAsync<ProjectModel>().Result;
+        }
+
+        public ProjectModel[] GetAllProjects()
+        {
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            HttpResponseMessage responseMessage = httpClient.GetAsync("api/Projects/ReadAll").Result;
+            return responseMessage.Content.ReadFromJsonAsync<ProjectModel[]>().Result;
+        }
+
         public bool AddProject(ProjectModel model, string contentType, Stream fileStream, string fileName)
         {
-            MultipartFormDataContent form = new MultipartFormDataContent();
+            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
 
-            Stream s = new MemoryStream();
-            fileStream.CopyTo(s);
-            //StreamContent streamContent = new StreamContent(fileStream);
-            StreamContent streamContent = new StreamContent(s);
-            streamContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+            StreamContent streamContent = new StreamContent(fileStream);
+            streamContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
 
-            form.Add(new StringContent(model.ProjectTitle), "ProjectTitle");
-            form.Add(new StringContent(model.ProjectDescr), "ProjectDescr");
-            form.Add(streamContent, "File", fileName);
-
-            //Dictionary<string, string> parameters = new Dictionary<string, string>();
-            //HttpContent dictionaryItems = new FormUrlEncodedContent(parameters);
-            //form.Add(dictionaryItems, "model");
+            fileContent.Add(new StringContent(model.ProjectTitle), "ProjectTitle");
+            fileContent.Add(new StringContent(model.ProjectDescr), "ProjectDescr");
+            fileContent.Add(streamContent, name: "file", fileName: "blog-1.jpg");
 
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
-            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Projects/Create", form).Result;
+            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Projects/Create", fileContent).Result;
+            return responseMessage.IsSuccessStatusCode;
+        }
+
+        public bool EditProject(ProjectModel model, string contentType, Stream fileStream, string fileName)
+        {
+            StreamContent streamContent;
+
+            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
+
+            if (fileStream != null)
+            {
+                streamContent = new StreamContent(fileStream);
+                streamContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
+                fileContent.Add(streamContent, name: "file", fileName: "blog-1.jpg");
+            }
+
+            fileContent.Add(new StringContent($"{model.Id}"), "Id");
+            fileContent.Add(new StringContent(model.ProjectTitle), "ProjectTitle");
+            fileContent.Add(new StringContent(model.ProjectDescr), "ProjectDescr");
+
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Projects/Edit", fileContent).Result;
             return responseMessage.IsSuccessStatusCode;
         }
     }

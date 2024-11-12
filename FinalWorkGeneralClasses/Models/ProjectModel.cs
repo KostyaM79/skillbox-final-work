@@ -15,5 +15,10 @@ namespace Models
         public string ProjectDescr { get; set; }
 
         public string ProjectImageFileName { get; set; }
+
+        public void ModifyFileName(string baseAddress)
+        {
+            ProjectImageFileName = $"{baseAddress}api/Images/dir/projects-images/file/{ProjectImageFileName}";
+        }
     }
 }

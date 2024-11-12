@@ -10,6 +10,7 @@ using WebApiService.Services;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using Models;
 
 namespace WebApiService.Controllers
 {
@@ -25,6 +26,15 @@ namespace WebApiService.Controllers
         }
 
         [HttpGet]
+        [Route("Read/{id}")]
+        public IActionResult Read(int id)
+        {
+            ProjectModel project = service.Get(id);
+            if (project != null) return Ok(project);
+            else return StatusCode(500, new { Message = "Не удалось получить проект из БД!" });
+        }
+
+        [HttpGet]
         [Route(nameof(ReadAll))]
         public IActionResult ReadAll()
         {
@@ -37,6 +47,8 @@ namespace WebApiService.Controllers
         [Route(nameof(Create))]
         public IActionResult Create()
         {
+            IFormFileCollection files = HttpContext.Request.Form.Files;
+
             string title = HttpContext.Request.Form["ProjectTitle"];
             string descr = HttpContext.Request.Form["ProjectDescr"];
             string fileName = HttpContext.Request.Form.Files[0].FileName;
@@ -47,9 +59,33 @@ namespace WebApiService.Controllers
             if (id > 0)
             {
                 using Stream s = System.IO.File.Create($"img\\projects-images\\{imgFileName}");
-                HttpContext.Request.Form.Files[0].OpenReadStream().CopyTo(s);
+                files[0].OpenReadStream().CopyTo(s);
+                s.Close();
             }
 
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route(nameof(Edit))]
+        public IActionResult Edit()
+        {
+            string fileName = null;
+            Stream stream = null;
+
+            IFormFileCollection files = HttpContext.Request.Form.Files;
+
+            int id = int.Parse(HttpContext.Request.Form["Id"]);
+            string title = HttpContext.Request.Form["ProjectTitle"];
+            string descr = HttpContext.Request.Form["ProjectDescr"];
+
+            if (files.Count > 0)
+            {
+                fileName = files[0].FileName;
+                stream = files[0].OpenReadStream();
+            }
+
+            service.Edit(id, title, descr, stream, fileName);
 
             return Ok();
         }

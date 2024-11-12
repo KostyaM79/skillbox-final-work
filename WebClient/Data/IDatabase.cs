@@ -25,6 +25,12 @@ namespace WebClient.Data
 
         ModifyOrderModel GetOrder(int id);
 
+        ProjectModel[] GetAllProjects();
+
+        ProjectModel GetProject(int id);
+
+        bool EditProject(ProjectModel model, string contentType, Stream fileStream, string fileName);
+
         bool UpdateOrder(UpdateOrderModel model);
     }
 }

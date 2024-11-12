@@ -1,0 +1,8 @@
+﻿.content__project-items_item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    width: 320px;
+    background-color: #888;
+}
