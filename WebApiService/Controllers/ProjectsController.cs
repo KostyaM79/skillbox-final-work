@@ -90,6 +90,13 @@ namespace WebApiService.Controllers
             return Ok();
         }
 
+        [HttpDelete]
+        [Route("Delete/{id}")]
+        public void Delete(int id)
+        {
+            service.Delete(id);
+        }
+
         private string CreateFileName(string srcFileName)
         {
             Regex regex = new Regex("(\\..+)$");

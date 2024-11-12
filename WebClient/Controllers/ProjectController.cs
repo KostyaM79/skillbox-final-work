@@ -68,5 +68,11 @@ namespace WebClient.Controllers
 
             else return Problem();
         }
+
+        public IActionResult Delete(int id)
+        {
+            projectService.Delete(id);
+            return Redirect("/Project/ReadAll");
+        }
     }
 }

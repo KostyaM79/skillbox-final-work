@@ -143,5 +143,12 @@ namespace WebClient.Data
             HttpResponseMessage responseMessage = httpClient.PostAsync("api/Projects/Edit", fileContent).Result;
             return responseMessage.IsSuccessStatusCode;
         }
+
+        public void DeleteProject(int id)
+        {
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            _ = httpClient.DeleteAsync($"api/Projects/Delete/{id}").Result;
+        }
     }
 }

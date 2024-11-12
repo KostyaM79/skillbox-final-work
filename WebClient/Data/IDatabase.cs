@@ -32,5 +32,7 @@ namespace WebClient.Data
         bool EditProject(ProjectModel model, string contentType, Stream fileStream, string fileName);
 
         bool UpdateOrder(UpdateOrderModel model);
+
+        void DeleteProject(int id);
     }
 }

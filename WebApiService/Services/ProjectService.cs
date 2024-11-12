@@ -105,5 +105,13 @@ namespace WebApiService.Services
             sb.Append(ext);
             return sb.ToString();
         }
+
+        public void Delete(int id)
+        {
+            Project project = context.Projects.FirstOrDefault(e => e.Id == id);
+            File.Delete($"img\\projects-images\\{project.ProjectImageFileName}");
+            context.Remove(project);
+            context.SaveChanges();
+        }
     }
 }

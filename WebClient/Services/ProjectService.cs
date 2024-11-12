@@ -22,6 +22,11 @@ namespace WebClient.Services
             return database.AddProject(model, contentType, fileStream, fileName);
         }
 
+        public void Delete(int id)
+        {
+            database.DeleteProject(id);
+        }
+
         public bool Edit(ProjectModel model, string contentType, Stream fileStream, string fileName)
         {
             return database.EditProject(model, contentType, fileStream, fileName);

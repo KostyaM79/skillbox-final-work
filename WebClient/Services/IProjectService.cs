@@ -16,5 +16,7 @@ namespace WebClient.Services
         ProjectModel Get(int id);
 
         bool Edit(ProjectModel model, string contentType, Stream fileStream, string fileName);
+
+        void Delete(int id);
     }
 }

@@ -16,5 +16,7 @@ namespace WebApiService.Services
         int Add(string title, string descr, string imgFileName);
 
         void Edit(int id, string title, string descr, Stream stream, string fileName);
+
+        void Delete(int id);
     }
 }
