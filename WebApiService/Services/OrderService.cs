@@ -7,10 +7,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApiService.Data;
 using Models;
+using Services;
 
 namespace WebApiService.Services
 {
-    public class OrderService : IOrderService
+    public class OrderService : IApiOrderService
     {
         private AppDbContext context;
 
@@ -48,23 +49,9 @@ namespace WebApiService.Services
             return CreateOrdersList(orders, context.Orders.Count());
         }
 
-        public OrdersListModel GetByDate(DateTime date)
-        {
-            Order[] orders = GetOrders().Where(e => e.CreatingDate.Date == date.Date).ToArray();
-            return CreateOrdersList(orders, context.Orders.Count());
-        }
-
-        public OrdersListModel GetByWeek()
-        {
-            DateTime today = DateTime.Today;
-            DateTime startDate = today.AddDays(-6);
-            
-            Order[] orders = GetOrders().Where(e => e.CreatingDate.Date >= startDate && e.CreatingDate.Date <=today).ToArray();
-            return CreateOrdersList(orders, context.Orders.Count());
-        }
 
 
-        public ModifyOrderModel GetOrder(int id)
+        public ModifyOrderModel Get(int id)
         {
             Order order = context.Orders.AsNoTracking()
                 .Include(c => c.Client).ThenInclude(c => c.LastName)
@@ -114,11 +101,11 @@ namespace WebApiService.Services
             return new OrdersListModel() { AllOrdersCount = allOrdersCount, OrdersList = m };
         }
 
-        public bool Update(UpdateOrderModel model)
+        public void Update(UpdateOrderModel model)
         {
             Order order = context.Orders.FirstOrDefault(e => e.Id == model.Id);
             order.OrderStatusId = model.StatusId;
-            return context.SaveChanges() > 0;
+            context.SaveChanges();
         }
     }
 }

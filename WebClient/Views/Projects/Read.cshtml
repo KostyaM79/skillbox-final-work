@@ -9,8 +9,8 @@ else
 
 @model ProjectModel
 
-<div class="projects">
-    <h2 class="section-title">Редактирование проекта</h2>
+<div class="content">
+    <h2 class="title">Редактирование проекта</h2>
 
     <form class="frm project-frm" asp-action="Edit" method="post" enctype="multipart/form-data">
         <div class="project-frm__content">
@@ -25,21 +25,22 @@ else
                     <textarea id="proj-descr" class="project-frm__textarea" type="text" name="projectDescr" required>@Model.ProjectDescr</textarea>
                 </div>
 
-                <button class="btn project-frm__btn" type="submit">Сохранить</button>
+                
             </div>
 
             <div class="project-frm__right">
-            <div class="project-frm__file">
-                <label class="project-frm__photo" for="proj-photo">
-                    Фото
+                <div class="project-frm__file">
+                    <label class="project-frm__photo" for="proj-photo">
+                        Фото
 
-                    <input id="proj-photo" class="add-project-frm__file" type="file" name="projectPhoto" onchange="show_picture()" />
+                        <input id="proj-photo" class="add-project-frm__file" type="file" name="projectPhoto" onchange="show_picture()" />
 
-                    <img id="proj-img" class="project-frm__img" src="@Model.ProjectImageFileName" alt="Изображение" />
-                </label>
+                        <img id="proj-img" class="project-frm__img" src="@Model.ProjectImageFileName" alt="Изображение" />
+                    </label>
+                </div>
             </div>
         </div>
 
-        </div>
+        <button class="btn project-frm__btn" type="submit">Сохранить</button>
     </form>
 </div>

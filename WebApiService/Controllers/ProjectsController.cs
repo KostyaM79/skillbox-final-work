@@ -11,6 +11,7 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using Models;
+using Services;
 
 namespace WebApiService.Controllers
 {
@@ -18,9 +19,9 @@ namespace WebApiService.Controllers
     [ApiController]
     public class ProjectsController : ControllerBase
     {
-        private IProjectService service;
+        private IApiProjectService service;
 
-        public ProjectsController(IProjectService service)
+        public ProjectsController(IApiProjectService service)
         {
             this.service = service;
         }
@@ -51,12 +52,10 @@ namespace WebApiService.Controllers
 
             string title = HttpContext.Request.Form["ProjectTitle"];
             string descr = HttpContext.Request.Form["ProjectDescr"];
-            string fileName = HttpContext.Request.Form.Files[0].FileName;
+            string fileName = files[0].FileName;
             string imgFileName = CreateFileName(fileName);
 
-            int id = service.Add(title, descr, imgFileName);
-
-            if (id > 0)
+            if (service.Add(title, descr, imgFileName))
             {
                 using Stream s = System.IO.File.Create($"img\\projects-images\\{imgFileName}");
                 files[0].OpenReadStream().CopyTo(s);

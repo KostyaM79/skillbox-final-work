@@ -1,6 +1,6 @@
 ﻿@import url("global-varriables.css");
 
-.section-title {
+/*.section-title {
     margin: 0;
     margin-bottom: 15px;
     padding-left: 30px;
@@ -9,7 +9,7 @@
     font-weight: 300;
     color: #CCC;
     border-bottom: 1px solid #c9c9c9;
-}
+}*/
 
 .header__content {
     width: 100%;
@@ -92,9 +92,12 @@
 
 .order-frm {
     display: none;
+    padding: 40px;
     max-width: 100%;
     flex-direction: column;
     gap: 20px;
+    background-color: #ccc;
+    border-radius: 10px;
 }
 
 .order-frm__name {
@@ -184,14 +187,14 @@
 .login-frm__input_grow {
     width: calc(100% - 70px);
 }
-
+/*
 .btn {
     padding: 5px 20px;
     border: none;
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-}
+}*/
 
 .btn:hover {
     background-color: cornflowerblue;
@@ -268,8 +271,8 @@
     width: 100%;
     border-spacing: 0 6px;
     flex-grow: 1;
+    background-color: #ccc;
 }
-
 
 .orders-table__col-1 {
     width: 80px;
@@ -291,6 +294,7 @@
     font-size: 10px;
     font-weight: 400;
 }
+
 
 .orders-table__row {
     position: relative;

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using WebApiService.Models;
+using Models;
 
-namespace WebApiService.Services
+namespace Services
 {
     public interface IArticleService
     {

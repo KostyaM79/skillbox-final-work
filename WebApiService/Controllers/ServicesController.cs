@@ -4,8 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApiService.Models;
-using WebApiService.Services;
+using Models;
+using Services;
 
 namespace WebApiService.Controllers
 {
@@ -13,9 +13,9 @@ namespace WebApiService.Controllers
     [ApiController]
     public class ServicesController : ControllerBase
     {
-        private readonly IServiceService service;
+        private readonly IServicesService service;
 
-        public ServicesController(IServiceService service)
+        public ServicesController(IServicesService service)
         {
             this.service = service;
         }
@@ -28,6 +28,13 @@ namespace WebApiService.Controllers
 
             if (service != null) return Ok(services);
             else return StatusCode(500, new { Message = "Не удалось получить список услуг из БД!"});
+        }
+
+        [HttpPost]
+        public IActionResult Create(ServiceModel model)
+        {
+            service.Add(model);
+            return Ok();
         }
     }
 }

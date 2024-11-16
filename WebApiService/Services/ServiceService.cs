@@ -4,17 +4,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApiService.Data;
-using WebApiService.Models;
+using Services;
+using Models;
 
 namespace WebApiService.Services
 {
-    public class ServiceService : IServiceService
+    public class ServiceService : IServicesService
     {
         private readonly AppDbContext context;
 
         public ServiceService(AppDbContext context)
         {
             this.context = context;
+        }
+
+        public void Add(ServiceModel model)
+        {
+            throw new NotImplementedException();
         }
 
         public ServiceModel[] GetAll()
@@ -27,8 +33,8 @@ namespace WebApiService.Services
             {
                 models.Add(new ServiceModel()
                 {
-                    ServiceCaption = s.ServiceCaption,
-                    ServiceDescription = s.ServiceDescription
+                    ServiceTitle = s.ServiceCaption,
+                    ServiceDescr = s.ServiceDescription
                 });
             }
 

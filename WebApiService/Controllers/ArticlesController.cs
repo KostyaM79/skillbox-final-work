@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApiService.Models;
-using WebApiService.Services;
+using Services;
+using Models;
 
 namespace WebApiService.Controllers
 {

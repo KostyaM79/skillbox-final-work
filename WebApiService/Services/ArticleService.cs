@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApiService.Models;
+using Services;
+using Models;
 
 namespace WebApiService.Services
 {

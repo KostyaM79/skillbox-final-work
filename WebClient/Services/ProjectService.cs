@@ -5,10 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WebClient.Data;
+using Services;
 
 namespace WebClient.Services
 {
-    public class ProjectService : IProjectService
+    public class ProjectService : IClientProjectService
     {
         private readonly IDatabase database;
 

@@ -9,15 +9,19 @@ namespace WebClient.Data
 {
     public interface IDatabase
     {
+        #region Добавление данных
         bool AddOrder(OrderModel model);
 
         bool AddProject(ProjectModel model, string contentType, Stream fileStream, string fileName);
+
+        void AddService(ServiceModel model);
+        #endregion
 
         OrdersListModel GetAllOrders();
 
         OrdersListModel GetOrders(string filterName, int startOffset, int endOffset);
 
-        OrdersListModel GetOrdersByToday();
+        //OrdersListModel GetOrdersByToday();
 
         OrdersListModel GetOrdersByYesterday();
 

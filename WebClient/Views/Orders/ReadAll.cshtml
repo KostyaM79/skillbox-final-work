@@ -5,8 +5,7 @@
 
 @model OrdersListModel
 
-<div class="all-content__right">
-    <div class="main-content">
+<div class="content content_desktop">
         <div class="orders-filter-panel">
             <div class="orders-filter-panel__text">Всего заявок: @Model.AllOrdersCount</div>
 
@@ -37,10 +36,10 @@
                     <col class="orders-table__col-5">
                 </colgroup>
 
-                <thead class="orders-table__head">
-                    <tr>
+                <thead class="orders-table__row">
+                    <tr class="header__row">
                         <th class="orders-table__header-sell">Номер заявки</th>
-                        <th class="orders-table__header-sell">Вреся заявки</th>
+                        <th class="orders-table__header-sell">Время заявки</th>
                         <th class="orders-table__header-sell">Имя</th>
                         <th class="orders-table__header-sell">Текст заявки</th>
                         <th class="orders-table__header-sell">Контакты</th>
@@ -62,6 +61,5 @@
                 </tbody>
             </table>
         </div>
-    </div>
 </div>
 

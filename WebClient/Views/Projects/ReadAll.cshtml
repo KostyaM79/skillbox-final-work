@@ -13,8 +13,8 @@ else
 
 @if (User.Identity.IsAuthenticated)
 {
-<div class="projects">
-    <h2 class="section-title projects__title">Проекты</h2>
+<div class="content projects">
+    <h2 class="title">Проекты</h2>
 
     @if(Model.Length == 0)
     {
@@ -58,7 +58,7 @@ else
     </ul>
 
     <div class="projects__btn">
-        <a class="btn btn_link-btn btn_projects-btn" asp-controller="Projects" asp-action="Create">Добавить проект</a>
+        <a class="btn" asp-controller="Projects" asp-action="Create">Добавить проект</a>
     </div>
 </div>
 }

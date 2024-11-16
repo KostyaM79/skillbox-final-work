@@ -7,14 +7,15 @@ using Models;
 using WebClient.Services;
 using Exceptions;
 using WebClient.Models;
+using Services;
 
 namespace WebClient.Controllers
 {
     public class OrdersController : Controller
     {
-        private readonly IOrderService orderService;
+        private readonly IClientOrderService orderService;
 
-        public OrdersController(IOrderService service)
+        public OrdersController(IClientOrderService service)
         {
             orderService = service;
         }
@@ -68,7 +69,7 @@ namespace WebClient.Controllers
         {
             try
             {
-                orderService.UpdateOrder(model);
+                orderService.Update(model);
                 return Redirect("ReadAll");
             }
             catch (DatabaseServiceException ex)

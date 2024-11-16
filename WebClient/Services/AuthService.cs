@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using Microsoft.Extensions.Configuration;
+using Services;
 
 namespace WebClient.Services
 {

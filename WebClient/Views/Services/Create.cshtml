@@ -1,5 +1,23 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    Layout = "_AdminLayout2";
 }
+
+<div class="content">
+    <h2 class="title">Добавление услуги</h2>
+
+    <form class="frm service-frm" asp-controller="Services" asp-action="Create" method="post">
+        <span class="frm-title">Добавьте услугу</span>
+
+        <div class="frm-item">
+            <label class="frm-item__label" for="title">Название услуги</label>
+            <input id="title" class="frm-input" type="text" name="ServiceTitle" placeholder="Название услуги" />
+        </div>
+
+        <div class="frm-item">
+            <label class="frm-item__label" for="descr">Описание услуги</label>
+            <textarea id="descr" class="frm-input" name="ServiceDescr" placeholder="Описание"></textarea>
+        </div>
+
+        <button class="btn services__btn" type="submit">Сохранить</button>
+    </form>
+</div>

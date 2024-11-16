@@ -5,10 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebClient.Data;
 using Models;
+using WebClient.Services;
 
 namespace WebClient.Services
 {
-    public class OrderService : IOrderService
+    public class OrderService : IClientOrderService
     {
         private readonly IDatabase database;
 
@@ -53,7 +54,7 @@ namespace WebClient.Services
         }
 
 
-        public void UpdateOrder(UpdateOrderModel model)
+        public void Update(UpdateOrderModel model)
         {
             database.UpdateOrder(model);
         }

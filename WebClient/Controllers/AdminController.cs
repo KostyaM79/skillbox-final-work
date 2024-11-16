@@ -10,9 +10,9 @@ namespace WebClient.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly IOrderService orderService;
+        private readonly IClientOrderService orderService;
 
-        public AdminController(IOrderService service)
+        public AdminController(IClientOrderService service)
         {
             orderService = service;
         }

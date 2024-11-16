@@ -56,13 +56,13 @@ namespace WebClient.Data
             return responseMessage.Content.ReadFromJsonAsync<ModifyOrderModel>().Result;
         }
 
-        public OrdersListModel GetOrdersByToday()
-        {
-            HttpClient httpClient = httpClientFactory.CreateClient();
-            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
-            HttpResponseMessage responseMessage = httpClient.GetAsync($"api/Orders/ReadByDate").Result;
-            return responseMessage.Content.ReadFromJsonAsync<OrdersListModel>().Result;
-        }
+        //public OrdersListModel GetOrdersByToday()
+        //{
+        //    HttpClient httpClient = httpClientFactory.CreateClient();
+        //    httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+        //    HttpResponseMessage responseMessage = httpClient.GetAsync($"api/Orders/ReadByDate").Result;
+        //    return responseMessage.Content.ReadFromJsonAsync<OrdersListModel>().Result;
+        //}
 
         public OrdersListModel GetOrdersByYesterday()
         {
@@ -151,6 +151,15 @@ namespace WebClient.Data
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
             _ = httpClient.DeleteAsync($"api/Projects/Delete/{id}").Result;
+        }
+
+        public void AddService(ServiceModel model)
+        {
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Services/Create", JsonContent.Create(model)).Result;
+            if (!responseMessage.IsSuccessStatusCode)
+                throw new DatabaseServiceException((int)responseMessage.StatusCode, responseMessage.Content.ReadAsStringAsync().Result);
         }
     }
 }

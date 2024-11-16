@@ -9,10 +9,11 @@ using Models;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
+using Services;
 
 namespace WebApiService.Services
 {
-    public class ProjectService : IProjectService
+    public class ProjectService : IApiProjectService
     {
         private AppDbContext context;
 
@@ -21,7 +22,7 @@ namespace WebApiService.Services
             this.context = context;
         }
 
-        public int Add(string title, string descr, string imgFileName)
+        public bool Add(string title, string descr, string imgFileName)
         {
             Project project = new Project()
             {
@@ -31,9 +32,7 @@ namespace WebApiService.Services
             };
 
             context.Projects.Add(project);
-            context.SaveChanges();
-
-            return project.Id;
+            return context.SaveChanges() > 0;
         }
 
         public ProjectModel Get(int id)
@@ -67,7 +66,7 @@ namespace WebApiService.Services
             return projectModels.ToArray();
         }
 
-        public void Edit(int id, string title, string descr, Stream stream = null, string fileName = null)
+        public bool Edit(int id, string title, string descr, Stream stream = null, string fileName = null)
         {
             string newFileName = null;
 
@@ -88,7 +87,7 @@ namespace WebApiService.Services
             project.ProjectDescription = descr;
             if(newFileName != null) project.ProjectImageFileName = newFileName;
 
-            context.SaveChanges();
+            return context.SaveChanges() > 0;
         }
 
         private string CreateFileName(string srcFileName)

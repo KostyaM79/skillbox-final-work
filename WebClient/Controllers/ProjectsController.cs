@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 using Models;
 using WebClient.Services;
 using Microsoft.Extensions.Configuration;
+using Services;
 
 namespace WebClient.Controllers
 {
     public class ProjectsController : Controller
     {
-        private readonly IProjectService projectService;
+        private readonly IClientProjectService projectService;
         private readonly IConfiguration configuration;
 
-        public ProjectsController(IProjectService projectService, IConfiguration configuration)
+        public ProjectsController(IClientProjectService projectService, IConfiguration configuration)
         {
             this.projectService = projectService;
             this.configuration = configuration;

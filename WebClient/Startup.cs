@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebClient.Data;
 using WebClient.Services;
+using Services;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -29,10 +30,11 @@ namespace WebClient
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IDatabase, Database>();
-            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IClientOrderService, OrderService>();
             services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<IClientProjectService, ProjectService>();
             services.AddScoped<IPhrasesService, PhrasesService>();
+            services.AddScoped<IServicesService, ServicesService>();
 
             services.AddHttpClient();
             services.AddControllersWithViews();
