@@ -133,16 +133,16 @@
     display: inline-block;
 }
 
-    .disabled::after {
-        position: absolute;
-        z-index: 1000;
-        content: "";
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(192, 192, 192, 0.8);
-    }
+.disabled::after {
+    position: absolute;
+    z-index: 1000;
+    content: "";
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(192, 192, 192, 0.8);
+}
 
 
 
@@ -157,6 +157,7 @@
 .login-content {
     display: flex;
     flex-direction: column;
+    width: 50%;
     justify-content: end;
     height: 400px;
     top: 200px;
@@ -171,10 +172,11 @@
 .login-frm {
     display: flex;
     flex-direction: column;
-    padding: 40px;
     gap: 10px;
-    background-color: rgba(192, 192, 192, 0.8);
-    border-radius: 10px;
+}
+
+.login-btn {
+    align-self: end;
 }
 
 .login-frm__item {

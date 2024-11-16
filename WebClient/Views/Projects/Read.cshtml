@@ -15,28 +15,28 @@ else
     <form class="frm project-frm" asp-action="Update" method="post" enctype="multipart/form-data">
         <div class="project-frm__content">
             <div class="project-frm__left">
-                <div class="project-frm__item">
-                    <label for="proj-title">Название проекта</label>
-                    <input id="proj-title" type="text" name="projectTitle" required value="@Model.ProjectTitle" />
+                <div class="frm-item">
+                    <label class="frm-item__label" for="proj-title">Название проекта</label>
+                    <input class="frm-input" id="proj-title" type="text" name="projectTitle" required value="@Model.ProjectTitle" />
                 </div>
 
-                <div class="project-frm__item project-frm__item_grow">
-                    <label for="proj-descr">Описание проекта</label>
-                    <textarea id="proj-descr" class="project-frm__textarea" type="text" name="projectDescr" required>@Model.ProjectDescr</textarea>
+                <div class="frm-item">
+                    <label class="frm-item__label" for="proj-descr">Описание проекта</label>
+                    <textarea id="proj-descr" class="frm-input project-frm__textarea" type="text" name="projectDescr" required>@Model.ProjectDescr</textarea>
                 </div>
-
-                
             </div>
 
             <div class="project-frm__right">
-                <div class="project-frm__file">
-                    <label class="project-frm__photo" for="proj-photo">
-                        Фото
+                <div class="frm-item">
+                    <span class="frm-item__label">Фото</span>
 
-                        <input id="proj-photo" class="add-project-frm__file" type="file" name="projectPhoto" onchange="show_picture()" />
+                    <div class="input-wrapper">
+                        <label class="project-frm__photo" for="proj-photo">
+                            <input id="proj-photo" class="input__file" type="file" name="projectPhoto" onchange="show_picture()" />
 
-                        <img id="proj-img" class="project-frm__img" src="@Model.ProjectImageFileName" alt="Изображение" />
-                    </label>
+                            <img id="proj-img" class="project-frm__img" src="@Model.ProjectImageFileName" alt="Изображение" />
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>

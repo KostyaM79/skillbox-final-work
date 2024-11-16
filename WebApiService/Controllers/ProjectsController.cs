@@ -57,6 +57,7 @@ namespace WebApiService.Controllers
 
             if (service.Add(title, descr, imgFileName))
             {
+                Directory.CreateDirectory("img\\projects-images");
                 using Stream s = System.IO.File.Create($"img\\projects-images\\{imgFileName}");
                 files[0].OpenReadStream().CopyTo(s);
                 s.Close();

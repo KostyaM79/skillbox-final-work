@@ -115,7 +115,7 @@ namespace WebClient.Data
 
             fileContent.Add(new StringContent(model.ProjectTitle), "ProjectTitle");
             fileContent.Add(new StringContent(model.ProjectDescr), "ProjectDescr");
-            fileContent.Add(streamContent, name: "file", fileName: "blog-1.jpg");
+            fileContent.Add(streamContent, name: "file", fileName: fileName);
 
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);

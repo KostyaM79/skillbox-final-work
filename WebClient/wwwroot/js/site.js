@@ -40,23 +40,26 @@ function show_picture() {
 
     var img = document.getElementById("proj-img");
 
-    if (!img) {
-        img = document.createElement("img");
-        img.classList.add("add-project-frm_img");
-        img.id = "proj-img";
-        document.getElementById("frm-image").appendChild(img);
-    }
+    var i = document.querySelector(".input-wrapper");
+    img.src = URL.createObjectURL(f);
 
-    img.file = f;
+    //if (!img) {
+    //    img = document.createElement("img");
+    //    img.classList.add("add-project-frm_img");
+    //    img.id = "proj-img";
+    //    document.getElementById("frm-image").appendChild(img);
+    //}
 
-    var reader = new FileReader();
-    reader.onload = (function (aImg) {
-        return function (e) {
-            aImg.src = e.target.result;
-        }
-    })(img);
+    //img.file = f;
 
-    reader.readAsDataURL(f);
+    //var reader = new FileReader();
+    //reader.onload = (function (aImg) {
+    //    return function (e) {
+    //        aImg.src = e.target.result;
+    //    }
+    //})(img);
+
+    //reader.readAsDataURL(f);
 }
 
 let inputs = [];

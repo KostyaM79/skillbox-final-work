@@ -28,7 +28,7 @@ namespace WebClient.Controllers
         /// <returns></returns>
         public IActionResult Create()
         {
-            return View();
+            return View(new ProjectModel());
         }
 
         /// <summary>

@@ -1,32 +1,41 @@
 ﻿@{ 
-    Layout = "_AdminLayout";
+    Layout = "_AdminLayout2";
 }
 
 <div class="content">
     <h2 class="section-title">Добавление проекта</h2>
 
-    <form class="frm add-project-frm" asp-action="Create" method="post" enctype="multipart/form-data">
-        <div class="add-project-frm__content">
-            <div class="add-project-frm__left">
-                <div class="frm__item">
-                    <label for="proj-title">Название проекта</label>
-                    <input id="proj-title" type="text" name="projectTitle" required/>
+    <form class="frm project-frm" asp-action="Create" method="post" enctype="multipart/form-data">
+        <div class="project-frm__content">
+            <div class="project-frm__left">
+                <div class="frm-item">
+                    <label class="frm-item__label" for="proj-title">Название проекта</label>
+                    <input id="proj-title" class="frm-input" type="text" name="projectTitle" required />
                 </div>
 
-                <div class="frm__item">
-                    <label for="proj-descr">Описание проекта</label>
-                    <textarea id="proj-descr" class="add-project-frm__textarea" type="text" name="projectDescr" required></textarea>
+                <div class="frm-item">
+                    <label class="frm-item__label" for="proj-descr">Описание проекта</label>
+                    <textarea id="proj-descr" class="frm-input project-frm__textarea" type="text" name="projectDescr" required></textarea>
                 </div>
             </div>
 
-            <div class="add-project-frm__right">
-                <div id="frm-image" class="frm__item add-project-frm__file-item">
-                    <label for="proj-photo">Фото</label>
-                    <input id="proj-photo" class="add-project-frm__file" type="file" name="projectPhoto" required onchange="show_picture()"/>
+            <div class="project-frm__right">
+                <div class="frm-item">
+                    <span class="frm-item__label">Фото</span>
+
+                    <div class="input-wrapper">
+                        <label class="project-frm__photo" for="proj-photo">
+                            <input id="proj-photo" class="input__file" type="file" name="projectPhoto" onchange="show_picture()" />
+                        </label>
+
+                        <img id="proj-img" class="project-frm__img" src="~/img/add-photo.svg" alt="Изображение" />
+
+                    </div>
                 </div>
             </div>
+
         </div>
 
-        <button class="btn btn_projects-btn" type="submit">Сохранить</button>
+        <button class="btn project-frm__btn" type="submit">Сохранить</button>
     </form>
 </div>
