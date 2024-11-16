@@ -51,7 +51,7 @@
                     @foreach (OrderFullDataModel t in Model.OrdersList)
                     {
                         <tr class="orders-table__row">
-                            <td class="orders-table__cell"><a class="orders-table__link" asp-controller="Orders" asp-action="Read" asp-route-id="@t.Id">@t.Id</a></td>
+                            <td class="orders-table__cell"><a class="orders-table__link" asp-controller="Orders" asp-action="Find" asp-route-id="@t.Id">@t.Id</a></td>
                             <td class="orders-table__cell"><time datetime="11.11.1987 11:08">@t.CreatingDate.ToString("dd.MM.yyyy hh:mm")</time></td>
                             <td class="orders-table__cell">@t.LastName @t.FirstName</td>
                             <td class="orders-table__cell">@t.Message</td>

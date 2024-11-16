@@ -38,7 +38,7 @@ namespace WebClient.Controllers
         }
 
         [Route("read/{id:int}")]
-        public IActionResult Read(int id)
+        public IActionResult Find(int id)
         {
             return View(orderService.Get(id));
         }
