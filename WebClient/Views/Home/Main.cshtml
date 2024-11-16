@@ -1,0 +1,95 @@
+﻿
+@if (User.Identity.IsAuthenticated)
+{
+    Layout = "_AdminLayout2";
+}
+else
+{
+    Layout = "_GuestLayout2";
+}
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="all-content__right">
+        <div class="main-content">
+            <div class="main__slogan">
+                <h1 class="main__header">Девиз компании</h1>
+
+                <button type="button" class="btn slogan__btn" onclick="showFrm()">Оставить заявку</button>
+            </div>
+
+            <div class="main-content__frm">
+                <form id="order-frm" class="order-frm" asp-controller="Order" asp-action="Order" method="post">
+                    <h3 class="order-frm__title">Оставить заявку или задать вопрос</h3>
+
+                    <div class="order-frm__name">
+                        <div class="order-frm__item order-frm__item_grow">
+                            <label for="first-name">Имя</label>
+                            <input id="first-name" class="order-frm__input" name="FirstName" type="text" required>
+                        </div>
+
+                        <div class="order-frm__item  order-frm__item_grow">
+                            <label for="last-name">Фамилия</label>
+                            <input id="last-name" class="order-frm__input" name="LastName" type="text" required>
+                        </div>
+
+                        <div class="order-frm__item order-frm__item_grow">
+                            <label for="email">E-mail</label>
+                            <input id="email" class="order-frm__input" name="Email" type="email" required>
+                        </div>
+                    </div>
+
+                    <div class="order-frm__item">
+                        <label for="message">Текст сообщения</label>
+                        <textarea id="message" class="order-frm__input order-frm__textarea" name="Message" required></textarea>
+                    </div>
+
+                    <button id="btn" class="btn order-frm__btn" type="submit" disabled>Отправить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+    <div class="main-content">
+        <div class="main__slogan">
+            <h1 class="main__header">Девиз компании</h1>
+
+            <button type="button" class="btn slogan__btn" onclick="showFrm()">Оставить заявку</button>
+        </div>
+
+        <div class="main-content__frm">
+            <form id="order-frm" class="order-frm" asp-controller="Order" asp-action="Order" method="post">
+                <h3 class="order-frm__title">Оставить заявку или задать вопрос</h3>
+
+                <div class="order-frm__name">
+                    <div class="order-frm__item order-frm__item_grow">
+                        <label for="first-name">Имя</label>
+                        <input id="first-name" class="order-frm__input" name="FirstName" type="text" required>
+                    </div>
+
+                    <div class="order-frm__item  order-frm__item_grow">
+                        <label for="last-name">Фамилия</label>
+                        <input id="last-name" class="order-frm__input" name="LastName" type="text" required>
+                    </div>
+
+                    <div class="order-frm__item order-frm__item_grow">
+                        <label for="email">E-mail</label>
+                        <input id="email" class="order-frm__input" name="Email" type="email" required>
+                    </div>
+                </div>
+
+                <div class="order-frm__item">
+                    <label for="message">Текст сообщения</label>
+                    <textarea id="message" class="order-frm__input order-frm__textarea" name="Message" required></textarea>
+                </div>
+
+                <button id="btn" class="btn order-frm__btn" type="submit" disabled>Отправить</button>
+            </form>
+        </div>
+    </div>
+        </div>
+}

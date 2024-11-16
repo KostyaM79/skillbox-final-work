@@ -56,16 +56,7 @@ a {
     font-size: 18px;
 }
 
-.section-title {
-    margin: 0;
-    margin-bottom: 15px;
-    padding-left: 30px;
-    padding-bottom: 20px;
-    font-size: 40px;
-    font-weight: 300;
-    color: #CCC;
-    border-bottom: 1px solid #c9c9c9;
-}
+
 
 .login-body {
     height: inherit;
@@ -298,12 +289,7 @@ a {
   margin-bottom: 20px;
 }
 
-.details {
-  /* max-width: 50%; */
-  padding: 15px;
-  background-color: #0AF;
-  border-radius: 10px;
-}
+
 
 .details-title {
   font-size: 18px;
@@ -460,11 +446,7 @@ a {
   padding: 10px;
 }
 
-.orders__filter-panel_text {
-  padding-left: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
+
 
 .orders__select-date {
   align-items: center;
@@ -473,53 +455,14 @@ a {
   outline: 1px solid #ccc;
 }
 
-.orders__content_table {
-  border-spacing: 0 4px;
-  flex-grow: 1;
-}
 
-.orders__content_row {
-  background-color: #fff;
-}
 
-.orders__content1 {
-    width: 80px;
-}
 
-.orders__content2 {
-    width: 140px;
-}
-
-.orders__content3 {
-    width: 200px;
-}
-
-.orders__content5 {
-    width: 160px;
-}
-
-.orders__content_table-cell {
-  margin: 0;
-  padding: 3px 5px;
-}
-
-.orders__content_h-sel {
-  font-size: 10px;
-  font-weight: 400;
-}
 
 .orders__content_row {
     position: relative;
 }
 
-.orders__content__link {
-    position: absolute;
-    content: "";
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-}
 
 .admin-content {
     flex-grow: 1;

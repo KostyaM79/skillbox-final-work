@@ -1,0 +1,39 @@
+﻿@{ 
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <link rel="stylesheet" href="~/css/stylesheet.css">
+</head>
+
+<body class="body login-body">
+    <main class="main">
+        <div class="container login-container">
+            <div class="login-content">
+                <a class="login-content__link" asp-controller="Home" asp-action="Main">Продолжить как гость</a>
+
+                <form class="login-frm" asp-controller="Authenticate" asp-action="Login" method="post">
+                    <div class="login-frm__item">
+                        <label class="login-frm__label">Логин</label>
+                        <input class="login-frm__input login-frm__input_grow" type="text" name="Username" placeholder="Логин" />
+                    </div>
+
+                    <div class="login-frm__item">
+                        <label class="login-frm__label">Пароль</label>
+                        <input class="login-frm__input login-frm__input_grow" type="password" name="Password" placeholder="Пароль" />
+                    </div>
+
+                    <div class="login-frm__item">
+                        <button class="btn login-frm__btn" type="submit">Войти</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

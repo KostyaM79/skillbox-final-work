@@ -9,6 +9,7 @@ using System.Net.Http.Json;
 using System.IO;
 using Models;
 using System.Net.Http.Headers;
+using Exceptions;
 
 namespace WebClient.Data
 {
@@ -80,12 +81,13 @@ namespace WebClient.Data
         }
 
 
-        public bool UpdateOrder(UpdateOrderModel model)
+        public void UpdateOrder(UpdateOrderModel model)
         {
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
             HttpResponseMessage responseMessage = httpClient.PostAsync($"api/Orders/Update", JsonContent.Create(model)).Result;
-            return responseMessage.IsSuccessStatusCode;
+            if (!responseMessage.IsSuccessStatusCode)
+                throw new DatabaseServiceException((int)responseMessage.StatusCode, responseMessage.Content.ReadAsStringAsync().Result);
         }
 
         public ProjectModel GetProject(int id)

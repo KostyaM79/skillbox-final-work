@@ -22,12 +22,12 @@ namespace WebClient.Services
             return database.AddOrder(model);
         }
 
-        public OrderFullDataModel Get(int id)
+        public ModifyOrderModel Get(int id)
         {
             return database.GetOrder(id);
         }
 
-        public OrdersListModel Get(string filterName, int startOffset = 0, int endOffset = 0)
+        public OrdersListModel Get(string filterName, int startOffset, int endOffset)
         {
             return database.GetOrders(filterName, startOffset, endOffset);
         }
@@ -53,9 +53,9 @@ namespace WebClient.Services
         }
 
 
-        public bool UpdateOrder(UpdateOrderModel model)
+        public void UpdateOrder(UpdateOrderModel model)
         {
-            return database.UpdateOrder(model);
+            database.UpdateOrder(model);
         }
     }
 }

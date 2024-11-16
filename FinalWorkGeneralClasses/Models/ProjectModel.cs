@@ -16,6 +16,10 @@ namespace Models
 
         public string ProjectImageFileName { get; set; }
 
+        /// <summary>
+        /// Модифицирует имя файла в ссылку
+        /// </summary>
+        /// <param name="baseAddress"></param>
         public void ModifyFileName(string baseAddress)
         {
             ProjectImageFileName = $"{baseAddress}api/Images/dir/projects-images/file/{ProjectImageFileName}";

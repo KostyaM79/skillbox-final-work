@@ -18,10 +18,10 @@ namespace WebClient.Services
 
         OrdersListModel GetByWeek();
 
-        OrderFullDataModel Get(int id);
+        ModifyOrderModel Get(int id);
 
         OrdersListModel Get(string filterName, int startOffset = 0, int endOffset = 0);
 
-        bool UpdateOrder(UpdateOrderModel model);
+        void UpdateOrder(UpdateOrderModel model);
     }
 }

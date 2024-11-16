@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование главной страницы</title>
+    <link href="~/css/global-varriables.css" rel="stylesheet" />
+    <link href="~/css/global.css" rel="stylesheet" />
+    <link href="~/css/stylesheet.css" rel="stylesheet" />
+    <link href="~/css/projects-style.css" rel="stylesheet" />
+</head>
+<body class="body">
+    <header class="header">
+        <div class="container">
+            <div class="header__content">
+                <nav class="nav">
+                    <ul class="nav__items horizontal-menu">
+                        <li class="nav__item"><a class="nav__link" asp-controller="Home" asp-action="Main">Главная</a></li>
+                        <li class="nav__item"><a class="nav__link" asp-controller="Services" asp-action="ReadAll">Услуги</a></li>
+                        <li class="nav__item"><a class="nav__link" asp-controller="Projects" asp-action="ReadAll">Проекты</a></li>
+                        <li class="nav__item"><a class="nav__link" asp-controller="Articles" asp-action="ReadAll">Блог</a></li>
+                        <li class="nav__item"><a class="nav__link" asp-controller="Contacts" asp-action="ReadAll">Контакты</a></li>
+                    </ul>
+                </nav>
+
+                <h2 class="header__title">
+                    
+                </h2>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+
+            @RenderBody()
+
+    </main>
+
+    <footer class="footer">
+    </footer>
+</body>
+</html>
+
+<script src="~/js/site.js"></script>

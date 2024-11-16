@@ -1,0 +1,119 @@
+﻿
+@if (User.Identity.IsAuthenticated)
+{
+    Layout = "_AdminLayout2";
+}
+else
+{
+    Layout = "_GuestLayout2";
+}
+
+<div class="services">
+    <h2 class="section-title">
+        Что мы можем сделать
+    </h2>
+    <div class="services__content">
+    <ul class="services__items">
+        <li class="services-item editable">
+            <details class="details">
+                <summary class="details-title">Услуга 1</summary>
+                <div class="details-text">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident nihil ex ullam officiis, optio, suscipit error odio assumenda eaque corrupti
+                    doloremque, exercitationem culpa quas architecto. Perspiciatis at asperiores odit! Consequuntur.
+                </div>
+            </details>
+
+            <a class="admin-service-item_link" href="editproject.html">
+                <svg fill="#000000" width="20px" height="20px" viewBox="0 0 24 24" data-name="Flat Line" xmlns="http://www.w3.org/2000/svg" class="icon flat-line">
+                    <path d="M20,4h0a3,3,0,0,0-4.24,0L8.3,11.47l4.24,4.24L20,8.24A3,3,0,0,0,20,4Z" style="fill: rgb(44, 169, 188); stroke-width: 2;"></path>
+                    <path d="M5.47,14.3l4.24,4.24L7.24,21H3V16.76ZM20,4h0a3,3,0,0,0-4.24,0L8.3,11.47l4.24,4.24L20,8.24A3,3,0,0,0,20,4Z"
+                          style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path>
+                </svg>
+            </a>
+
+            <a class="admin-service-item_basket" href="#">
+                <svg width="22px" height="22px" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M667.8 362.1H304V830c0 28.2 23 51 51.3 51h312.4c28.4 0 51.4-22.8 51.4-51V362.2h-51.3z" fill="#CCCCCC" />
+                    <path d="M750.3 295.2c0-8.9-7.6-16.1-17-16.1H289.9c-9.4 0-17 7.2-17 16.1v50.9c0 8.9 7.6 16.1 17 16.1h443.4c9.4 0 17-7.2 17-16.1v-50.9z" fill="#CCCCCC" />
+                    <path d="M733.3 258.3H626.6V196c0-11.5-9.3-20.8-20.8-20.8H419.1c-11.5 0-20.8 9.3-20.8 20.8v62.3H289.9c-20.8 0-37.7 16.5-37.7 36.8V346c0 18.1 13.5 33.1
+                    31.1 36.2V830c0 39.6 32.3 71.8 72.1 71.8h312.4c39.8 0 72.1-32.2 72.1-71.8V382.2c17.7-3.1 31.1-18.1 31.1-36.2v-50.9c0.1-20.2-16.9-36.8-37.7-36.8z
+                    m-293.5-41.5h145.3v41.5H439.8v-41.5z m-146.2 83.1H729.5v41.5H293.6v-41.5z m404.8 530.2c0 16.7-13.7 30.3-30.6 30.3H355.4c-16.9 0-30.6-13.6-30.6-30.3V382.9h373.6v447.2z"
+                          fill="#211F1E" />
+                    <path d="M511.6 798.9c11.5 0 20.8-9.3 20.8-20.8V466.8c0-11.5-9.3-20.8-20.8-20.8s-20.8 9.3-20.8 20.8v311.4c0 11.4 9.3 20.7 20.8 20.7zM407.8 798.9c11.5 0 20.8-9.3
+                    20.8-20.8V466.8c0-11.5-9.3-20.8-20.8-20.8s-20.8 9.3-20.8 20.8v311.4c0.1 11.4 9.4 20.7 20.8 20.7zM615.4 799.6c11.5 0 20.8-9.3 20.8-20.8V467.4c0-11.5-9.3-20.8-20.8-20.8s-20.8
+                    9.3-20.8 20.8v311.4c0 11.5 9.3 20.8 20.8 20.8z" fill="#211F1E" />
+                </svg>
+            </a>
+        </li>
+
+        <li class="services-item editable">
+            <details class="details">
+                <summary class="details-title">Услуга 2</summary>
+                <div class="details-text">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum incidunt placeat sapiente cumque minima inventore, autem ipsam officia voluptate
+                    vero dolorem corrupti iste dolores veritatis odit! Sit architecto voluptates magni!
+                </div>
+            </details>
+
+            <a class="admin-service-item_link" href="editproject.html">
+                <svg fill="#000000" width="20px" height="20px" viewBox="0 0 24 24" data-name="Flat Line" xmlns="http://www.w3.org/2000/svg" class="icon flat-line">
+                    <path d="M20,4h0a3,3,0,0,0-4.24,0L8.3,11.47l4.24,4.24L20,8.24A3,3,0,0,0,20,4Z" style="fill: rgb(44, 169, 188); stroke-width: 2;"></path>
+                    <path d="M5.47,14.3l4.24,4.24L7.24,21H3V16.76ZM20,4h0a3,3,0,0,0-4.24,0L8.3,11.47l4.24,4.24L20,8.24A3,3,0,0,0,20,4Z"
+                          style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path>
+                </svg>
+            </a>
+
+            <a class="admin-service-item_basket" href="#">
+                <svg width="22px" height="22px" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M667.8 362.1H304V830c0 28.2 23 51 51.3 51h312.4c28.4 0 51.4-22.8 51.4-51V362.2h-51.3z" fill="#CCCCCC" />
+                    <path d="M750.3 295.2c0-8.9-7.6-16.1-17-16.1H289.9c-9.4 0-17 7.2-17 16.1v50.9c0 8.9 7.6 16.1 17 16.1h443.4c9.4 0 17-7.2 17-16.1v-50.9z" fill="#CCCCCC" />
+                    <path d="M733.3 258.3H626.6V196c0-11.5-9.3-20.8-20.8-20.8H419.1c-11.5 0-20.8 9.3-20.8 20.8v62.3H289.9c-20.8 0-37.7 16.5-37.7 36.8V346c0 18.1 13.5 33.1
+                    31.1 36.2V830c0 39.6 32.3 71.8 72.1 71.8h312.4c39.8 0 72.1-32.2 72.1-71.8V382.2c17.7-3.1 31.1-18.1 31.1-36.2v-50.9c0.1-20.2-16.9-36.8-37.7-36.8z
+                    m-293.5-41.5h145.3v41.5H439.8v-41.5z m-146.2 83.1H729.5v41.5H293.6v-41.5z m404.8 530.2c0 16.7-13.7 30.3-30.6 30.3H355.4c-16.9 0-30.6-13.6-30.6-30.3V382.9h373.6v447.2z"
+                          fill="#211F1E" />
+                    <path d="M511.6 798.9c11.5 0 20.8-9.3 20.8-20.8V466.8c0-11.5-9.3-20.8-20.8-20.8s-20.8 9.3-20.8 20.8v311.4c0 11.4 9.3 20.7 20.8 20.7zM407.8 798.9c11.5 0 20.8-9.3
+                    20.8-20.8V466.8c0-11.5-9.3-20.8-20.8-20.8s-20.8 9.3-20.8 20.8v311.4c0.1 11.4 9.4 20.7 20.8 20.7zM615.4 799.6c11.5 0 20.8-9.3 20.8-20.8V467.4c0-11.5-9.3-20.8-20.8-20.8s-20.8
+                    9.3-20.8 20.8v311.4c0 11.5 9.3 20.8 20.8 20.8z" fill="#211F1E" />
+                </svg>
+            </a>
+        </li>
+
+        <li class="services-item editable">
+            <details class="details">
+                <summary class="details-title">Услуга 3</summary>
+                <div class="details-text">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo a labore eum officia enim voluptatum magni ex quae, impedit, harum beatae.
+                    Possimus fugit ducimus sequi quia molestias voluptatum, voluptas debitis.
+                </div>
+            </details>
+
+            <a class="admin-service-item_link" href="editproject.html">
+                <svg fill="#000000" width="20px" height="20px" viewBox="0 0 24 24" data-name="Flat Line" xmlns="http://www.w3.org/2000/svg" class="icon flat-line">
+                    <path d="M20,4h0a3,3,0,0,0-4.24,0L8.3,11.47l4.24,4.24L20,8.24A3,3,0,0,0,20,4Z" style="fill: rgb(44, 169, 188); stroke-width: 2;"></path>
+                    <path d="M5.47,14.3l4.24,4.24L7.24,21H3V16.76ZM20,4h0a3,3,0,0,0-4.24,0L8.3,11.47l4.24,4.24L20,8.24A3,3,0,0,0,20,4Z"
+                          style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path>
+                </svg>
+            </a>
+
+            <a class="admin-service-item_basket" href="#">
+                <svg width="22px" height="22px" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M667.8 362.1H304V830c0 28.2 23 51 51.3 51h312.4c28.4 0 51.4-22.8 51.4-51V362.2h-51.3z" fill="#CCCCCC" />
+                    <path d="M750.3 295.2c0-8.9-7.6-16.1-17-16.1H289.9c-9.4 0-17 7.2-17 16.1v50.9c0 8.9 7.6 16.1 17 16.1h443.4c9.4 0 17-7.2 17-16.1v-50.9z" fill="#CCCCCC" />
+                    <path d="M733.3 258.3H626.6V196c0-11.5-9.3-20.8-20.8-20.8H419.1c-11.5 0-20.8 9.3-20.8 20.8v62.3H289.9c-20.8 0-37.7 16.5-37.7 36.8V346c0 18.1 13.5 33.1
+                    31.1 36.2V830c0 39.6 32.3 71.8 72.1 71.8h312.4c39.8 0 72.1-32.2 72.1-71.8V382.2c17.7-3.1 31.1-18.1 31.1-36.2v-50.9c0.1-20.2-16.9-36.8-37.7-36.8z
+                    m-293.5-41.5h145.3v41.5H439.8v-41.5z m-146.2 83.1H729.5v41.5H293.6v-41.5z m404.8 530.2c0 16.7-13.7 30.3-30.6 30.3H355.4c-16.9 0-30.6-13.6-30.6-30.3V382.9h373.6v447.2z"
+                          fill="#211F1E" />
+                    <path d="M511.6 798.9c11.5 0 20.8-9.3 20.8-20.8V466.8c0-11.5-9.3-20.8-20.8-20.8s-20.8 9.3-20.8 20.8v311.4c0 11.4 9.3 20.7 20.8 20.7zM407.8 798.9c11.5 0 20.8-9.3
+                    20.8-20.8V466.8c0-11.5-9.3-20.8-20.8-20.8s-20.8 9.3-20.8 20.8v311.4c0.1 11.4 9.4 20.7 20.8 20.7zM615.4 799.6c11.5 0 20.8-9.3 20.8-20.8V467.4c0-11.5-9.3-20.8-20.8-20.8s-20.8
+                    9.3-20.8 20.8v311.4c0 11.5 9.3 20.8 20.8 20.8z" fill="#211F1E" />
+                </svg>
+            </a>
+        </li>
+    </ul>
+
+    <div class="admin-services__button flex">
+        <button class="btn admin-services__btn">Добавить услугу</button>
+    </div>
+
+    </div>
+</div>

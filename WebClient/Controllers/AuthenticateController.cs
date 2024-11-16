@@ -17,6 +17,20 @@ namespace WebClient.Controllers
             authenticationService = service;
         }
 
+        /// <summary>
+        /// Возаращает форму входа
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Отправляет данные пользователя на сервер аутентификации
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>JWT токен</returns>
         [HttpPost]
         [Route(nameof(Login))]
         public IActionResult Login(LoginModel model)
@@ -25,10 +39,10 @@ namespace WebClient.Controllers
             if (!string.IsNullOrEmpty(token))
             {
                 HttpContext.Response.Cookies.Append("jwt", token);
-                return Redirect("/Admin/AdminDesktop");
+                return RedirectToAction("Desktop", "Home");
             }
-            else
-                return Unauthorized();
+
+            return View();
         }
     }
 }

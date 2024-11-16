@@ -32,6 +32,7 @@ namespace WebClient
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<IPhrasesService, PhrasesService>();
 
             services.AddHttpClient();
             services.AddControllersWithViews();
@@ -80,8 +81,9 @@ namespace WebClient
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
+                    //pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Authenticate}/{action=Login}/{id?}");
+        });
         }
     }
 }

@@ -1,0 +1,27 @@
+﻿@import url("global-varriables.css");
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    min-width: 760px;
+    margin: 0 auto;
+    padding: 0 15px;
+}

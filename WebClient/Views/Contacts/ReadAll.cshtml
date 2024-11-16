@@ -1,0 +1,11 @@
+﻿
+@if (User.Identity.IsAuthenticated)
+{
+    Layout = "_AdminLayout2";
+}
+else
+{
+    Layout = "_GuestLayout2";
+}
+
+<h1>Контакты</h1>

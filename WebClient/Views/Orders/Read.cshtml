@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "_AdminLayout2";
+}
+
+@model ModifyOrderModel
+
+<div class="main-content order-content">
+    <form id="edit-order-frm" class="edit-order-frm" asp-controller="Orders" asp-action="Update">
+        <div class="edit-order-frm__item">
+            <div class="edit-order-frm__title">Id</div>
+            <div class="edit-order-frm__text">@Model.Id</div>
+        </div>
+
+        <div class="edit-order-frm__item">
+            <div class="edit-order-frm__title">Дата создания</div>
+            <time class="edit-order-frm__text">@Model.CreatingDate.ToString("dd.MM.yyyy hh:mm")</time>
+        </div>
+
+        <div class="edit-order-frm__item">
+            <div class="edit-order-frm__title">Имя</div>
+            <div class="edit-order-frm__text">@Model.FirstName @Model.LastName</div>
+        </div>
+
+        <div class="edit-order-frm__item">
+            <div class="edit-order-frm__title">E-mail</div>
+            <div class="edit-order-frm__text">@Model.Email</div>
+        </div>
+
+        <div class="edit-order-frm__item edit-order-frm__item_grow">
+            <div class="edit-order-frm__title">Текст заявки</div>
+            <div class="edit-order-frm__text">@Model.Message</div>
+        </div>
+
+        <div class="edit-order-frm__item">
+            <div class="edit-order-frm__title">Статус</div>
+            <select name="StatusId" title="Статус заявки">
+                @foreach (OrderStatusModel t in Model.Statuses)
+                {
+                    <option value="@t.Id" selected="@(t.Id == Model.OrderStatus.Id)">@t.OrderStatus</option>
+                }
+            </select>
+        </div>
+
+        <input type="hidden" value="@Model.Id" name="Id" />
+    </form>
+
+    <button class="btn edit-order-frm__btn" form="edit-order-frm" type="submit">Сохранить</button>
+</div>

@@ -9,22 +9,32 @@ using Microsoft.Extensions.Configuration;
 
 namespace WebClient.Controllers
 {
-    public class ProjectController : Controller
+    public class ProjectsController : Controller
     {
         private readonly IProjectService projectService;
         private readonly IConfiguration configuration;
 
-        public ProjectController(IProjectService projectService, IConfiguration configuration)
+        public ProjectsController(IProjectService projectService, IConfiguration configuration)
         {
             this.projectService = projectService;
             this.configuration = configuration;
         }
 
+
+        /// <summary>
+        /// Возвращает форму для добавления нового проекта
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Create()
         {
             return View();
         }
 
+        /// <summary>
+        /// Добавляет новый проект
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Create(ProjectModel model)
         {
@@ -37,6 +47,10 @@ namespace WebClient.Controllers
             return Redirect("ReadAll");
         }
 
+        /// <summary>
+        /// Получает из базы данных все проекты
+        /// </summary>
+        /// <returns></returns>
         public IActionResult ReadAll()
         {
             ProjectModel[] model = projectService.GetAll();
@@ -49,7 +63,8 @@ namespace WebClient.Controllers
             return View(model);
         }
 
-        public IActionResult Edit(int id)
+
+        public IActionResult Read(int id)
         {
             ProjectModel project = projectService.Get(id);
             project.ModifyFileName(configuration["ApiLocation"]);
@@ -57,7 +72,7 @@ namespace WebClient.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(ProjectModel model)
+        public IActionResult Update(ProjectModel model)
         {
             if (projectService.Edit(
                 model,

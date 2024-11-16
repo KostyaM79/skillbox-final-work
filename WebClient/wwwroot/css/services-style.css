@@ -1,0 +1,19 @@
+﻿.services {
+    width: 100%;
+}
+
+.services__items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.details {
+    padding: 15px;
+    background-color: #0AF;
+    border-radius: 10px;
+}
+
+.services__content {
+    max-width: 70%;
+}

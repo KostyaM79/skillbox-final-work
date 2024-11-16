@@ -1,5 +1,17 @@
-const { read } = require("@popperjs/core");
 
+// Фразы для случайного отображения
+let phrases = [
+    "Первая случайная фраза.",
+    "Вторая случайная фраза.",
+    "Третья случайная фраза.",
+    "Четвёртая случайная фраза.",
+    "Пятая случайная фраза."
+];
+
+let text = phrases[Math.floor(Math.random() * phrases.length)];
+let el = document.querySelector(".header__title").textContent = text;
+
+// Переходит по ссылке, передаёт введённый пользователем диапазон дат
 function setDateRange() {
     let dateElement1 = document.getElementById("date1");
     let dateElement2 = document.getElementById("date2");
@@ -12,9 +24,7 @@ function setDateRange() {
         let startOffset = diffDate(now, d1);
         let endOffset = diffDate(now, d2);
 
-        let h = document.location.origin;
-
-        document.location.href = `${h}/AdminDesktop/Range/${startOffset}/${endOffset}`;
+        document.location.href = `${document.location.origin}/read/filter/Range/${startOffset}/${endOffset}`;
     }
 }
 
@@ -25,8 +35,8 @@ function diffDate(d1, d2) {
 }
 
 function show_picture() {
-    let element = document.getElementById("proj-photo");        // �������� input-�������
-    let f = element.files[0];                                   // �������� ������ �� ��������� ����
+    let element = document.getElementById("proj-photo");        // Получаем input-элемент
+    let f = element.files[0];                                   // Получаем ссылку на выбранный файл
 
     var img = document.getElementById("proj-img");
 
@@ -47,4 +57,36 @@ function show_picture() {
     })(img);
 
     reader.readAsDataURL(f);
+}
+
+let inputs = [];
+addevents();
+
+function addevents() {
+
+    inputs = document.getElementsByClassName("order-frm__input");
+    console.log(`Получено ${inputs.length} элементов.`);
+    for (let i = 0; i < inputs.length; i++) {
+        console.log(i);
+        inputs[i].onchange = check;
+    }
+}
+
+function check() {
+    let btn = document.getElementById("btn");
+
+    for (let i = 0; i < inputs.length; i++) {
+        if (!inputs[i].value) {
+            btn.disabled = true;
+            return;
+        }
+    }
+
+    btn.disabled = false;
+}
+
+// Отображает форму для отправления заявки
+function showFrm() {
+    let frm = document.getElementById("order-frm");
+    frm.style.display = "flex";
 }

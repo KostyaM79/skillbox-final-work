@@ -1,0 +1,67 @@
+﻿
+@{
+    Layout = "_AdminLayout2";
+}
+
+@model OrdersListModel
+
+<div class="all-content__right">
+    <div class="main-content">
+        <div class="orders-filter-panel">
+            <div class="orders-filter-panel__text">Всего заявок: @Model.AllOrdersCount</div>
+
+            <div class="orders-filter-panel__content">
+                <a class="orders-filter-panel__item orders-filter-panel__item_btn" asp-controller="Orders" asp-action="Read" asp-route-filterName="Today">Сегодня</a>
+
+                <a class="orders-filter-panel__item orders-filter-panel__item_btn" asp-controller="Orders" asp-action="Read" asp-route-filterName="Yesterday">Вчера</a>
+
+                <a class="orders-filter-panel__item orders-filter-panel__item_btn" asp-controller="Orders" asp-action="Read" asp-route-filterName="Week">Неделя</a>
+
+                <a class="orders-filter-panel__item orders-filter-panel__item_btn" asp-controller="Orders" asp-action="Read" asp-route-filterName="Month">Месяц</a>
+
+                <input id="date1" class="orders-filter-panel__item orders-filter-panel__item_date" type="date" onchange="setDateRange()">
+
+                <div class="orders-filter-panel__item orders-filter-panel__item_dash">-</div>
+
+                <input id="date2" class="orders-filter-panel__item orders-filter-panel__item_date" type="date" onchange="setDateRange()">
+            </div>
+        </div>
+
+        <div class="orders-content">
+            <table class="orders-content__table orders-table">
+                <colgroup>
+                    <col class="orders-table__col-1">
+                    <col class="orders-table__col-2">
+                    <col class="orders-table__col-3">
+                    <col class="orders-table__col-4">
+                    <col class="orders-table__col-5">
+                </colgroup>
+
+                <thead class="orders-table__head">
+                    <tr>
+                        <th class="orders-table__header-sell">Номер заявки</th>
+                        <th class="orders-table__header-sell">Вреся заявки</th>
+                        <th class="orders-table__header-sell">Имя</th>
+                        <th class="orders-table__header-sell">Текст заявки</th>
+                        <th class="orders-table__header-sell">Контакты</th>
+                    </tr>
+                </thead>
+
+                <tbody class="orders-table__body">
+
+                    @foreach (OrderFullDataModel t in Model.OrdersList)
+                    {
+                        <tr class="orders-table__row">
+                            <td class="orders-table__cell"><a class="orders-table__link" asp-controller="Orders" asp-action="Read" asp-route-id="@t.Id">@t.Id</a></td>
+                            <td class="orders-table__cell"><time datetime="11.11.1987 11:08">@t.CreatingDate.ToString("dd.MM.yyyy hh:mm")</time></td>
+                            <td class="orders-table__cell">@t.LastName @t.FirstName</td>
+                            <td class="orders-table__cell">@t.Message</td>
+                            <td class="orders-table__cell">@t.Email</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

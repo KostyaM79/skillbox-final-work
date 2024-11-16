@@ -18,14 +18,14 @@ namespace WebClient.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Main()
         {
             return View();
         }
 
-        public IActionResult Admin()
+        public IActionResult Desktop()
         {
-            return View();
+            return RedirectToAction("ReadAll", "Orders");
         }
 
         public IActionResult Privacy()
