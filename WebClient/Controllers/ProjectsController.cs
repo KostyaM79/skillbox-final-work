@@ -85,10 +85,11 @@ namespace WebClient.Controllers
             else return Problem();
         }
 
+        [Route("Delete/{id:int}")]
         public IActionResult Delete(int id)
         {
             projectService.Delete(id);
-            return Redirect("/Project/ReadAll");
+            return Redirect("/Projects/ReadAll");
         }
     }
 }
