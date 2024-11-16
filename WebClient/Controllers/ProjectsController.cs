@@ -80,7 +80,7 @@ namespace WebClient.Controllers
                 HttpContext.Request.Form.Files.Any() ? HttpContext.Request.Form.Files[0].ContentType : null,
                 HttpContext.Request.Form.Files.Any() ? HttpContext.Request.Form.Files[0].OpenReadStream() : null,
                 HttpContext.Request.Form.Files.Any() ? HttpContext.Request.Form.Files[0].FileName : null))
-                return Redirect("/Project/ReadAll");
+                return Redirect("ReadAll");
 
             else return Problem();
         }

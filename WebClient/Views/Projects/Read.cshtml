@@ -12,7 +12,7 @@ else
 <div class="content">
     <h2 class="title">Редактирование проекта</h2>
 
-    <form class="frm project-frm" asp-action="Edit" method="post" enctype="multipart/form-data">
+    <form class="frm project-frm" asp-action="Update" method="post" enctype="multipart/form-data">
         <div class="project-frm__content">
             <div class="project-frm__left">
                 <div class="project-frm__item">
@@ -41,6 +41,7 @@ else
             </div>
         </div>
 
+        <input type="hidden" name="Id" value="@Model.Id" />
         <button class="btn project-frm__btn" type="submit">Сохранить</button>
     </form>
 </div>
