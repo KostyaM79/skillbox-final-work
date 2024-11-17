@@ -42,5 +42,7 @@ namespace WebClient.Data
         void UpdateOrder(UpdateOrderModel model);
 
         void DeleteProject(int id);
+
+        void UpdateService(ServiceModel model);
     }
 }

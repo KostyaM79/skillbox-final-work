@@ -41,12 +41,21 @@ namespace WebApiService.Services
             {
                 models.Add(new ServiceModel()
                 {
+                    Id = s.Id,
                     ServiceTitle = s.ServiceCaption,
                     ServiceDescr = s.ServiceDescription
                 });
             }
 
             return models.ToArray();
+        }
+
+        public void Update(ServiceModel model)
+        {
+            Service service = context.Services.FirstOrDefault(e => e.Id == model.Id);
+            service.ServiceCaption = model.ServiceTitle;
+            service.ServiceDescription = model.ServiceDescr;
+            context.SaveChanges();
         }
     }
 }

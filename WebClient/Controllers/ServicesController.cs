@@ -22,6 +22,11 @@ namespace WebClient.Controllers
             return View(service.GetAll());
         }
 
+        public IActionResult Read(int id)
+        {
+            return View(service.Get(id));
+        }
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -33,6 +38,12 @@ namespace WebClient.Controllers
         {
             service.Add(model);
             return RedirectToAction("ReadAll");
+        }
+
+        public IActionResult Update(ServiceModel model)
+        {
+            service.Update(model);
+            return Redirect("ReadAll");
         }
     }
 }

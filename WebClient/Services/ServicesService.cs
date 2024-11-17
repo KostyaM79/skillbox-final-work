@@ -31,5 +31,10 @@ namespace WebClient.Services
         {
             return database.GetAllServices();
         }
+
+        public void Update(ServiceModel model)
+        {
+            database.UpdateService(model);
+        }
     }
 }

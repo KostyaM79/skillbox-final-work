@@ -178,5 +178,12 @@ namespace WebClient.Data
             HttpResponseMessage responseMessage = httpClient.GetAsync("api/Services/ReadAll").Result;
             return responseMessage.Content.ReadFromJsonAsync<ServiceModel[]>().Result;
         }
+
+        public void UpdateService(ServiceModel model)
+        {
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            _ = httpClient.PostAsync("api/Services/Update", JsonContent.Create(model)).Result;
+        }
     }
 }

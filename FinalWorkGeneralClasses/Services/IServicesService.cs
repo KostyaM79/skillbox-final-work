@@ -13,5 +13,7 @@ namespace Services
         ServiceModel Get(int id);
 
         void Add(ServiceModel model);
+
+        void Update(ServiceModel model);
     }
 }

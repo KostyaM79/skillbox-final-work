@@ -44,5 +44,13 @@ namespace WebApiService.Controllers
             service.Add(model);
             return Ok();
         }
+
+        [HttpPost]
+        [Route("Update")]
+        public IActionResult Update(ServiceModel model)
+        {
+            service.Update(model);
+            return Ok();
+        }
     }
 }

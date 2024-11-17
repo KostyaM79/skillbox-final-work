@@ -44,7 +44,7 @@
 .service-frm {
     display: flex;
     gap: 20px;
-    max-width: 60%;
+    max-width: 80%;
     flex-direction: column;
     margin: auto;
 }
@@ -52,4 +52,8 @@
 .service-frm__item {
     display: flex;
     flex-direction: column;
+}
+
+.service-frm__btn {
+    align-self: end;
 }
