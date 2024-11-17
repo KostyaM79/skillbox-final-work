@@ -30,7 +30,15 @@ namespace WebApiService.Controllers
             else return StatusCode(500, new { Message = "Не удалось получить список услуг из БД!"});
         }
 
+        [HttpGet]
+        [Route("Read/{id:int}")]
+        public IActionResult Read(int id)
+        {
+            return Ok(service.Get(id));
+        }
+
         [HttpPost]
+        [Route(nameof(Create))]
         public IActionResult Create(ServiceModel model)
         {
             service.Add(model);

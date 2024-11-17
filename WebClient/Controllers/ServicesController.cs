@@ -12,16 +12,23 @@ namespace WebClient.Controllers
     {
         private readonly IServicesService service;
 
-        public IActionResult ReadAll()
+        public ServicesController(IServicesService service)
         {
-            return View();
+            this.service = service;
         }
 
+        public IActionResult ReadAll()
+        {
+            return View(service.GetAll());
+        }
+
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
+        [HttpPost]
         public IActionResult Create(ServiceModel model)
         {
             service.Add(model);

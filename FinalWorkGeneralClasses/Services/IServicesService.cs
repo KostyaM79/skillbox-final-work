@@ -10,6 +10,8 @@ namespace Services
     {
         ServiceModel[] GetAll();
 
+        ServiceModel Get(int id);
+
         void Add(ServiceModel model);
     }
 }

@@ -9,18 +9,26 @@ using Models;
 
 namespace WebApiService.Services
 {
-    public class ServiceService : IServicesService
+    public class ServicesService : IServicesService
     {
         private readonly AppDbContext context;
 
-        public ServiceService(AppDbContext context)
+        public ServicesService(AppDbContext context)
         {
             this.context = context;
         }
 
         public void Add(ServiceModel model)
         {
-            throw new NotImplementedException();
+            Service service = new Service() { ServiceCaption = model.ServiceTitle, ServiceDescription = model.ServiceDescr };
+            context.Services.Add(service);
+            context.SaveChanges();
+        }
+
+        public ServiceModel Get(int id)
+        {
+            Service service = context.Services.FirstOrDefault(e => e.Id == id);
+            return new ServiceModel() { Id = service.Id, ServiceTitle = service.ServiceCaption, ServiceDescr = service.ServiceDescription };
         }
 
         public ServiceModel[] GetAll()

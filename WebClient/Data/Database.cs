@@ -32,6 +32,32 @@ namespace WebClient.Data
             return responseMessage.IsSuccessStatusCode;
         }
 
+        public void AddService(ServiceModel model)
+        {
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Services/Create", JsonContent.Create(model)).Result;
+            if (!responseMessage.IsSuccessStatusCode)
+                throw new DatabaseServiceException((int)responseMessage.StatusCode, responseMessage.Content.ReadAsStringAsync().Result);
+        }
+
+        public bool AddProject(ProjectModel model, string contentType, Stream fileStream, string fileName)
+        {
+            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
+
+            StreamContent streamContent = new StreamContent(fileStream);
+            streamContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
+
+            fileContent.Add(new StringContent(model.ProjectTitle), "ProjectTitle");
+            fileContent.Add(new StringContent(model.ProjectDescr), "ProjectDescr");
+            fileContent.Add(streamContent, name: "file", fileName: fileName);
+
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Projects/Create", fileContent).Result;
+            return responseMessage.IsSuccessStatusCode;
+        }
+
         public OrdersListModel GetAllOrders()
         {
             HttpClient httpClient = httpClientFactory.CreateClient();
@@ -55,6 +81,15 @@ namespace WebClient.Data
             HttpResponseMessage responseMessage = httpClient.GetAsync($"api/Orders/Read/{id}").Result;
             return responseMessage.Content.ReadFromJsonAsync<ModifyOrderModel>().Result;
         }
+
+        public ServiceModel GetService(int id)
+        {
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            HttpResponseMessage responseMessage = httpClient.GetAsync($"api/Services/Read/{id}").Result;
+            return responseMessage.Content.ReadFromJsonAsync<ServiceModel>().Result;
+        }
+
 
         //public OrdersListModel GetOrdersByToday()
         //{
@@ -106,23 +141,6 @@ namespace WebClient.Data
             return responseMessage.Content.ReadFromJsonAsync<ProjectModel[]>().Result;
         }
 
-        public bool AddProject(ProjectModel model, string contentType, Stream fileStream, string fileName)
-        {
-            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
-
-            StreamContent streamContent = new StreamContent(fileStream);
-            streamContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
-
-            fileContent.Add(new StringContent(model.ProjectTitle), "ProjectTitle");
-            fileContent.Add(new StringContent(model.ProjectDescr), "ProjectDescr");
-            fileContent.Add(streamContent, name: "file", fileName: fileName);
-
-            HttpClient httpClient = httpClientFactory.CreateClient();
-            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
-            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Projects/Create", fileContent).Result;
-            return responseMessage.IsSuccessStatusCode;
-        }
-
         public bool EditProject(ProjectModel model, string contentType, Stream fileStream, string fileName)
         {
             StreamContent streamContent;
@@ -153,13 +171,12 @@ namespace WebClient.Data
             _ = httpClient.DeleteAsync($"api/Projects/Delete/{id}").Result;
         }
 
-        public void AddService(ServiceModel model)
+        public ServiceModel[] GetAllServices()
         {
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
-            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Services/Create", JsonContent.Create(model)).Result;
-            if (!responseMessage.IsSuccessStatusCode)
-                throw new DatabaseServiceException((int)responseMessage.StatusCode, responseMessage.Content.ReadAsStringAsync().Result);
+            HttpResponseMessage responseMessage = httpClient.GetAsync("api/Services/ReadAll").Result;
+            return responseMessage.Content.ReadFromJsonAsync<ServiceModel[]>().Result;
         }
     }
 }

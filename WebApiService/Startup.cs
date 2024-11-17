@@ -32,6 +32,7 @@ namespace WebApiService
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("connStr")));
             services.AddScoped<IApiOrderService, OrderService>();
             services.AddScoped<IApiProjectService, ProjectService>();
+            services.AddScoped<IServicesService, ServicesService>();
 
 
             services.AddControllers();

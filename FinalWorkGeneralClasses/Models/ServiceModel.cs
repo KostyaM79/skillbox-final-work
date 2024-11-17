@@ -8,6 +8,8 @@ namespace Models
 {
     public class ServiceModel
     {
+        public int Id { get; set; }
+
         public string ServiceTitle { get; set; }
 
         public string ServiceDescr { get; set; }

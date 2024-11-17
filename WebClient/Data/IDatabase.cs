@@ -23,6 +23,8 @@ namespace WebClient.Data
 
         //OrdersListModel GetOrdersByToday();
 
+        ServiceModel GetService(int id);
+
         OrdersListModel GetOrdersByYesterday();
 
         OrdersListModel GetOrdersByWeek();
@@ -32,6 +34,8 @@ namespace WebClient.Data
         ProjectModel[] GetAllProjects();
 
         ProjectModel GetProject(int id);
+
+        ServiceModel[] GetAllServices();
 
         bool EditProject(ProjectModel model, string contentType, Stream fileStream, string fileName);
 
