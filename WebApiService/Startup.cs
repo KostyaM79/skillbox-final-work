@@ -33,6 +33,7 @@ namespace WebApiService
             services.AddScoped<IApiOrderService, OrderService>();
             services.AddScoped<IApiProjectService, ProjectService>();
             services.AddScoped<IServicesService, ServicesService>();
+            services.AddScoped<IApiArticlesService, ArticleService>();
 
 
             services.AddControllers();

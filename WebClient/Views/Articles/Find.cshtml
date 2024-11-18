@@ -1,16 +1,25 @@
-﻿@{
+﻿@model ArticleModel
+
+@if (User.Identity.IsAuthenticated)
+{
     Layout = "_AdminLayout2";
+}
+else
+{
+    Layout = "_GuestLayout2";
 }
 
 <div class="content">
     <h2 class="title">Блог</h2>
 
-    <form class="blog-frm" asp-controller="Articles" asp-action="Create" method="post" enctype="multipart/form-data">
-        <span class="frm-title">Добавление поста</span>
+    <form class="blog-frm" asp-controller="Articles" asp-action="Update" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <span class="frm-title">Редактирование поста</span>
 
         <div class="frm-item">
             <label class="frm-item__label">Заголовок</label>
-            <input class="frm-input" type="text" name="ArticleCaption" />
+            <input class="frm-input" type="text" name="ArticleCaption" value="@Model.ArticleCaption" />
         </div>
 
         <div class="frm__bottom">
@@ -22,14 +31,14 @@
                         <input id="proj-photo" class="input__file" type="file" name="ArticlePhoto" onchange="show_picture()" />
                     </label>
 
-                    <img id="proj-img" class="project-frm__img" src="~/img/add-photo.svg" alt="Изображение" />
+                    <img id="proj-img" class="project-frm__img" src="@Model.ArticleImageFileName" alt="Изображение" />
 
                 </div>
             </div>
 
             <div class="frm-item frm-item__text">
                 <label class="frm-item__label" for="proj-descr">Описание проекта</label>
-                <textarea id="proj-descr" class="frm-input blog-frm__textarea" type="text" name="ArticleText" required></textarea>
+                <textarea id="proj-descr" class="frm-input blog-frm__textarea" type="text" name="ArticleText" required>@Model.ArticleText</textarea>
             </div>
         </div>
 

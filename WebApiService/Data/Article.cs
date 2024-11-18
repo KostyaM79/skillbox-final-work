@@ -5,13 +5,11 @@ using System.Threading.Tasks;
 
 namespace WebApiService.Data
 {
-    public class Articl
+    public class Article
     {
         public int Id { get; set; }
 
         public string ArticleCaption { get; set; }
-
-        public string ArticleDescription { get; set; }
 
         public DateTime ArticlePublishDate { get; set; }
 

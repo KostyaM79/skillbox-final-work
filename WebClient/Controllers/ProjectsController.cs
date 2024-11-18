@@ -45,7 +45,7 @@ namespace WebClient.Controllers
                 HttpContext.Request.Form.Files[0].OpenReadStream(),
                 HttpContext.Request.Form.Files[0].FileName);
 
-            return Redirect("ReadAll");
+            return Redirect("/Projects/ReadAll");
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace WebClient.Controllers
                 HttpContext.Request.Form.Files.Any() ? HttpContext.Request.Form.Files[0].ContentType : null,
                 HttpContext.Request.Form.Files.Any() ? HttpContext.Request.Form.Files[0].OpenReadStream() : null,
                 HttpContext.Request.Form.Files.Any() ? HttpContext.Request.Form.Files[0].FileName : null))
-                return Redirect("ReadAll");
+                return Redirect("/Projects/ReadAll");
 
             else return Problem();
         }

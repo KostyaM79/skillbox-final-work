@@ -37,19 +37,19 @@ namespace WebClient.Controllers
         public IActionResult Create(ServiceModel model)
         {
             service.Add(model);
-            return RedirectToAction("ReadAll");
+            return Redirect("/Services/ReadAll");
         }
 
         public IActionResult Update(ServiceModel model)
         {
             service.Update(model);
-            return Redirect("ReadAll");
+            return Redirect("/Services/ReadAll");
         }
 
         public IActionResult Delete(int id)
         {
             service.Delete(id);
-            return View("ReadAll", service.GetAll());
+            return Redirect("/Services/ReadAll");
         }
     }
 }

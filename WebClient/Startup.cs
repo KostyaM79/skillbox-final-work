@@ -35,6 +35,7 @@ namespace WebClient
             services.AddScoped<IClientProjectService, ProjectService>();
             services.AddScoped<IPhrasesService, PhrasesService>();
             services.AddScoped<IServicesService, ServicesService>();
+            services.AddScoped<IClientArticlesService, ArticlesService>();
 
             services.AddHttpClient();
             services.AddControllersWithViews();

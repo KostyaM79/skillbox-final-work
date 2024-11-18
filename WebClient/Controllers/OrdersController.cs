@@ -70,7 +70,7 @@ namespace WebClient.Controllers
             try
             {
                 orderService.Update(model);
-                return Redirect("ReadAll");
+                return View("ReadAll", orderService.GetAll());
             }
             catch (DatabaseServiceException ex)
             {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace Models
 {
@@ -18,5 +19,16 @@ namespace Models
         public string ArticleText { get; set; }
 
         public string ArticleImageFileName { get; set; }
+
+        public void ModifyFileName(string baseAddress)
+        {
+            ArticleImageFileName = $"{baseAddress}api/Images/dir/articles-images/file/{ArticleImageFileName}";
+        }
+
+        public string[] Paragraphs()
+        {
+            Regex regex = new Regex("^.+");
+            return regex.Matches(ArticleText).Select(e => e.Value).ToArray();
+        }
     }
 }

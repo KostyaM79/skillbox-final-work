@@ -7,6 +7,7 @@
 .services-content {
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 
 .services__items {

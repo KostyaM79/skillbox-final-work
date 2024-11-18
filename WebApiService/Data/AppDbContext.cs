@@ -22,7 +22,7 @@ namespace WebApiService.Data
 
         public DbSet<Order> Orders { get; set; }
 
-        public DbSet<Articl> Articles { get; set; }
+        public DbSet<Article> Articles { get; set; }
 
         public DbSet<Project> Projects { get; set; }
 

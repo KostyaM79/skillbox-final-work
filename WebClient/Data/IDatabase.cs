@@ -21,8 +21,6 @@ namespace WebClient.Data
 
         OrdersListModel GetOrders(string filterName, int startOffset, int endOffset);
 
-        //OrdersListModel GetOrdersByToday();
-
         ServiceModel GetService(int id);
 
         OrdersListModel GetOrdersByYesterday();
@@ -46,5 +44,15 @@ namespace WebClient.Data
         void UpdateService(ServiceModel model);
 
         void DeleteService(int id);
+
+        void AddArticle(ArticleModel model, string contentType, Stream fileStream, string fileName);
+
+        ArticleModel[] GetAllArticles();
+
+        void DeleteArticle(int id);
+
+        ArticleModel FindArticle(int id);
+
+        void UpdateArticle(ArticleModel model, string contentType, Stream stream, string fileName);
     }
 }
