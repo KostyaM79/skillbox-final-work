@@ -44,5 +44,7 @@ namespace WebClient.Data
         void DeleteProject(int id);
 
         void UpdateService(ServiceModel model);
+
+        void DeleteService(int id);
     }
 }

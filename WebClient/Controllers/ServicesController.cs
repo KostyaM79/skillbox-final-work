@@ -45,5 +45,11 @@ namespace WebClient.Controllers
             service.Update(model);
             return Redirect("ReadAll");
         }
+
+        public IActionResult Delete(int id)
+        {
+            service.Delete(id);
+            return View("ReadAll", service.GetAll());
+        }
     }
 }

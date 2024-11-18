@@ -185,5 +185,14 @@ namespace WebClient.Data
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
             _ = httpClient.PostAsync("api/Services/Update", JsonContent.Create(model)).Result;
         }
+
+        public void DeleteService(int id)
+        {
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            _ = httpClient.DeleteAsync($"api/Services/Delete/{id}").Result;
+        }
+
+
     }
 }

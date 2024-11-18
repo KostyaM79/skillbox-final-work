@@ -57,5 +57,12 @@ namespace WebApiService.Services
             service.ServiceDescription = model.ServiceDescr;
             context.SaveChanges();
         }
+
+        public void Delete(int id)
+        {
+            Service service = context.Services.FirstOrDefault(e => e.Id == id);
+            context.Remove(service);
+            context.SaveChanges();
+        }
     }
 }

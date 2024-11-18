@@ -52,5 +52,13 @@ namespace WebApiService.Controllers
             service.Update(model);
             return Ok();
         }
+
+        [HttpDelete]
+        [Route("Delete/{id:int}")]
+        public IActionResult Delete(int id)
+        {
+            service.Delete(id);
+            return Ok();
+        }
     }
 }

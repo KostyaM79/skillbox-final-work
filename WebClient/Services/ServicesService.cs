@@ -36,5 +36,10 @@ namespace WebClient.Services
         {
             database.UpdateService(model);
         }
+
+        public void Delete(int id)
+        {
+            database.DeleteService(id);
+        }
     }
 }

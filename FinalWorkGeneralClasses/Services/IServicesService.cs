@@ -15,5 +15,7 @@ namespace Services
         void Add(ServiceModel model);
 
         void Update(ServiceModel model);
+
+        void Delete(int id);
     }
 }
