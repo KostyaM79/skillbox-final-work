@@ -46,44 +46,9 @@ namespace WebApiService.Controllers
         [Route("Read/{filterName}/startOffset/{startOffset}/endOffset/{endOffset}")]
         public IActionResult Read(string filterName, int startOffset, int endOffset)
         {
-            switch (filterName)
-            {
-                case "Today": return Ok(service.Get((Order e) => e.CreatingDate.Date == DateTime.Today));
-                case "Yesterday": return Ok(service.Get((Order e) => e.CreatingDate.Date == DateTime.Today.AddDays(-1)));
-                case "Week": return Ok(service.Get((Order e) => e.CreatingDate.Date >= DateTime.Today.AddDays(-6) && e.CreatingDate.Date <= DateTime.Today));
-                case "Month": return Ok(service.Get((Order e) => e.CreatingDate.Date > DateTime.Today.AddMonths(-1) && e.CreatingDate.Date <= DateTime.Today));
-                case "Range": return Ok(service.Get((Order e) => e.CreatingDate.Date >= DateTime.Today.AddDays(-startOffset) && e.CreatingDate.Date <= DateTime.Today.AddDays(-endOffset)));
-            }
-            return Problem();
+            OrderFilter filter = new OrderFilter(filterName, startOffset, endOffset);
+            return Ok(service.Get(filter.Filter));
         }
-
-        //[HttpGet]
-        //[Route(nameof(ReadByDate))]
-        //public IActionResult ReadByDate()
-        //{
-        //    OrdersListModel data = service.GetByDate(DateTime.Now);
-        //    if (data != null) return Ok(data);
-        //    else return StatusCode(500, new { Message = "Не удалось получить список заявок из БД." });
-        //}
-
-        //[HttpGet]
-        //[Route(nameof(ReadByYesterday))]
-        //public IActionResult ReadByYesterday()
-        //{
-        //    DateTime date = DateTime.Now.AddDays(-1);
-        //    OrdersListModel data = service.GetByDate(date);
-        //    if (data != null) return Ok(data);
-        //    else return StatusCode(500, new { Message = "Не удалось получить список заявок из БД." });
-        //}
-
-        //[HttpGet]
-        //[Route(nameof(ReadByWeek))]
-        //public IActionResult ReadByWeek()
-        //{
-        //    OrdersListModel data = service.GetByWeek();
-        //    if (data != null) return Ok(data);
-        //    else return StatusCode(500, new { Message = "Не удалось получить список заявок из БД." });
-        //}
 
         [HttpGet]
         [Route("read/{id}")]
@@ -98,9 +63,6 @@ namespace WebApiService.Controllers
         [Route(nameof(Update))]
         public IActionResult Update(UpdateOrderModel model)
         {
-            //if (service.Update(model)) return Ok();
-            //else return StatusCode(500, new { Message = "Не удалось обновить статус заявки!" });
-
             service.Update(model);
             return Ok();
         }
