@@ -14,17 +14,16 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DesktopClient.ViewModels;
 
-namespace DesktopClient
+namespace DesktopClient.UserControls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для AppStartUserControl.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AppStartUserControl : UserControl
     {
-        public MainWindow()
+        public AppStartUserControl()
         {
             InitializeComponent();
-            DataContext = new MainVindow_ViewModel(this);
         }
     }
 }

@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using DesktopClient.ViewModels;
 
-namespace DesktopClient
+namespace DesktopClient.UserControls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для AdminCanvas.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AdminCanvas : UserControl
     {
-        public MainWindow()
+        public AdminCanvas()
         {
             InitializeComponent();
-            DataContext = new MainVindow_ViewModel(this);
         }
     }
 }

@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="DesktopClient.UserControls.OrdersFilterControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DesktopClient.UserControls"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="80" HorizontalAlignment="Stretch">
+
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Width" Value="160"/>
+        </Style>
+
+        <Style TargetType="DatePicker">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Width" Value="160"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <Button Padding="40,0" HorizontalAlignment="Left" Command="{Binding TodayFilter_Cmd}">Сегодня</Button>
+
+            <Button Padding="40,0" HorizontalAlignment="Left" Command="{Binding YesterdayFilter_Cmd}">Вчера</Button>
+
+            <Button Padding="40,0" HorizontalAlignment="Left" Command="{Binding WeekFilter_Cmd}">Неделя</Button>
+
+            <Button Padding="40,0" HorizontalAlignment="Left" Command="{Binding MonthFilter_Cmd}">Месяц</Button>
+
+            <Button HorizontalAlignment="Right" Width="368" Command="{Binding RangeFilter_Cmd}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                    <DatePicker Margin="10,0,0,0" SelectedDate="{Binding FirstDate}"></DatePicker>
+                    <TextBlock Text="-" Padding="10,0" FontSize="20"/>
+                    <DatePicker Margin="0,0,10,0" SelectedDate="{Binding LastDate}"></DatePicker>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

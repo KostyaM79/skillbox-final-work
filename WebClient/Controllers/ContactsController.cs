@@ -8,7 +8,7 @@ namespace WebClient.Controllers
 {
     public class ContactsController : Controller
     {
-        public IActionResult ReadAll()
+        public IActionResult Read()
         {
             return View();
         }

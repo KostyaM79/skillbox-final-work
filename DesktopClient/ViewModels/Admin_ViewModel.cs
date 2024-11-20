@@ -1,0 +1,173 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.ComponentModel;
+using DesktopClient.UserControls;
+using DesktopClient.General;
+using DesktopClient.Services;
+using DesktopClient.ViewModels;
+using Services;
+using Models;
+using DesktopClient.Events;
+using DesktopClient.Dialogs;
+
+namespace DesktopClient.ViewModels
+{
+    public class Admin_ViewModel : INotifyPropertyChanged
+    {
+        private string token;
+        private UserControl startControl = new AdminCanvas();
+        private UserControl ordersFilterContron = new OrdersFilterControl();
+        private UserControl content = new OrdersControl();
+        private OrderItemList ordersItems;
+        private OrderItemList_ViewModel orderItemListViewModel;
+        private DateTime firstDate = DateTime.Today;
+        private DateTime lastDate = DateTime.Today;
+
+        private RelayCommand desktopCmd;
+        private RelayCommand todayFilterCmd;
+        private RelayCommand yesterdayFilterCmd;
+        private RelayCommand weekFilterCmd;
+        private RelayCommand monthFilterCmd;
+        private RelayCommand rangeFilterCmd;
+
+        public Admin_ViewModel(string token)
+        {
+            this.token = token;
+        }
+
+        public UserControl StartControl => startControl;
+
+        public UserControl ContentControl => content;
+
+        public OrderItemList OrdersItems
+        {
+            get => ordersItems;
+            set
+            {
+                ordersItems = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(OrdersItems)));
+            }
+        }
+
+        public DateTime FirstDate
+        {
+            get => firstDate;
+            set
+            {
+                firstDate = value;
+                ApplyRangeFilter();
+            }
+        }
+
+        public DateTime LastDate
+        {
+            get => lastDate;
+            set
+            {
+                lastDate = value;
+                ApplyRangeFilter();
+            }
+        }
+
+        public UserControl OrdersFilter => ordersFilterContron;
+
+        public RelayCommand Desktop_Cmd
+        {
+            get
+            {
+                return desktopCmd ?? (desktopCmd = new RelayCommand(obj =>
+                {
+                    IOrderService service = ServiceFactory.GetService<IOrderService>();
+                    OrdersListModel model = service.GetAll();
+                    orderItemListViewModel = new OrderItemList_ViewModel();
+                    orderItemListViewModel.SelectedOrderChanged += OnSelectedOrderChanged;
+                    OrderItemList itemList = new OrderItemList(orderItemListViewModel);
+                    orderItemListViewModel.OrderItems = model.OrdersList;
+                    OrdersItems = itemList;
+                }));
+            }
+        }
+
+        public RelayCommand TodayFilter_Cmd
+        {
+            get
+            {
+                return todayFilterCmd ?? (todayFilterCmd = new RelayCommand(obj =>
+                {
+                    if (orderItemListViewModel != null)
+                        orderItemListViewModel.Filter(DateTime.Today);
+                }));
+            }
+        }
+
+        public RelayCommand YesterdayFilter_Cmd
+        {
+            get
+            {
+                return yesterdayFilterCmd ?? (yesterdayFilterCmd = new RelayCommand(obj =>
+                {
+                    if (orderItemListViewModel != null)
+                        orderItemListViewModel.Filter(DateTime.Today.AddDays(-1));
+                }));
+            }
+        }
+
+        public RelayCommand WeekFilter_Cmd
+        {
+            get
+            {
+                return weekFilterCmd ?? (weekFilterCmd = new RelayCommand(obj =>
+                {
+                    if (orderItemListViewModel != null)
+                        orderItemListViewModel.Filter(DateTime.Today.AddDays(-6), DateTime.Today);
+                }));
+            }
+        }
+
+        public RelayCommand MonthFilter_Cmd
+        {
+            get
+            {
+                return monthFilterCmd ?? (monthFilterCmd = new RelayCommand(obj =>
+                {
+                    if (orderItemListViewModel != null)
+                        orderItemListViewModel.Filter(DateTime.Today.AddMonths(-1), DateTime.Today);
+                }));
+            }
+        }
+
+        public RelayCommand RangeFilter_Cmd
+        {
+            get
+            {
+                return rangeFilterCmd ?? (rangeFilterCmd = new RelayCommand(obj =>
+                {
+                    ApplyRangeFilter();
+                }));
+            }
+        }
+
+        private void ApplyRangeFilter()
+        {
+            if (orderItemListViewModel != null)
+            {
+                if (FirstDate != default && LastDate != default)
+                    orderItemListViewModel.Filter(FirstDate, LastDate);
+            }
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnSelectedOrderChanged(SelectedOrderChangedEventArgs args)
+        {
+            EditOrderDialog_ViewModel viewModel = new EditOrderDialog_ViewModel(ServiceFactory.GetService<IOrderService>(), args.Order.Id);
+            EditOrderDialog dialog = new EditOrderDialog(viewModel);
+            dialog.ShowDialog();
+        }
+    }
+}

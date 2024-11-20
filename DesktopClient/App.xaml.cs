@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using DesktopClient.Services;
+using Services;
 
 namespace DesktopClient
 {
@@ -13,5 +15,10 @@ namespace DesktopClient
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            ServiceFactory.Add<IAuthenticateService, AuthenticateService>();
+            ServiceFactory.Add<IOrderService, OrdersService>();
+        }
     }
 }

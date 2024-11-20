@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="DesktopClient.UserControls.OrdersItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DesktopClient.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" d:DesignWidth="1000">
+    <Grid>
+        <StackPanel Orientation="Horizontal" Background="#ccc">
+            <TextBlock x:Name="id" Padding="5,8" FontSize="16" VerticalAlignment="Top" Width="20" HorizontalAlignment="Left"/>
+            <TextBlock x:Name="date" Padding="5,8" FontSize="16" VerticalAlignment="Top" Width="140" HorizontalAlignment="Left"/>
+            <TextBlock x:Name="firstName" Padding="5,8" FontSize="16" VerticalAlignment="Top" Width="140" HorizontalAlignment="Left"/>
+            <TextBlock x:Name="lastName" Padding="5,8" FontSize="16" VerticalAlignment="Top" Width="140" HorizontalAlignment="Left"/>
+            <TextBlock x:Name="orderText" Padding="5,8" FontSize="16" VerticalAlignment="Top" TextWrapping="Wrap"/>
+            <TextBlock x:Name="mail" Padding="5,8" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Right" Width="240"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

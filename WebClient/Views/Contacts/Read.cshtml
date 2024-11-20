@@ -1,5 +1,77 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿
+@if (User.Identity.IsAuthenticated)
+{
+    Layout = "_AdminLayout2";
 }
+else
+{
+    Layout = "_GuestLayout2";
+}
+
+<div class="content">
+    <h2 class="title">Контакты</h2>
+
+    <div class="content__contacts">
+        <div class="content__left content__left_addr">
+            <div class="addr-wrapper">
+                <address class="address">
+                    <span>168956, г. Москва, ул. Симоновский Вал, д. 34</span>
+                    <span>Тел: <a href="tel:+79893452200">+7 989 345 22 00</a></span>
+                    <span>Факс: <a href="tel:+79893452200">+7 989 345 22 00</a></span>
+                    <span>E-mail: <a href="mailto:test@test.ru">test@test.ru</a></span>
+                    <span>ФИО: Иванов Иван Иванович</span>
+                </address>
+            </div>
+
+            <ul class="contacts__socials">
+                <li class="contacts__item">A</li>
+                <li class="contacts__item">B</li>
+                <li class="contacts__item">C</li>
+                <li class="contacts__item">D</li>
+            </ul>
+        </div>
+
+        <div class="content__right content__right_map">
+            <img class="map" src="~/img/ya-map.jpg" alt="Карта" />
+        </div>
+    </div>
+
+    <button class="btn btn_right" onclick="show-modal()">Редактировать</button>
+</div>
+
+@* ----- Модальное окно ----- *@
+<div class="modal-wrapper">
+    <div class="social-modal">
+        <div class="modal__header">
+            <span class="modal__title">Добавить / редактировать ссылки</span>
+        </div>
+
+        <div class="modal__content">
+            <div class="modal__inputs">
+                <ul class="modal__links">
+                    <li class="modal__item">
+                        <input class="modal__input" type="text" name="link-1" />
+                    </li>
+
+                    <li class="modal__item">
+                        <input class="modal__input" type="text" name="link-2" />
+                    </li>
+
+                    <li class="modal__item">
+                        <input class="modal__input" type="text" name="link-3" />
+                    </li>
+
+                    <li class="modal__item">
+                        <input class="modal__input" type="text" name="link-4" />
+                    </li>
+
+                    <li class="modal__item">
+                        <input class="modal__input" type="text" name="link-5" />
+                    </li>
+                </ul>
+
+                <button class="btn modal__btn" onclick="add-link()">+ Добавить ещё</button>
+            </div>
+        </div>
+    </div>
+</div>

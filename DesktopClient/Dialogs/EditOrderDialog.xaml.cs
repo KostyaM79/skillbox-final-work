@@ -10,21 +10,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DesktopClient.ViewModels;
+using Models;
 
-namespace DesktopClient
+namespace DesktopClient.Dialogs
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для EditOrderDialog.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class EditOrderDialog : Window
     {
-        public MainWindow()
+        public EditOrderDialog(EditOrderDialog_ViewModel viewModel)
         {
             InitializeComponent();
-            DataContext = new MainVindow_ViewModel(this);
+            DataContext = viewModel;
         }
     }
 }
