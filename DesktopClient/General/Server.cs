@@ -7,6 +7,8 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Configuration;
 using Models;
+using System.IO;
+using System.Net.Http.Headers;
 
 namespace DesktopClient.General
 {
@@ -71,6 +73,38 @@ namespace DesktopClient.General
             if (responseMessage.IsSuccessStatusCode)
                 return await responseMessage.Content.ReadFromJsonAsync<ProjectModel[]>();
             else return default;
+        }
+
+        public async Task<ProjectModel> GetProjectAsync(int id)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            HttpResponseMessage responseMessage = httpClient.GetAsync($"api/Projects/Read/{id}").Result;
+            if (responseMessage.IsSuccessStatusCode)
+                return await responseMessage.Content.ReadFromJsonAsync<ProjectModel>();
+            else return default;
+        }
+
+        public void UpdateProject(ProjectModel model, string contentType, Stream fileStream, string fileName)
+        {
+            StreamContent streamContent;
+
+            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
+
+            if (fileStream != null)
+            {
+                streamContent = new StreamContent(fileStream);
+                streamContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
+                fileContent.Add(streamContent, name: "file", fileName: "blog-1.jpg");
+            }
+
+            fileContent.Add(new StringContent($"{model.Id}"), "Id");
+            fileContent.Add(new StringContent(model.ProjectTitle), "ProjectTitle");
+            fileContent.Add(new StringContent(model.ProjectDescr), "ProjectDescr");
+
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
+            _ = httpClient.PostAsync("api/Projects/Edit", fileContent).Result;
         }
     }
 }

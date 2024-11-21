@@ -13,6 +13,7 @@ using Models;
 using DesktopClient.Events;
 using System.Windows.Media.Imaging;
 using System.Windows;
+using DesktopClient.Dialogs;
 using System.IO;
 
 namespace DesktopClient.ViewModels
@@ -31,7 +32,7 @@ namespace DesktopClient.ViewModels
         {
             ProjectsReceived += OnRequestingProjects;
             this.service = service;
-            _ = GetDataAsync();
+            GetDataAsync();
         }
 
         public ProjectsControl ParentWnd
@@ -50,10 +51,11 @@ namespace DesktopClient.ViewModels
             set
             {
                 projects = value;
+                ProjectsReceived?.Invoke(new RequestingProjectsEventArgs(projects));
             }
         }
 
-        private async Task GetDataAsync()
+        private async void GetDataAsync()
         {
             ProjectModel[] projects = await service.GetAllAsync();
 
@@ -71,6 +73,7 @@ namespace DesktopClient.ViewModels
                 lock (locker)
                 {
                     ProjectControlBuilder constructor = new ProjectControlBuilder();
+                    ParentWnd.projectsWrapPanel.Children.Clear();
 
                     foreach (ProjectModel t in args.Projects)
                     {
@@ -87,7 +90,12 @@ namespace DesktopClient.ViewModels
 
         private void EditAction(object o)
         {
-
+            ProjectDialog_ViewModel viewModel = new ProjectDialog_ViewModel(ServiceFactory.GetService<IDesktopProjectsService>());
+            EditProjectDialog dialog = new EditProjectDialog(viewModel);
+            //viewModel.EditMode((int)(o as Button).Tag);
+            viewModel.EditMode(projects.FirstOrDefault(e => e.Id == (int)(o as Button).Tag));
+            if (dialog.ShowDialog().Value)
+                GetDataAsync();
         }
 
         private void DeleteAction(object o)

@@ -6,7 +6,7 @@ using System.Configuration;
 using System.Threading.Tasks;
 using DesktopClient.General;
 using Models;
-using Services;
+using System.IO;
 
 namespace DesktopClient.Services
 {
@@ -35,6 +35,19 @@ namespace DesktopClient.Services
             foreach (ProjectModel t in projects)
                 t.ModifyFileName(ConfigurationManager.AppSettings["api-location"]);
             return projects;
+        }
+
+        public async Task<ProjectModel> GetAsync(int id)
+        {
+            ProjectModel project = await server.GetProjectAsync(id);
+            if (project != null)
+                project.ModifyFileName(ConfigurationManager.AppSettings["api-location"]);
+            return project;
+        }
+
+        public void Update(ProjectModel model, string contentType, Stream fileStream, string fileName)
+        {
+            server.UpdateProject(model, contentType, fileStream, fileName);
         }
     }
 }
