@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Services
 {
-    public interface IApiProjectService : IProjectService
+    public interface IApiProjectService : IProjectsService
     {
         bool Add(string title, string descr, string fileName);
 

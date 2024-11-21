@@ -4,6 +4,32 @@
              xmlns:local="clr-namespace:DesktopClient"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="app-btn" TargetType="Button">
+            <Setter Property="Padding" Value="20,5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="app-textbox" TargetType="TextBox">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+
+        <Style x:Key="app-title" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#aaf"/>
+            <Setter Property="FontSize" Value="42"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+        </Style>
+
+        <Style x:Key="title-border" TargetType="Border">
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="BorderBrush" Value="#aaf"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+        </Style>
+
+        <Style x:Key="proj-border" TargetType="Border">
+            
+        </Style>
     </Application.Resources>
 </Application>

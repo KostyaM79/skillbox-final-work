@@ -34,12 +34,12 @@
                 <Button HorizontalContentAlignment="Left"
                         Padding="10,5" Margin="0,5"
                         FontSize="20" Background="Transparent"
-                        BorderThickness="0" Foreground="#fff" Cursor="Hand">Главная</Button>
+                        BorderThickness="0" Foreground="#fff" Cursor="Hand" Command="{Binding Main_Cmd}">Главная</Button>
                 
                 <Button HorizontalContentAlignment="Left"
                         Padding="10,5" Margin="0,5"
                         FontSize="20" Background="Transparent"
-                        BorderThickness="0" Foreground="#fff" Cursor="Hand">Проекты</Button>
+                        BorderThickness="0" Foreground="#fff" Cursor="Hand" Command="{Binding Projects_Cmd}">Проекты</Button>
                 
                 <Button HorizontalContentAlignment="Left"
                         Padding="10,5" Margin="0,5"

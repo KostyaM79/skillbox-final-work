@@ -52,5 +52,25 @@ namespace DesktopClient.General
             httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
             _ = httpClient.PostAsync($"api/Orders/Update", JsonContent.Create(model)).Result;
         }
+
+        public ProjectModel[] GetAllProjects()
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            HttpResponseMessage responseMessage = httpClient.GetAsync("api/Projects/ReadAll").Result;
+            if (responseMessage.IsSuccessStatusCode)
+                return responseMessage.Content.ReadFromJsonAsync<ProjectModel[]>().Result;
+            else return default;
+        }
+
+        public async Task<ProjectModel[]> GetAllProjectsAsync()
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            HttpResponseMessage responseMessage = httpClient.GetAsync("api/Projects/ReadAll").Result;
+            if (responseMessage.IsSuccessStatusCode)
+                return await responseMessage.Content.ReadFromJsonAsync<ProjectModel[]>();
+            else return default;
+        }
     }
 }

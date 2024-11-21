@@ -8,7 +8,7 @@ using System.IO;
 
 namespace Services
 {
-    public interface IClientProjectService : IProjectService
+    public interface IClientProjectService : IProjectsService
     {
         bool Add(ProjectModel model, string contentType, Stream fileStream, string fileName);
 

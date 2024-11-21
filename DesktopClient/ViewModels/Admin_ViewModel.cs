@@ -33,15 +33,26 @@ namespace DesktopClient.ViewModels
         private RelayCommand weekFilterCmd;
         private RelayCommand monthFilterCmd;
         private RelayCommand rangeFilterCmd;
+        private RelayCommand mainCmd;
+        private RelayCommand projectsCmd;
 
         public Admin_ViewModel(string token)
         {
             this.token = token;
+            GetOrders();
         }
 
         public UserControl StartControl => startControl;
 
-        public UserControl ContentControl => content;
+        public UserControl ContentControl
+        {
+            get => content;
+            set
+            {
+                content = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ContentControl)));
+            }
+        }
 
         public OrderItemList OrdersItems
         {
@@ -81,13 +92,30 @@ namespace DesktopClient.ViewModels
             {
                 return desktopCmd ?? (desktopCmd = new RelayCommand(obj =>
                 {
-                    IOrderService service = ServiceFactory.GetService<IOrderService>();
-                    OrdersListModel model = service.GetAll();
-                    orderItemListViewModel = new OrderItemList_ViewModel();
-                    orderItemListViewModel.SelectedOrderChanged += OnSelectedOrderChanged;
-                    OrderItemList itemList = new OrderItemList(orderItemListViewModel);
-                    orderItemListViewModel.OrderItems = model.OrdersList;
-                    OrdersItems = itemList;
+                    GetOrders();
+                }));
+            }
+        }
+
+        public RelayCommand Main_Cmd
+        {
+            get
+            {
+                return mainCmd ?? (mainCmd = new RelayCommand(obj =>
+                {
+                    ContentControl = new MainContentControl();
+                }));
+            }
+        }
+
+        public RelayCommand Projects_Cmd
+        {
+            get
+            {
+                return projectsCmd ?? (projectsCmd = new RelayCommand(obj =>
+                {
+                    ProjectsControl_ViewModel viewModel = new ProjectsControl_ViewModel(ServiceFactory.GetService<IDesktopProjectsService>());
+                    ContentControl = new ProjectsControl(viewModel);
                 }));
             }
         }
@@ -160,7 +188,6 @@ namespace DesktopClient.ViewModels
             }
         }
 
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnSelectedOrderChanged(SelectedOrderChangedEventArgs args)
@@ -168,6 +195,18 @@ namespace DesktopClient.ViewModels
             EditOrderDialog_ViewModel viewModel = new EditOrderDialog_ViewModel(ServiceFactory.GetService<IOrderService>(), args.Order.Id);
             EditOrderDialog dialog = new EditOrderDialog(viewModel);
             dialog.ShowDialog();
+        }
+
+        private void GetOrders()
+        {
+            ContentControl = new OrdersControl();
+            IOrderService service = ServiceFactory.GetService<IOrderService>();
+            OrdersListModel model = service.GetAll();
+            orderItemListViewModel = new OrderItemList_ViewModel();
+            orderItemListViewModel.SelectedOrderChanged += OnSelectedOrderChanged;
+            OrderItemList itemList = new OrderItemList(orderItemListViewModel);
+            orderItemListViewModel.OrderItems = model.OrdersList;
+            OrdersItems = itemList;
         }
     }
 }

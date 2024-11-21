@@ -19,6 +19,8 @@ namespace DesktopClient
         {
             ServiceFactory.Add<IAuthenticateService, AuthenticateService>();
             ServiceFactory.Add<IOrderService, OrdersService>();
+            //ServiceFactory.Add<IProjectService, ProjectsService>();
+            ServiceFactory.Add<IDesktopProjectsService, ProjectsService>();
         }
     }
 }

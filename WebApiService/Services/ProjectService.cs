@@ -49,21 +49,29 @@ namespace WebApiService.Services
 
         public ProjectModel[] GetAll()
         {
-            Project[] projects = context.Projects.AsNoTracking().ToArray();
+            Project[] projects = context.Projects.AsNoTracking().ToArray();     // Получаем проекты из базы данных
+            List<ProjectModel> projectModels = new();                           // Создаём коллекцию для проектов
 
-            List<ProjectModel> projectModels = new();
-            foreach (Project p in projects)
+            return projects.Select(e => new ProjectModel()
             {
-                projectModels.Add(new ProjectModel()
-                {
-                    Id = p.Id,
-                    ProjectTitle = p.ProjectCaption,
-                    ProjectDescr = p.ProjectDescription,
-                    ProjectImageFileName = p.ProjectImageFileName
-                });
-            }
+                Id = e.Id,
+                ProjectTitle = e.ProjectCaption,
+                ProjectDescr = e.ProjectDescription,
+                ProjectImageFileName = e.ProjectImageFileName
+            }).ToArray();
 
-            return projectModels.ToArray();
+            //foreach (Project p in projects)
+            //{
+            //    projectModels.Add(new ProjectModel()
+            //    {
+            //        Id = p.Id,
+            //        ProjectTitle = p.ProjectCaption,
+            //        ProjectDescr = p.ProjectDescription,
+            //        ProjectImageFileName = p.ProjectImageFileName
+            //    });
+            //}
+
+            //return projectModels.ToArray();
         }
 
         public bool Edit(int id, string title, string descr, Stream stream = null, string fileName = null)

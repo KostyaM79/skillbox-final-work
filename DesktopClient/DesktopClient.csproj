@@ -7,7 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="icons\delete.png" />
+    <None Remove="icons\edit.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FinalWorkGeneralClasses\FinalWorkGeneralClasses.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="icons\delete.png" />
+    <Resource Include="icons\edit.png" />
   </ItemGroup>
 
 </Project>

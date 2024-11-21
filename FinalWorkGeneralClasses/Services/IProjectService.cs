@@ -7,7 +7,7 @@ using Models;
 
 namespace Services
 {
-    public interface IProjectService
+    public interface IProjectsService
     {
         ProjectModel[] GetAll();
 
