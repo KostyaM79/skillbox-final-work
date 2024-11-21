@@ -11,6 +11,8 @@ namespace DesktopClient.Services
 {
     public interface IDesktopProjectsService : IProjectsService
     {
+
+        void Add(ProjectModel model, string contentType, Stream fileStream, string fileName);
         Task<ProjectModel[]> GetAllAsync();
 
         Task<ProjectModel> GetAsync(int id);

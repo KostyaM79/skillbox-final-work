@@ -106,5 +106,28 @@ namespace DesktopClient.General
             httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
             _ = httpClient.PostAsync("api/Projects/Edit", fileContent).Result;
         }
+
+        public void DeleteProject(int id)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            _ = httpClient.DeleteAsync($"api/Projects/Delete/{id}").Result;
+        }
+
+        public void AddProject(ProjectModel model, string contentType, Stream fileStream, string fileName)
+        {
+            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
+
+            StreamContent streamContent = new StreamContent(fileStream);
+            streamContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
+
+            fileContent.Add(new StringContent(model.ProjectTitle), "ProjectTitle");
+            fileContent.Add(new StringContent(model.ProjectDescr), "ProjectDescr");
+            fileContent.Add(streamContent, name: "file", fileName: fileName);
+
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
+            _ = httpClient.PostAsync("api/Projects/Create", fileContent).Result;
+        }
     }
 }

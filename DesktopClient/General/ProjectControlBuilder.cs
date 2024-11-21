@@ -25,6 +25,8 @@ namespace DesktopClient.General
         public ProjectControlBuilder AddImage(string url)
         {
             image = new Image();
+            image.Height = 200;
+            image.Stretch = Stretch.Fill;
             BitmapImage bitmap = new BitmapImage();
 
             bitmap.BeginInit();

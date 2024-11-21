@@ -34,7 +34,7 @@
             </StackPanel>
         </StackPanel>
 
-        <Border Grid.Column="3" Grid.Row="1" Width="300" Height="200" BorderThickness="1" BorderBrush="#ccf" VerticalAlignment="Top" HorizontalAlignment="Right">
+        <Border x:Name="imgBorder" Grid.Column="3" Grid.Row="1" Width="300" Height="200" BorderThickness="1" BorderBrush="#ccf" VerticalAlignment="Top" HorizontalAlignment="Right">
             <Image x:Name="imgFile" Source="{Binding ProjectImage}"/>
         </Border>
 

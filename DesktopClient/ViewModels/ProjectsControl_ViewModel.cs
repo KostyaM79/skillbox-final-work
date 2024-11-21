@@ -21,6 +21,7 @@ namespace DesktopClient.ViewModels
     public class ProjectsControl_ViewModel
     {
         private object locker = new object();
+        private RelayCommand addProjectCmd;
 
         private ProjectsControl parentWnd;
         public event RequestingProjects_EventHandler ProjectsReceived;
@@ -92,7 +93,6 @@ namespace DesktopClient.ViewModels
         {
             ProjectDialog_ViewModel viewModel = new ProjectDialog_ViewModel(ServiceFactory.GetService<IDesktopProjectsService>());
             EditProjectDialog dialog = new EditProjectDialog(viewModel);
-            //viewModel.EditMode((int)(o as Button).Tag);
             viewModel.EditMode(projects.FirstOrDefault(e => e.Id == (int)(o as Button).Tag));
             if (dialog.ShowDialog().Value)
                 GetDataAsync();
@@ -100,7 +100,28 @@ namespace DesktopClient.ViewModels
 
         private void DeleteAction(object o)
         {
+            ServiceFactory.GetService<IDesktopProjectsService>().Delete((int)(o as Button).Tag);
+            GetDataAsync();
+        }
 
+        private void AddProject()
+        {
+            ProjectDialog_ViewModel viewModel = new ProjectDialog_ViewModel(ServiceFactory.GetService<IDesktopProjectsService>());
+            EditProjectDialog dialog = new EditProjectDialog(viewModel);
+            viewModel.AddMode();
+            if (dialog.ShowDialog().Value)
+                GetDataAsync();
+        }
+
+        public RelayCommand AddProject_Cmd
+        {
+            get
+            {
+                return addProjectCmd ?? (addProjectCmd = new RelayCommand(obj =>
+                {
+                    AddProject();
+                }));
+            }
         }
     }
 }

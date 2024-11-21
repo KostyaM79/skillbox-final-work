@@ -24,6 +24,8 @@
             <WrapPanel x:Name="projectsWrapPanel">
 
             </WrapPanel>
+
+            <Button Content="Добавить проект" Style="{StaticResource app-btn}" HorizontalAlignment="Right" Cursor="Hand" Command="{Binding AddProject_Cmd}"/>
         </StackPanel>
     </Grid>
 </UserControl>

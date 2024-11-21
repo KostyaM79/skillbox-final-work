@@ -35,6 +35,7 @@ namespace DesktopClient.ViewModels
         private RelayCommand rangeFilterCmd;
         private RelayCommand mainCmd;
         private RelayCommand projectsCmd;
+        private RelayCommand servicesCmd;
 
         public Admin_ViewModel(string token)
         {
@@ -113,6 +114,18 @@ namespace DesktopClient.ViewModels
             get
             {
                 return projectsCmd ?? (projectsCmd = new RelayCommand(obj =>
+                {
+                    ProjectsControl_ViewModel viewModel = new ProjectsControl_ViewModel(ServiceFactory.GetService<IDesktopProjectsService>());
+                    ContentControl = new ProjectsControl(viewModel);
+                }));
+            }
+        }
+
+        public RelayCommand Services_Cmd
+        {
+            get
+            {
+                return servicesCmd ?? (servicesCmd = new RelayCommand(obj =>
                 {
                     ProjectsControl_ViewModel viewModel = new ProjectsControl_ViewModel(ServiceFactory.GetService<IDesktopProjectsService>());
                     ContentControl = new ProjectsControl(viewModel);

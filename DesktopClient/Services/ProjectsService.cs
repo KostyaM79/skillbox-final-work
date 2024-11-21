@@ -14,9 +14,14 @@ namespace DesktopClient.Services
     {
         private readonly Server server = new Server();
 
+        public void Add(ProjectModel model, string contentType, Stream fileStream, string fileName)
+        {
+            server.AddProject(model, contentType, fileStream, fileName);
+        }
+
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            server.DeleteProject(id);
         }
 
         public ProjectModel Get(int id)

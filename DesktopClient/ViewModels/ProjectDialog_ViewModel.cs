@@ -66,12 +66,21 @@ namespace DesktopClient.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public async void EditMode(int id)
+        //public async void EditMode(int id)
+        //{
+        //    project = await service.GetAsync(id);
+        //    BitmapImage bitmap = new BitmapImage();
+        //    bitmap.BeginInit();
+        //    bitmap.UriSource = new Uri(project.ProjectImageFileName);
+        //    bitmap.EndInit();
+        //    ProjectImage = bitmap;
+        //}
+
+        public void AddMode()
         {
-            project = await service.GetAsync(id);
-            BitmapImage bitmap = new BitmapImage();
+            ParentWnd.saveBtn.Command = new RelayCommand(Add); BitmapImage bitmap = new BitmapImage();
             bitmap.BeginInit();
-            bitmap.UriSource = new Uri(project.ProjectImageFileName);
+            bitmap.StreamSource = File.OpenRead("..\\..\\..\\icons\\upload.png");
             bitmap.EndInit();
             ProjectImage = bitmap;
         }
@@ -114,7 +123,19 @@ namespace DesktopClient.ViewModels
 
         private void Add(object o)
         {
+            if (!string.IsNullOrEmpty(Title) && !string.IsNullOrEmpty(Descr) && !string.IsNullOrEmpty(filePath))
+            {
+                ProjectModel proj = new ProjectModel()
+                {
+                    ProjectTitle = Title,
+                    ProjectDescr = Descr
+                };
 
+                service.Add(proj, $"image/{fileExt}", File.OpenRead(filePath), fileName);
+
+                ParentWnd.DialogResult = true;
+                ParentWnd.Close();
+            }
         }
 
         private void OnMouseClick(object sender, MouseButtonEventArgs args)
