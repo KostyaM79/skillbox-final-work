@@ -1,0 +1,37 @@
+﻿<Window x:Class="DesktopClient.Dialogs.ServiceDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DesktopClient.Dialogs"
+        mc:Ignorable="d"
+        Title="ServiceDialog" Height="378" Width="600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid Margin="0,0,0,-6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="15"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="15"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+            <TextBlock Text="Название услуги"/>
+            <TextBox Style="{StaticResource app-textbox}" Text="{Binding ServiceTitle}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Vertical">
+            <TextBlock Text="Описание"/>
+            <TextBox Style="{StaticResource app-textbox}" TextWrapping="Wrap" Height="188" Text="{Binding ServiceDescr}"/>
+        </StackPanel>
+
+        <Button Grid.Column="1" Grid.Row="3" Style="{StaticResource app-btn}" Content="Сохранить" VerticalAlignment="Bottom" HorizontalAlignment="Right" Cursor="Hand" Command="{Binding Ok_Cmd}"/>
+
+    </Grid>
+</Window>

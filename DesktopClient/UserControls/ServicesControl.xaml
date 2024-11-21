@@ -5,10 +5,45 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DesktopClient.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" x:Name="window">
     <Grid>
-        <ListBox ItemsSource="{Binding Services}">
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="580"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Text="Что мы можем сделать" Style="{StaticResource app-title}" Grid.ColumnSpan="2"/>
+
+        <ListBox ItemsSource="{Binding Services}" SelectedItem="{Binding SelectedService}" Grid.Row="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Border BorderThickness="1" BorderBrush="#aaf" CornerRadius="10" Width="480" Background="#aaf" >
+                            <TextBlock Text="{Binding ServiceTitle}" FontSize="24" Padding="6,5,6,5" Foreground="#fff"/>
+                        </Border>
+
+                        <Button Width="24" Height="24" Margin="5">
+                            <Image Source="/UserControls/edit.png"/>
+                        </Button>
+                        <Button Width="24" Height="24" Margin="5">
+                            <Image Source="/UserControls/delete.png"/>
+                        </Button>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
+
+        <Border Grid.Column="1" Grid.Row="1" Margin="10,0,0,0" BorderThickness="1" BorderBrush="#aaf" Background="#fff">
+            <TextBlock Text="{Binding ServiceDescr}" DataContext="{Binding SelectedService}" Padding="5" Height="400" VerticalAlignment="Top" FontSize="16"/>
+        </Border>
+
+        <Button Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom"
+                HorizontalAlignment="Right" Style="{StaticResource app-btn}" Command="{Binding CreateService_Cmd}" Cursor="Hand">Добавить услугу</Button>
     </Grid>
 </UserControl>

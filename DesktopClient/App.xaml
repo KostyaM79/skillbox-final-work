@@ -32,9 +32,5 @@
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="Margin" Value="0,0,0,20"/>
         </Style>
-
-        <Style x:Key="proj-border" TargetType="Border">
-            
-        </Style>
     </Application.Resources>
 </Application>

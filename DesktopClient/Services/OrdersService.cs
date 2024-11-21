@@ -15,7 +15,7 @@ namespace DesktopClient.Services
 
         public bool Add(OrderModel model)
         {
-            throw new NotImplementedException();
+            return server.AddOrder(model);
         }
 
         public ModifyOrderModel Get(int id)

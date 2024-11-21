@@ -12,20 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using DesktopClient.ViewModels;
 
 namespace DesktopClient.UserControls
 {
     /// <summary>
-    /// Логика взаимодействия для ServicesControl.xaml
+    /// Логика взаимодействия для GuestCanvas.xaml
     /// </summary>
-    public partial class ServicesControl : UserControl
+    public partial class GuestCanvas : UserControl
     {
-        public ServicesControl(ServicesControl_ViewModel viewModel)
+        public GuestCanvas()
         {
             InitializeComponent();
-            DataContext = viewModel;
-            viewModel.ParentWnd = this;
         }
     }
 }

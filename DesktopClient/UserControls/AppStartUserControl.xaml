@@ -39,8 +39,8 @@
         </StackPanel>
 
         <Button Content="Войти" Grid.Column="1" Grid.Row="4"
-                VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                VerticalAlignment="Bottom" HorizontalAlignment="Center"
                 Padding="20,4" Cursor="Hand" FontSize="16"
-                Command="{Binding Login_Cmd}" CommandParameter="{Binding ElementName=passwordBox}" TabIndex="3"/>
+                Command="{Binding Login_Cmd}" CommandParameter="{Binding ElementName=passwordBox}" TabIndex="3" IsDefault="True"/>
     </Grid>
 </UserControl>

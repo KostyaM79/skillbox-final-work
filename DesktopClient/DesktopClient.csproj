@@ -9,6 +9,9 @@
   <ItemGroup>
     <None Remove="icons\delete.png" />
     <None Remove="icons\edit.png" />
+    <None Remove="icons\upload.png" />
+    <None Remove="UserControls\delete.png" />
+    <None Remove="UserControls\edit.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,6 +21,13 @@
   <ItemGroup>
     <Resource Include="icons\delete.png" />
     <Resource Include="icons\edit.png" />
+    <Resource Include="icons\upload.png" />
+    <Resource Include="UserControls\delete.png" />
+    <Resource Include="UserControls\edit.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
 
 </Project>

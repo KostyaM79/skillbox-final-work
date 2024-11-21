@@ -129,5 +129,30 @@ namespace DesktopClient.General
             httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
             _ = httpClient.PostAsync("api/Projects/Create", fileContent).Result;
         }
+
+        public async Task<ServiceModel[]> GetAllServicesAsync()
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            HttpResponseMessage responseMessage = httpClient.GetAsync("api/Services/ReadAll").Result;
+            if (responseMessage.IsSuccessStatusCode)
+                return await responseMessage.Content.ReadFromJsonAsync<ServiceModel[]>();
+            else return default;
+        }
+
+        public bool AddOrder(OrderModel model)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            HttpResponseMessage responseMessage = httpClient.PostAsync($"api/Orders/Create", JsonContent.Create(model)).Result;
+            return responseMessage.IsSuccessStatusCode;
+        }
+
+        public void AddService(ServiceModel model)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            _ = httpClient.PostAsync($"api/Services/Create", JsonContent.Create(model)).Result;
+        }
     }
 }

@@ -127,8 +127,8 @@ namespace DesktopClient.ViewModels
             {
                 return servicesCmd ?? (servicesCmd = new RelayCommand(obj =>
                 {
-                    ProjectsControl_ViewModel viewModel = new ProjectsControl_ViewModel(ServiceFactory.GetService<IDesktopProjectsService>());
-                    ContentControl = new ProjectsControl(viewModel);
+                    ServicesControl_ViewModel viewModel = new ServicesControl_ViewModel(ServiceFactory.GetService<IDesktopServicesService>());
+                    ContentControl = new ServicesControl(viewModel);
                 }));
             }
         }

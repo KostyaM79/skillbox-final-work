@@ -86,9 +86,7 @@ namespace DesktopClient.General
 
         public Border Build()
         {
-            btns = new StackPanel();
-            btns.Orientation = Orientation.Horizontal;
-
+            
             titleBorder = new Border();
             titleBorder.Padding = new Thickness(5, 10, 5, 5);
             titleBorder.Background = new SolidColorBrush(Color.FromRgb(192, 192, 192));
@@ -100,14 +98,20 @@ namespace DesktopClient.General
             card.Width = 300;
             card.Margin = new Thickness(5, 0, 5, 10);
 
-            btns.Children.Add(editBtn);
-            btns.Children.Add(deleteBtn);
+            if (editBtn != null && deleteBtn != null)
+            {
+                btns = new StackPanel();
+                btns.Orientation = Orientation.Horizontal;
+
+                btns.Children.Add(editBtn);
+                btns.Children.Add(deleteBtn);
+            }
 
             titleBorder.Child = title;
 
             content.Children.Add(image);
             content.Children.Add(titleBorder);
-            content.Children.Add(btns);
+            if (btns != null) content.Children.Add(btns);
 
             card.Child = content;
 

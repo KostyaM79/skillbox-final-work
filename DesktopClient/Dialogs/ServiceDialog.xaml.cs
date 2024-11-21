@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DesktopClient.General;
+using DesktopClient.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,18 +12,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using DesktopClient.ViewModels;
 
-namespace DesktopClient.UserControls
+namespace DesktopClient.Dialogs
 {
     /// <summary>
-    /// Логика взаимодействия для ServicesControl.xaml
+    /// Логика взаимодействия для ServiceDialog.xaml
     /// </summary>
-    public partial class ServicesControl : UserControl
+    public partial class ServiceDialog : Window
     {
-        public ServicesControl(ServicesControl_ViewModel viewModel)
+        public ServiceDialog(ServiceDialog_ViewModel viewModel)
         {
             InitializeComponent();
             DataContext = viewModel;

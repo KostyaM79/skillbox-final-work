@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesktopClient.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,16 +13,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using DesktopClient.ViewModels;
 
 namespace DesktopClient.UserControls
 {
     /// <summary>
-    /// Логика взаимодействия для ServicesControl.xaml
+    /// Логика взаимодействия для GuestMainControl.xaml
     /// </summary>
-    public partial class ServicesControl : UserControl
+    public partial class GuestMainControl : UserControl
     {
-        public ServicesControl(ServicesControl_ViewModel viewModel)
+        public GuestMainControl(GuestMain_ViewModel viewModel)
         {
             InitializeComponent();
             DataContext = viewModel;
