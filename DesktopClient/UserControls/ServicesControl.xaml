@@ -13,14 +13,16 @@
         </Grid.ColumnDefinitions>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="90"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        
-        <TextBlock Text="Что мы можем сделать" Style="{StaticResource app-title}" Grid.ColumnSpan="2"/>
 
-        <ListBox ItemsSource="{Binding Services}" SelectedItem="{Binding SelectedService}" Grid.Row="1">
+        <Border Style="{StaticResource title-border}">
+            <TextBlock Text="Что мы можем сделать" Style="{StaticResource app-title}" Grid.ColumnSpan="2"/>
+        </Border>
+
+        <!--<ListBox ItemsSource="{Binding Services}" SelectedItem="{Binding SelectedService}" Grid.Row="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -28,16 +30,20 @@
                             <TextBlock Text="{Binding ServiceTitle}" FontSize="24" Padding="6,5,6,5" Foreground="#fff"/>
                         </Border>
 
-                        <Button Width="24" Height="24" Margin="5">
+                        <Button Width="24" Height="24" Margin="5" Command="{Binding Edit_Cmd}">
                             <Image Source="/UserControls/edit.png"/>
                         </Button>
-                        <Button Width="24" Height="24" Margin="5">
+                        <Button Width="24" Height="24" Margin="5" Command="{Binding Delete_Cmd}">
                             <Image Source="/UserControls/delete.png"/>
                         </Button>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-        </ListBox>
+        </ListBox>-->
+
+        <StackPanel x:Name="itemsStack" Grid.Row="1" Margin="0,-6,0,0">
+            
+        </StackPanel>
 
         <Border Grid.Column="1" Grid.Row="1" Margin="10,0,0,0" BorderThickness="1" BorderBrush="#aaf" Background="#fff">
             <TextBlock Text="{Binding ServiceDescr}" DataContext="{Binding SelectedService}" Padding="5" Height="400" VerticalAlignment="Top" FontSize="16"/>

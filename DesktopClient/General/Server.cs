@@ -154,5 +154,19 @@ namespace DesktopClient.General
             httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
             _ = httpClient.PostAsync($"api/Services/Create", JsonContent.Create(model)).Result;
         }
+
+        public void UpdateService(ServiceModel model)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            _ = httpClient.PostAsync($"api/Services/Update", JsonContent.Create(model)).Result;
+        }
+
+        public void DeleteService(int id)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            _ = httpClient.DeleteAsync($"api/Services/Delete/{id}").Result;
+        }
     }
 }

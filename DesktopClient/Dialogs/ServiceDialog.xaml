@@ -31,7 +31,8 @@
             <TextBox Style="{StaticResource app-textbox}" TextWrapping="Wrap" Height="188" Text="{Binding ServiceDescr}"/>
         </StackPanel>
 
-        <Button Grid.Column="1" Grid.Row="3" Style="{StaticResource app-btn}" Content="Сохранить" VerticalAlignment="Bottom" HorizontalAlignment="Right" Cursor="Hand" Command="{Binding Ok_Cmd}"/>
+        <Button x:Name="saveBtn" Grid.Column="1" Grid.Row="3"
+                Style="{StaticResource app-btn}" Content="Сохранить" VerticalAlignment="Bottom" HorizontalAlignment="Right" Cursor="Hand" Command="{Binding Ok_Cmd}"/>
 
     </Grid>
 </Window>

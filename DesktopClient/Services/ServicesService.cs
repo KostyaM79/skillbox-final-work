@@ -19,7 +19,7 @@ namespace DesktopClient.Services
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            server.DeleteService(id);
         }
 
         public ServiceModel Get(int id)
@@ -39,7 +39,7 @@ namespace DesktopClient.Services
 
         public void Update(ServiceModel model)
         {
-            throw new NotImplementedException();
+            server.UpdateService(model);
         }
     }
 }

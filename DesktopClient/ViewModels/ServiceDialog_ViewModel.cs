@@ -28,6 +28,16 @@ namespace DesktopClient.ViewModels
 
         public string ServiceDescr { get; set; }
 
+        public ServiceModel Model { get; set; }
+
+        public void Edit(ServiceModel model)
+        {
+            ParentWnd.saveBtn.Command = new RelayCommand(EditAction);
+            Model = model;
+            ServiceTitle = model.ServiceTitle;
+            ServiceDescr = model.ServiceDescr;
+        }
+
         public RelayCommand Ok_Cmd
         {
             get
@@ -47,6 +57,17 @@ namespace DesktopClient.ViewModels
                     }
                 }));
             }
+        }
+
+        private void EditAction(object o)
+        {
+            service.Update(new ServiceModel() { 
+                Id = Model.Id,
+                ServiceTitle = ServiceTitle,
+                ServiceDescr = ServiceDescr
+            });
+            ParentWnd.DialogResult = true;
+            ParentWnd.Close();
         }
     }
 }
