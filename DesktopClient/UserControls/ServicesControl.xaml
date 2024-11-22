@@ -18,8 +18,8 @@
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
-        <Border Style="{StaticResource title-border}">
-            <TextBlock Text="Что мы можем сделать" Style="{StaticResource app-title}" Grid.ColumnSpan="2"/>
+        <Border Style="{StaticResource title-border}" Grid.ColumnSpan="2">
+            <TextBlock Text="Что мы можем сделать" Style="{StaticResource app-title}"/>
         </Border>
 
         <!--<ListBox ItemsSource="{Binding Services}" SelectedItem="{Binding SelectedService}" Grid.Row="1">

@@ -168,5 +168,60 @@ namespace DesktopClient.General
             httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
             _ = httpClient.DeleteAsync($"api/Services/Delete/{id}").Result;
         }
+
+        public ArticleModel[] ReadAllArticles()
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            HttpResponseMessage responseMessage = httpClient.GetAsync("api/Articles/ReadAll").Result;
+            if (responseMessage.IsSuccessStatusCode)
+                return  responseMessage.Content.ReadFromJsonAsync<ArticleModel[]>().Result;
+            else return default;
+        }
+
+        public void AddArticle(ArticleModel model, string contentType, Stream fileStream, string fileName)
+        {
+            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
+
+            StreamContent streamContent = new StreamContent(fileStream);
+            streamContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
+
+            fileContent.Add(new StringContent(model.ArticleCaption), "ArticleTitle");
+            fileContent.Add(new StringContent(model.ArticleText), "ArticleText");
+            fileContent.Add(streamContent, name: "file", fileName: fileName);
+
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
+            _ = httpClient.PostAsync("api/Articles/Create", fileContent).Result;
+        }
+
+        public void DeleteArticle(int id)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            _ = httpClient.DeleteAsync($"api/Articles/Delete/{id}").Result;
+        }
+
+        public void UpdateArticle(ArticleModel model, string contentType, Stream stream, string fileName)
+        {
+            StreamContent streamContent;
+
+            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
+
+            if (stream != null)
+            {
+                streamContent = new StreamContent(stream);
+                streamContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+                fileContent.Add(streamContent, name: "file", fileName: fileName);
+            }
+
+            fileContent.Add(new StringContent($"{model.Id}"), "Id");
+            fileContent.Add(new StringContent(model.ArticleCaption), "ArticleCaption");
+            fileContent.Add(new StringContent(model.ArticleText), "ArticleText");
+
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
+            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Articles/Update", fileContent).Result;
+        }
     }
 }

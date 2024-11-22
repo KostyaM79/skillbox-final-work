@@ -36,6 +36,8 @@ namespace DesktopClient.ViewModels
         private RelayCommand mainCmd;
         private RelayCommand projectsCmd;
         private RelayCommand servicesCmd;
+        private RelayCommand blogCmd;
+        private RelayCommand contactsCmd;
 
         public Admin_ViewModel(string token)
         {
@@ -129,6 +131,29 @@ namespace DesktopClient.ViewModels
                 {
                     ServicesControl_ViewModel viewModel = new ServicesControl_ViewModel(ServiceFactory.GetService<IDesktopServicesService>());
                     ContentControl = new ServicesControl(viewModel);
+                }));
+            }
+        }
+
+        public RelayCommand Blog_Cmd
+        {
+            get
+            {
+                return blogCmd ?? (blogCmd = new RelayCommand(obj =>
+                {
+                    Blog_ViewModel viewModel = new Blog_ViewModel(ServiceFactory.GetService<IDesktopArticlesService>());
+                    ContentControl = new BlogControl(viewModel);
+                }));
+            }
+        }
+
+        public RelayCommand Contacts_Cmd
+        {
+            get
+            {
+                return contactsCmd ?? (contactsCmd = new RelayCommand(obj =>
+                {
+                    ContentControl = Contacts_VievModel.CreateContectsControl().ParentWnd;
                 }));
             }
         }

@@ -1,0 +1,45 @@
+﻿<Window x:Class="DesktopClient.Dialogs.ArticleDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DesktopClient.Dialogs"
+        xmlns:ctls="clr-namespace:DesktopClient.UserControls"
+        xmlns:vm="clr-namespace:DesktopClient.ViewModels"
+        mc:Ignorable="d"
+        Title="ArticleDialog" Height="420" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="15"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="230"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="15"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+            <Label Target="{Binding ElementName=title}" Content="Заголовок"/>
+            <TextBox Text="{Binding ArticleTitle}" Style="{StaticResource app-textbox}"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left">
+            <Label Target="{Binding ElementName=photo}" Content="Фото"/>
+            <ctls:AdditionPhotoControl x:Name="photo" Width="300" Height="200">
+            </ctls:AdditionPhotoControl>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="2">
+            <Label Target="{Binding ElementName=text}" Content="Содержание статьи"/>
+            <RichTextBox x:Name="text" Height="200" Padding="5" FontSize="16"/>
+        </StackPanel>
+
+        <Button Grid.Column="2" Grid.Row="3" Style="{StaticResource app-btn}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{Binding Save_Cmd}">Сохранить</Button>
+    </Grid>
+</Window>
