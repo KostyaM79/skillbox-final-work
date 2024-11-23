@@ -40,7 +40,7 @@ namespace DesktopClient.ViewModels
             set
             {
                 selectedOrder = value;
-                SelectedOrderChanged(new SelectedOrderChangedEventArgs() { Order = value });
+                SelectedOrderChanged?.Invoke(new SelectedOrderChangedEventArgs() { Order = value });
             }
         }
 

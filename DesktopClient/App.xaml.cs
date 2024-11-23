@@ -18,7 +18,7 @@ namespace DesktopClient
         public App()
         {
             ServiceFactory.Add<IAuthenticateService, AuthenticateService>();
-            ServiceFactory.Add<IOrderService, OrdersService>();
+            ServiceFactory.Add<IDesktopOrdersService, OrdersService>();
             ServiceFactory.Add<IDesktopProjectsService, ProjectsService>();
             ServiceFactory.Add<IDesktopServicesService, ServicesService>();
             ServiceFactory.Add<IDesktopArticlesService, ArticlesService>();

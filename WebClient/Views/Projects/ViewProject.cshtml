@@ -1,0 +1,26 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    Layout = "_AdminLayout2";
+}
+else
+{
+    Layout = "_GuestLayout2";
+}
+
+@model ProjectModel
+
+<div class="view-project">
+    <div class="view-project__content">
+        <div class="view-project__header">
+            <h2 class="view-project__title">@Model.ProjectTitle</h2>
+            <img class="view-project__img" src="@Model.ProjectImageFileName" alt="Alternate Text" />
+        </div>
+
+        <div class="view-project__descr">
+            @foreach (string temp in Model.GetParagraphs())
+            {
+                <p class="view-project__paragraph">@temp</p>
+            }
+        </div>
+    </div>
+</div>

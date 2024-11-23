@@ -18,6 +18,11 @@ namespace DesktopClient.ViewModels
 {
     public class Admin_ViewModel : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Вызывается при изменении значения свойства
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private string token;
         private UserControl startControl = new AdminCanvas();
         private UserControl ordersFilterContron = new OrdersFilterControl();
@@ -47,6 +52,9 @@ namespace DesktopClient.ViewModels
 
         public UserControl StartControl => startControl;
 
+        /// <summary>
+        /// Возвращает или задаёт элемент управления, содержащий главный контент окна
+        /// </summary>
         public UserControl ContentControl
         {
             get => content;
@@ -57,6 +65,9 @@ namespace DesktopClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Возвращает или задаё элемент управления, отображающий список заявок
+        /// </summary>
         public OrderItemList OrdersItems
         {
             get => ordersItems;
@@ -67,6 +78,9 @@ namespace DesktopClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Возвращает или задаёт начальную дату для фильтрации заявок
+        /// </summary>
         public DateTime FirstDate
         {
             get => firstDate;
@@ -77,6 +91,9 @@ namespace DesktopClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Возвращает или задаёт конечную дату для фильтрации заявок
+        /// </summary>
         public DateTime LastDate
         {
             get => lastDate;
@@ -87,8 +104,15 @@ namespace DesktopClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Возвращает панель филтра
+        /// </summary>
         public UserControl OrdersFilter => ordersFilterContron;
 
+        /// <summary>
+        /// Привязывается к кнопке меню.
+        /// Отображает рабочий стол с заявками
+        /// </summary>
         public RelayCommand Desktop_Cmd
         {
             get
@@ -100,6 +124,10 @@ namespace DesktopClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Привязывается к кнопке меню.
+        /// Отображает главное окно.
+        /// </summary>
         public RelayCommand Main_Cmd
         {
             get
@@ -111,6 +139,10 @@ namespace DesktopClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Привязывается к кнопке меню.
+        /// Отображает проекты.
+        /// </summary>
         public RelayCommand Projects_Cmd
         {
             get
@@ -123,6 +155,10 @@ namespace DesktopClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Привязывается к кнопке меню.
+        /// Отображает услуги.
+        /// </summary>
         public RelayCommand Services_Cmd
         {
             get
@@ -135,6 +171,10 @@ namespace DesktopClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Привязывается к кнопке меню.
+        /// Отображает блог.
+        /// </summary>
         public RelayCommand Blog_Cmd
         {
             get
@@ -147,6 +187,10 @@ namespace DesktopClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Привязывается к кнопке меню.
+        /// Отображает контакты.
+        /// </summary>
         public RelayCommand Contacts_Cmd
         {
             get
@@ -158,6 +202,10 @@ namespace DesktopClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Привязывается к кнопке фильтра.
+        /// Отбирает заявки только текущей даты.
+        /// </summary>
         public RelayCommand TodayFilter_Cmd
         {
             get
@@ -170,6 +218,10 @@ namespace DesktopClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Привязывается к кнопке фильтра.
+        /// Отбирает заявки только предыдущей даты.
+        /// </summary>
         public RelayCommand YesterdayFilter_Cmd
         {
             get
@@ -182,6 +234,10 @@ namespace DesktopClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Привязывается к кнопке фильтра.
+        /// Отбирает заявки за неделю.
+        /// </summary>
         public RelayCommand WeekFilter_Cmd
         {
             get
@@ -194,6 +250,10 @@ namespace DesktopClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Привязывается к кнопке фильтра.
+        /// Отбирает заявки за месяц.
+        /// </summary>
         public RelayCommand MonthFilter_Cmd
         {
             get
@@ -206,6 +266,10 @@ namespace DesktopClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Привязывается к кнопке фильтра с датами.
+        /// Отбирает заявки за указанный диапазон дат.
+        /// </summary>
         public RelayCommand RangeFilter_Cmd
         {
             get
@@ -217,6 +281,9 @@ namespace DesktopClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Проверяет, выбраны ли обе даты. И, если так, то применяет фильтр.
+        /// </summary>
         private void ApplyRangeFilter()
         {
             if (orderItemListViewModel != null)
@@ -226,15 +293,23 @@ namespace DesktopClient.ViewModels
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
+        /// <summary>
+        /// В ответ на изменение выбранной заявки открывает диалог для её редактирования.
+        /// </summary>
+        /// <param name="args"></param>
         private void OnSelectedOrderChanged(SelectedOrderChangedEventArgs args)
         {
-            EditOrderDialog_ViewModel viewModel = new EditOrderDialog_ViewModel(ServiceFactory.GetService<IOrderService>(), args.Order.Id);
-            EditOrderDialog dialog = new EditOrderDialog(viewModel);
-            dialog.ShowDialog();
+            if (args.Order != null)
+            {
+                EditOrderDialog_ViewModel viewModel = new EditOrderDialog_ViewModel(ServiceFactory.GetService<IOrderService>(), args.Order.Id, token);
+                EditOrderDialog dialog = new EditOrderDialog(viewModel);
+                dialog.ShowDialog();
+            }
         }
 
+        /// <summary>
+        /// Получает с сервера список заявок
+        /// </summary>
         private void GetOrders()
         {
             ContentControl = new OrdersControl();

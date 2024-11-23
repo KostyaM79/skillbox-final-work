@@ -11,5 +11,7 @@ namespace WebApiService.Services
     public interface IApiOrderService : IOrderService
     {
         OrdersListModel Get(Func<Order, bool> predicate);
+
+        void Update(UpdateOrderModel model);
     }
 }

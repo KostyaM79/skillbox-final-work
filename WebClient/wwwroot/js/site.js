@@ -75,6 +75,7 @@ function addevents() {
     }
 }
 
+
 function check() {
     let btn = document.getElementById("btn");
 

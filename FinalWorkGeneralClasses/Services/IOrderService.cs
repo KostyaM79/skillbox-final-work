@@ -14,6 +14,6 @@ namespace Services
 
         ModifyOrderModel Get(int id);
 
-        void Update(UpdateOrderModel model);
+        //void Update(UpdateOrderModel model);
     }
 }

@@ -91,5 +91,12 @@ namespace WebClient.Controllers
             projectService.Delete(id);
             return Redirect("/Projects/ReadAll");
         }
+
+        public IActionResult ViewProject(int id)
+        {
+            ProjectModel project = projectService.Get(id);
+            project.ModifyFileName(configuration["ApiLocation"]);
+            return View(project);
+        }
     }
 }

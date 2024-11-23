@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="DesktopClient.UserControls.SocialsItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DesktopClient.UserControls"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="120" Margin="0,0,0,10">
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <Image x:Name="logo" Source="{Binding LogoImg}" Width="28" Height="28" Margin="0,0,5,0"/>
+            <TextBox Style="{StaticResource app-textbox}" VerticalAlignment="Center" Width="298" Margin="0,0,5,0"/>
+            <Button Width="26" Height="26">
+                <Image Source="/icons/delete.png"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

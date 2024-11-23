@@ -14,14 +14,16 @@ namespace DesktopClient.ViewModels
 {
     public class EditOrderDialog_ViewModel : INotifyPropertyChanged
     {
+        private string token;
         private IOrderService service;
         private ModifyOrderModel order;
         private OrderStatusModel status;
 
         private RelayCommand okCmd;
 
-        public EditOrderDialog_ViewModel(IOrderService service, int id)
+        public EditOrderDialog_ViewModel(IOrderService service, int id, string token)
         {
+            this.token = token;
             this.service = service;
             order = service.Get(id);
             SelectedOrderStatus = Statuses.FirstOrDefault(e => e.Id == order.OrderStatus.Id);
@@ -60,7 +62,7 @@ namespace DesktopClient.ViewModels
                 return okCmd ?? (okCmd = new RelayCommand(obj =>
                 {
                     if (!SelectedOrderStatus.Equals(order.OrderStatus))
-                        service.Update(new UpdateOrderModel() { Id = Id, StatusId = SelectedOrderStatus.Id });
+                        service.Update(new UpdateOrderModel() { Id = Id, StatusId = SelectedOrderStatus.Id }, token);
                     (obj as EditOrderDialog).Close();
                 }));
             }

@@ -19,14 +19,16 @@ else
         <ul class="services__items">
             @foreach (ServiceModel t in Model)
             {
-                <li class="services__item editable">
-                    <details class="services__details">
-                        <summary class="details-title">@t.ServiceTitle</summary>
-                        <div class="services__text">
-                            @t.ServiceDescr
-                        </div>
-                    </details>
+            <li class="services__item editable">
+                <details class="services__details">
+                    <summary class="details-title">@t.ServiceTitle</summary>
+                    <div class="services__text">
+                        @t.ServiceDescr
+                    </div>
+                </details>
 
+                @if (User.Identity.IsAuthenticated)
+                {
                     <a class="admin-service-item_link" asp-controller="Services" asp-action="Read" asp-route-id="@t.Id">
                         <svg fill="#000000" width="20px" height="20px" viewBox="0 0 24 24" data-name="Flat Line" xmlns="http://www.w3.org/2000/svg" class="icon flat-line">
                             <path d="M20,4h0a3,3,0,0,0-4.24,0L8.3,11.47l4.24,4.24L20,8.24A3,3,0,0,0,20,4Z" style="fill: rgb(44, 169, 188); stroke-width: 2;"></path>
@@ -48,10 +50,14 @@ else
                     9.3-20.8 20.8v311.4c0 11.5 9.3 20.8 20.8 20.8z" fill="#211F1E" />
                         </svg>
                     </a>
-                </li>
+                }
+            </li>
             }
         </ul>
     </div>
 
-    <a class="btn services__btn" asp-controller="Services" asp-action="Create">Добавить услугу</a>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a class="btn services__btn" asp-controller="Services" asp-action="Create">Добавить услугу</a>
+    }
 </div>

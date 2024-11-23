@@ -16,6 +16,11 @@ namespace Models
 
         public string ProjectImageFileName { get; set; }
 
+        public string[] GetParagraphs()
+        {
+            return ProjectDescr.Split('\r');
+        }
+
         /// <summary>
         /// Модифицирует имя файла в ссылку
         /// </summary>

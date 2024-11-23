@@ -9,7 +9,7 @@ using DesktopClient.General;
 
 namespace DesktopClient.Services
 {
-    public class OrdersService : IOrderService
+    public class OrdersService : IDesktopOrdersService
     {
         private readonly Server server = new Server();
 
@@ -28,9 +28,9 @@ namespace DesktopClient.Services
             return server.GetAllOrders();
         }
 
-        public void Update(UpdateOrderModel model)
+        public void Update(UpdateOrderModel model, string token)
         {
-            server.UpdateOrder(model);
+            server.UpdateOrder(model, token);
         }
     }
 }

@@ -24,7 +24,11 @@
 
 .proj-card {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 100%;
+    height: 100%;
     background-color: #ccc;
 }
 
@@ -46,7 +50,9 @@
 }
 
 .proj-card__title {
-    margin-bottom: 0;
+    margin: 0;
+    padding: 5px;
+    vertical-align: bottom;
 }
 
 .projects__btn {
@@ -139,4 +145,39 @@
     height: 0.1px;
     opacity: 0;
     visibility: hidden;
+}
+
+.project-lnk {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+}
+
+.view-project__content {
+    padding: 20px 180px;
+}
+
+.view-project__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    border-bottom: 1px solid #aaa;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.view-project__title {
+    margin: 0;
+}
+
+.view-project__img {
+    width: 150px;
+}
+
+.view-project__paragraph {
+    margin: 0;
+    width: calc(100% - 200px);
 }

@@ -54,7 +54,7 @@ namespace WebClient.Controllers
         {
             if (ModelState.IsValid) orderService.Add(model);
 
-            return RedirectToAction("Main", "SiteApp");
+            return RedirectToAction("Main", "Home");
         }
 
         [HttpGet]

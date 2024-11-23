@@ -14,6 +14,42 @@ namespace DesktopClient.General
 {
     class Server
     {
+        #region Добавление данных
+        #endregion
+
+        #region Обновление данных
+        internal void UpdateOrder(UpdateOrderModel model, string token)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            _ = httpClient.PostAsync($"api/Orders/Update", JsonContent.Create(model)).Result;
+        }
+
+        public void UpdateProject(ProjectModel model, string contentType, Stream fileStream, string fileName)
+        {
+            StreamContent streamContent;
+
+            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
+
+            if (fileStream != null)
+            {
+                streamContent = new StreamContent(fileStream);
+                streamContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
+                fileContent.Add(streamContent, name: "file", fileName: "blog-1.jpg");
+            }
+
+            fileContent.Add(new StringContent($"{model.Id}"), "Id");
+            fileContent.Add(new StringContent(model.ProjectTitle), "ProjectTitle");
+            fileContent.Add(new StringContent(model.ProjectDescr), "ProjectDescr");
+
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
+            _ = httpClient.PostAsync("api/Projects/Edit", fileContent).Result;
+        }
+        #endregion
+
+
         internal string Login(LoginModel model)
         {
             HttpClient httpClient = new HttpClient();
@@ -48,12 +84,7 @@ namespace DesktopClient.General
             else return default;
         }
 
-        internal void UpdateOrder(UpdateOrderModel model)
-        {
-            HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
-            _ = httpClient.PostAsync($"api/Orders/Update", JsonContent.Create(model)).Result;
-        }
+        
 
         public ProjectModel[] GetAllProjects()
         {
@@ -85,27 +116,7 @@ namespace DesktopClient.General
             else return default;
         }
 
-        public void UpdateProject(ProjectModel model, string contentType, Stream fileStream, string fileName)
-        {
-            StreamContent streamContent;
-
-            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
-
-            if (fileStream != null)
-            {
-                streamContent = new StreamContent(fileStream);
-                streamContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
-                fileContent.Add(streamContent, name: "file", fileName: "blog-1.jpg");
-            }
-
-            fileContent.Add(new StringContent($"{model.Id}"), "Id");
-            fileContent.Add(new StringContent(model.ProjectTitle), "ProjectTitle");
-            fileContent.Add(new StringContent(model.ProjectDescr), "ProjectDescr");
-
-            HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
-            _ = httpClient.PostAsync("api/Projects/Edit", fileContent).Result;
-        }
+        
 
         public void DeleteProject(int id)
         {

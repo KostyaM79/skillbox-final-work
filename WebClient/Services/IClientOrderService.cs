@@ -16,5 +16,7 @@ namespace WebClient.Services
         OrdersListModel GetByWeek();
 
         OrdersListModel Get(string filterName, int startOffset, int endOffset);
+
+        void Update(UpdateOrderModel model);
     }
 }

@@ -32,46 +32,52 @@ else
         </div>
 
         <div class="content__right content__right_map">
-            <img class="map" src="~/img/ya-map.jpg" alt="Карта" />
+            <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Aeb8d23b8614d9f04333cfad58a47163f8d363ef46fb7237f531a56189d8bf732&amp;width=475&amp;height=320&amp;lang=ru_RU&amp;scroll=true"></script>
         </div>
     </div>
 
-    <button class="btn btn_right" onclick="show-modal()">Редактировать</button>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <button class="btn btn_right" onclick="show-modal()">Редактировать</button>
+    }
 </div>
 
-@* ----- Модальное окно ----- *@
-<div class="modal-wrapper">
-    <div class="social-modal">
-        <div class="modal__header">
-            <span class="modal__title">Добавить / редактировать ссылки</span>
-        </div>
+@if (User.Identity.IsAuthenticated)
+{
+    @* ----- Модальное окно ----- *@
+    <div class="modal-wrapper">
+        <div class="social-modal">
+            <div class="modal__header">
+                <span class="modal__title">Добавить / редактировать ссылки</span>
+            </div>
 
-        <div class="modal__content">
-            <div class="modal__inputs">
-                <ul class="modal__links">
-                    <li class="modal__item">
-                        <input class="modal__input" type="text" name="link-1" />
-                    </li>
+            <div class="modal__content">
+                <div class="modal__inputs">
+                    <ul class="modal__links">
+                        <li class="modal__item">
+                            <input class="modal__input" type="text" name="link-1" />
+                        </li>
 
-                    <li class="modal__item">
-                        <input class="modal__input" type="text" name="link-2" />
-                    </li>
+                        <li class="modal__item">
+                            <input class="modal__input" type="text" name="link-2" />
+                        </li>
 
-                    <li class="modal__item">
-                        <input class="modal__input" type="text" name="link-3" />
-                    </li>
+                        <li class="modal__item">
+                            <input class="modal__input" type="text" name="link-3" />
+                        </li>
 
-                    <li class="modal__item">
-                        <input class="modal__input" type="text" name="link-4" />
-                    </li>
+                        <li class="modal__item">
+                            <input class="modal__input" type="text" name="link-4" />
+                        </li>
 
-                    <li class="modal__item">
-                        <input class="modal__input" type="text" name="link-5" />
-                    </li>
-                </ul>
+                        <li class="modal__item">
+                            <input class="modal__input" type="text" name="link-5" />
+                        </li>
+                    </ul>
 
-                <button class="btn modal__btn" onclick="add-link()">+ Добавить ещё</button>
+                    <button class="btn modal__btn" onclick="add-link()">+ Добавить ещё</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+}
