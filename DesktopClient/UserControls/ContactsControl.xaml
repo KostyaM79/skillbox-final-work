@@ -37,6 +37,6 @@
         </StackPanel>
 
         <Button x:Name="editBtn" Grid.Row="2" Style="{StaticResource app-btn}" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Редактировать"
-                Command="{Binding Edit_Cmd}"/>
+                Command="{Binding Edit_Cmd}" Cursor="Hand"/>
     </Grid>
 </UserControl>

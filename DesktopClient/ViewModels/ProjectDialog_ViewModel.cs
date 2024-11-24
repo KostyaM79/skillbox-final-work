@@ -50,6 +50,8 @@ namespace DesktopClient.ViewModels
             }
         }
 
+        public int Id { get; set; }
+
         public string Title { get; set; }
 
         public string Descr { get; set; }
@@ -66,16 +68,6 @@ namespace DesktopClient.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //public async void EditMode(int id)
-        //{
-        //    project = await service.GetAsync(id);
-        //    BitmapImage bitmap = new BitmapImage();
-        //    bitmap.BeginInit();
-        //    bitmap.UriSource = new Uri(project.ProjectImageFileName);
-        //    bitmap.EndInit();
-        //    ProjectImage = bitmap;
-        //}
-
         public void AddMode()
         {
             ParentWnd.saveBtn.Command = new RelayCommand(Add); BitmapImage bitmap = new BitmapImage();
@@ -85,13 +77,13 @@ namespace DesktopClient.ViewModels
             ProjectImage = bitmap;
         }
 
-        public void EditMode(ProjectModel project)
+        public void EditMode(ProjectCard_ViewModel viewModel)
         {
-            this.project = project;
-            ProjectImage = CreateImage(project.ProjectImageFileName);
-
-            Title = project.ProjectTitle;
-            Descr = project.ProjectDescr;
+            Project = viewModel.Model;
+            Id = viewModel.Model.Id;
+            ProjectImage = viewModel.Image;
+            Title = viewModel.Model.ProjectTitle;
+            Descr = viewModel.Model.ProjectDescr;
 
             ParentWnd.saveBtn.Command = new RelayCommand(Edit);
         }

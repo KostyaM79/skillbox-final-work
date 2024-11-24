@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DesktopClient.General;
 using DesktopClient.UserControls;
+using DesktopClient.Dialogs;
+using DesktopClient.Services;
 
 namespace DesktopClient.ViewModels
 {
@@ -12,7 +14,7 @@ namespace DesktopClient.ViewModels
     {
         private RelayCommand editCmd;
 
-        public static Contacts_VievModel CreateContectsControl(bool viewMode = false)
+        public static Contacts_VievModel CreateContectsControl(IDesktopSocialsService service, bool viewMode = false)
         {
             Contacts_VievModel vievModel = new Contacts_VievModel();
             ContactsControl control = new ContactsControl();
@@ -31,6 +33,7 @@ namespace DesktopClient.ViewModels
                 return editCmd ?? (editCmd = new RelayCommand(obj =>
                 {
                     
+                    SocialsDialog dialog = new SocialsDialog();
                 }));
             }
         }

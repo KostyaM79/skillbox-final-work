@@ -21,6 +21,7 @@ namespace DesktopClient.ViewModels
     public class ProjectsControl_ViewModel
     {
         private object locker = new object();
+        private bool viewMode = false;
         private RelayCommand addProjectCmd;
 
         private ProjectsControl parentWnd;
@@ -73,17 +74,14 @@ namespace DesktopClient.ViewModels
             {
                 lock (locker)
                 {
-                    ProjectControlBuilder constructor = new ProjectControlBuilder();
-                    ParentWnd.projectsWrapPanel.Children.Clear();
+                    ParentWnd.projects.Children.Clear();
 
-                    foreach (ProjectModel t in args.Projects)
+                    foreach (ProjectModel temp in projects)
                     {
-                        constructor.AddImage(t.ProjectImageFileName)
-                            .AddEditBtn(new RelayCommand(EditAction), File.OpenRead("..\\..\\..\\icons\\edit.png"), t.Id)
-                            .AddDeleteBtn(new RelayCommand(DeleteAction), File.OpenRead("..\\..\\..\\icons\\delete.png"), t.Id)
-                            .AddTitle(t.ProjectTitle);
-
-                        ParentWnd.projectsWrapPanel.Children.Add(constructor.Build());
+                        if (viewMode)
+                            ParentWnd.projects.Children.Add(ProjectCard_ViewModel.CreateProjectCard(temp).ParentWnd);
+                        else
+                            ParentWnd.projects.Children.Add(ProjectCard_ViewModel.CreateProjectCard(temp, new RelayCommand(EditAction), new RelayCommand(DeleteAction)).ParentWnd);
                     }
                 }
             }
@@ -91,16 +89,23 @@ namespace DesktopClient.ViewModels
 
         private void EditAction(object o)
         {
-            ProjectDialog_ViewModel viewModel = new ProjectDialog_ViewModel(ServiceFactory.GetService<IDesktopProjectsService>());
-            EditProjectDialog dialog = new EditProjectDialog(viewModel);
-            viewModel.EditMode(projects.FirstOrDefault(e => e.Id == (int)(o as Button).Tag));
+            ProjectViewCard control = o as ProjectViewCard;
+            ProjectCard_ViewModel viewModel = control.DataContext as ProjectCard_ViewModel;
+
+            ProjectDialog_ViewModel dialogViewModel = new ProjectDialog_ViewModel(service);
+            EditProjectDialog dialog = new EditProjectDialog(dialogViewModel);
+            //viewModel.EditMode(projects.FirstOrDefault(e => e.Id == (int)(o as Button).Tag));
+            dialogViewModel.EditMode(viewModel);
             if (dialog.ShowDialog().Value)
                 GetDataAsync();
         }
 
         private void DeleteAction(object o)
         {
-            ServiceFactory.GetService<IDesktopProjectsService>().Delete((int)(o as Button).Tag);
+            ProjectViewCard control = o as ProjectViewCard;
+            ProjectCard_ViewModel viewModel = control.DataContext as ProjectCard_ViewModel;
+
+            service.Delete(viewModel.Id);
             GetDataAsync();
         }
 

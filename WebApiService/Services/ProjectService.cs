@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
 using Services;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApiService.Services
 {
@@ -22,13 +23,17 @@ namespace WebApiService.Services
             this.context = context;
         }
 
-        public bool Add(string title, string descr, string imgFileName)
+        public bool Add(string title, string descr, IFormFile file)
         {
+            string newFileName = CreateFileName(file.FileName);
+            SaveImage(file, newFileName);                            // Сохраняем изображение
+
+            //Сохраняем данные в БД
             Project project = new Project()
             {
                 ProjectCaption = title,
                 ProjectDescription = descr,
-                ProjectImageFileName = imgFileName
+                ProjectImageFileName = newFileName
             };
 
             context.Projects.Add(project);
@@ -59,36 +64,26 @@ namespace WebApiService.Services
                 ProjectDescr = e.ProjectDescription,
                 ProjectImageFileName = e.ProjectImageFileName
             }).ToArray();
-
-            //foreach (Project p in projects)
-            //{
-            //    projectModels.Add(new ProjectModel()
-            //    {
-            //        Id = p.Id,
-            //        ProjectTitle = p.ProjectCaption,
-            //        ProjectDescr = p.ProjectDescription,
-            //        ProjectImageFileName = p.ProjectImageFileName
-            //    });
-            //}
-
-            //return projectModels.ToArray();
         }
 
-        public bool Edit(int id, string title, string descr, Stream stream = null, string fileName = null)
+        public bool Edit(int id, string title, string descr, IFormFile file = null)
         {
             string newFileName = null;
 
             Project project = context.Projects.FirstOrDefault(e => e.Id == id);             // Получаем проект из БД
 
             // Если картинка была изменена, то удаляем старую картинку и сохраняем новую
-            if (stream != null)
+            if (file != null)
             {
-                File.Delete($"img\\projects-images\\{project.ProjectImageFileName}");       // Удаляем старую картинку
-                newFileName = CreateFileName(fileName);                                     // Формируем имя нового файла
-                using FileStream fs = File.Create($"img\\projects-images\\{newFileName}");  // Создаём поток для сохранения новой картинки
-                stream.CopyTo(fs);                                                          // Копируем картинку в поток
-                stream.Close();
-                fs.Close();
+                //File.Delete($"img\\projects-images\\{project.ProjectImageFileName}");       // Удаляем старую картинку
+                DeleteImage(project.ProjectImageFileName);
+                newFileName = CreateFileName(file.FileName);                                  // Формируем имя нового файла
+                SaveImage(file, newFileName);
+
+                //using FileStream fs = File.Create($"img\\projects-images\\{newFileName}");  // Создаём поток для сохранения новой картинки
+                //stream.CopyTo(fs);                                                          // Копируем картинку в поток
+                //stream.Close();
+                //fs.Close();
             }
 
             project.ProjectCaption = title;
@@ -98,6 +93,45 @@ namespace WebApiService.Services
             return context.SaveChanges() > 0;
         }
 
+        public void Delete(int id)
+        {
+            Project project = context.Projects.FirstOrDefault(e => e.Id == id);
+            //File.Delete($"img\\projects-images\\{project.ProjectImageFileName}");
+            DeleteImage(project.ProjectImageFileName);
+            context.Remove(project);
+            context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Сохраняет изображение
+        /// </summary>
+        /// <param name="file"></param>
+        private void SaveImage(IFormFile file, string fileName)
+        {
+            DirectoryInfo dir = Directory.CreateDirectory("img\\projects-images");
+
+            string path = $"{dir.FullName}\\{fileName}";
+            using FileStream fs = File.Create(path);
+            using Stream stream = file.OpenReadStream();
+            stream.CopyTo(fs);
+            fs.Close();
+            stream.Close();
+        }
+
+        /// <summary>
+        /// Удаляет изображение из папки projects-images
+        /// </summary>
+        /// <param name="fileName"></param>
+        private void DeleteImage(string fileName)
+        {
+            File.Delete($"img\\projects-images\\{fileName}");       // Удаляем файл
+        }
+
+        /// <summary>
+        /// Создаёт уникальное имя файла
+        /// </summary>
+        /// <param name="srcFileName"></param>
+        /// <returns></returns>
         private string CreateFileName(string srcFileName)
         {
             Regex regex = new Regex("(\\..+)$");
@@ -111,14 +145,6 @@ namespace WebApiService.Services
                 sb.Append(s);
             sb.Append(ext);
             return sb.ToString();
-        }
-
-        public void Delete(int id)
-        {
-            Project project = context.Projects.FirstOrDefault(e => e.Id == id);
-            File.Delete($"img\\projects-images\\{project.ProjectImageFileName}");
-            context.Remove(project);
-            context.SaveChanges();
         }
     }
 }

@@ -16,7 +16,6 @@ namespace WebApiService.Controllers
         [Route("dir/{dir}/file/{file}")]
         public IActionResult Read(string dir, string file)
         {
-            //FileStream fs = new FileStream($"img\\{dir}\\{file}", FileMode.Open);
             ImageManager im = new ImageManager();
             return File(im.GetImage(dir, file), "image/jpg");
         }

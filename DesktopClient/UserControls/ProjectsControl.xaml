@@ -21,7 +21,7 @@
                 <TextBlock Style="{StaticResource app-title}" Text="Проекты"/>
             </Border>
 
-            <WrapPanel x:Name="projectsWrapPanel">
+            <WrapPanel x:Name="projects">
 
             </WrapPanel>
 

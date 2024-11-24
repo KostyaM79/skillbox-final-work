@@ -102,7 +102,7 @@ namespace DesktopClient.ViewModels
             {
                 return contactsCmd ?? (contactsCmd = new RelayCommand(obj =>
                 {
-                    ContentControl = Contacts_VievModel.CreateContectsControl(true).ParentWnd;
+                    ContentControl = Contacts_VievModel.CreateContectsControl(ServiceFactory.GetService<IDesktopSocialsService>(), true).ParentWnd;
                 }));
             }
         }

@@ -14,56 +14,8 @@ namespace DesktopClient.General
 {
     class Server
     {
-        #region Добавление данных
-        #endregion
-
-        #region Обновление данных
-        internal void UpdateOrder(UpdateOrderModel model, string token)
-        {
-            HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            _ = httpClient.PostAsync($"api/Orders/Update", JsonContent.Create(model)).Result;
-        }
-
-        public void UpdateProject(ProjectModel model, string contentType, Stream fileStream, string fileName)
-        {
-            StreamContent streamContent;
-
-            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
-
-            if (fileStream != null)
-            {
-                streamContent = new StreamContent(fileStream);
-                streamContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
-                fileContent.Add(streamContent, name: "file", fileName: "blog-1.jpg");
-            }
-
-            fileContent.Add(new StringContent($"{model.Id}"), "Id");
-            fileContent.Add(new StringContent(model.ProjectTitle), "ProjectTitle");
-            fileContent.Add(new StringContent(model.ProjectDescr), "ProjectDescr");
-
-            HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
-            _ = httpClient.PostAsync("api/Projects/Edit", fileContent).Result;
-        }
-        #endregion
-
-
-        internal string Login(LoginModel model)
-        {
-            HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("auth-api-location"));
-            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Authenticate/Login", JsonContent.Create(model)).Result;
-
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                string token = responseMessage.Headers.GetValues("jwt").ToArray()[0];
-                return token;
-            }
-            else return default;
-        }
-
+        #region Методы для Orders
+        
         internal OrdersListModel GetAllOrders()
         {
             HttpClient httpClient = new HttpClient();
@@ -72,6 +24,14 @@ namespace DesktopClient.General
             if (responseMessage.IsSuccessStatusCode)
                 return responseMessage.Content.ReadFromJsonAsync<OrdersListModel>().Result;
             else return default;
+        }
+
+        public bool AddOrder(OrderModel model)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            HttpResponseMessage responseMessage = httpClient.PostAsync($"api/Orders/Create", JsonContent.Create(model)).Result;
+            return responseMessage.IsSuccessStatusCode;
         }
 
         internal ModifyOrderModel GetOrder(int id)
@@ -84,7 +44,24 @@ namespace DesktopClient.General
             else return default;
         }
 
-        
+        #endregion
+
+        #region Методы для Projects
+        public void AddProject(ProjectModel model, string contentType, Stream fileStream, string fileName)
+        {
+            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
+
+            StreamContent streamContent = new StreamContent(fileStream);
+            streamContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
+
+            fileContent.Add(new StringContent(model.ProjectTitle), "ProjectTitle");
+            fileContent.Add(new StringContent(model.ProjectDescr), "ProjectDescr");
+            fileContent.Add(streamContent, name: "file", fileName: fileName);
+
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
+            _ = httpClient.PostAsync("api/Projects/Create", fileContent).Result;
+        }
 
         public ProjectModel[] GetAllProjects()
         {
@@ -116,7 +93,27 @@ namespace DesktopClient.General
             else return default;
         }
 
-        
+        public void UpdateProject(ProjectModel model, string contentType, Stream fileStream, string fileName)
+        {
+            StreamContent streamContent;
+
+            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
+
+            if (fileStream != null)
+            {
+                streamContent = new StreamContent(fileStream);
+                streamContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
+                fileContent.Add(streamContent, name: "file", fileName: "blog-1.jpg");
+            }
+
+            fileContent.Add(new StringContent($"{model.Id}"), "Id");
+            fileContent.Add(new StringContent(model.ProjectTitle), "ProjectTitle");
+            fileContent.Add(new StringContent(model.ProjectDescr), "ProjectDescr");
+
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
+            _ = httpClient.PostAsync("api/Projects/Edit", fileContent).Result;
+        }
 
         public void DeleteProject(int id)
         {
@@ -124,21 +121,32 @@ namespace DesktopClient.General
             httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
             _ = httpClient.DeleteAsync($"api/Projects/Delete/{id}").Result;
         }
+        #endregion
 
-        public void AddProject(ProjectModel model, string contentType, Stream fileStream, string fileName)
+        #region Обновление данных
+        internal void UpdateOrder(UpdateOrderModel model, string token)
         {
-            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
-
-            StreamContent streamContent = new StreamContent(fileStream);
-            streamContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
-
-            fileContent.Add(new StringContent(model.ProjectTitle), "ProjectTitle");
-            fileContent.Add(new StringContent(model.ProjectDescr), "ProjectDescr");
-            fileContent.Add(streamContent, name: "file", fileName: fileName);
-
             HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
-            _ = httpClient.PostAsync("api/Projects/Create", fileContent).Result;
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            _ = httpClient.PostAsync($"api/Orders/Update", JsonContent.Create(model)).Result;
+        }
+
+        #endregion
+
+
+        internal string Login(LoginModel model)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("auth-api-location"));
+            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Authenticate/Login", JsonContent.Create(model)).Result;
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                string token = responseMessage.Headers.GetValues("jwt").ToArray()[0];
+                return token;
+            }
+            else return default;
         }
 
         public async Task<ServiceModel[]> GetAllServicesAsync()
@@ -149,14 +157,6 @@ namespace DesktopClient.General
             if (responseMessage.IsSuccessStatusCode)
                 return await responseMessage.Content.ReadFromJsonAsync<ServiceModel[]>();
             else return default;
-        }
-
-        public bool AddOrder(OrderModel model)
-        {
-            HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
-            HttpResponseMessage responseMessage = httpClient.PostAsync($"api/Orders/Create", JsonContent.Create(model)).Result;
-            return responseMessage.IsSuccessStatusCode;
         }
 
         public void AddService(ServiceModel model)
@@ -233,6 +233,59 @@ namespace DesktopClient.General
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
             HttpResponseMessage responseMessage = httpClient.PostAsync("api/Articles/Update", fileContent).Result;
+        }
+
+        public void AddSocial(SocialModel model, string contentType, Stream stream, string fileName)
+        {
+            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
+
+            StreamContent streamContent = new StreamContent(stream);
+            streamContent.Headers.ContentType = new MediaTypeHeaderValue($"image/{contentType}");
+
+            fileContent.Add(new StringContent(model.Link), "Link");
+            fileContent.Add(streamContent, name: "file", fileName: fileName);
+
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
+            _ = httpClient.PostAsync("api/Contacts/Create", fileContent).Result;
+        }
+
+        public void DeleteSocial(int id)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            _ = httpClient.DeleteAsync($"api/Contacts/Delete/{id}").Result;
+        }
+
+        public SocialModel[] GetAllSocials()
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            HttpResponseMessage responseMessage = httpClient.GetAsync("api/Contacts/ReadAll").Result;
+            if (responseMessage.IsSuccessStatusCode)
+                return responseMessage.Content.ReadFromJsonAsync<SocialModel[]>().Result;
+            else return default;
+        }
+
+        public void UpdateSocial(SocialModel model, string contentType, Stream stream, string fileName)
+        {
+            StreamContent streamContent;
+
+            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
+
+            if (stream != null)
+            {
+                streamContent = new StreamContent(stream);
+                streamContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+                fileContent.Add(streamContent, name: "file", fileName: fileName);
+            }
+
+            fileContent.Add(new StringContent($"{model.Id}"), "Id");
+            fileContent.Add(new StringContent(model.Link), "Link");
+
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
+            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Contacts/Update", fileContent).Result;
         }
     }
 }

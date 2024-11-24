@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace DesktopClient.UserControls
 {
     /// <summary>
-    /// Логика взаимодействия для ProjectItemControl.xaml
+    /// Логика взаимодействия для ProjectViewCard.xaml
     /// </summary>
-    public partial class ProjectItemControl : UserControl
+    public partial class ProjectViewCard : UserControl
     {
-        public ProjectItemControl()
+        public ProjectViewCard()
         {
             InitializeComponent();
         }

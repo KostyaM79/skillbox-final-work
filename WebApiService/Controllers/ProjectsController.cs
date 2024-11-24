@@ -45,32 +45,22 @@ namespace WebApiService.Controllers
 
         [HttpPost]
         [Route(nameof(Create))]
-        public IActionResult Create()
+        public void Create()
         {
             IFormFileCollection files = HttpContext.Request.Form.Files;
 
             string title = HttpContext.Request.Form["ProjectTitle"];
             string descr = HttpContext.Request.Form["ProjectDescr"];
             string fileName = files[0].FileName;
-            string imgFileName = CreateFileName(fileName);
 
-            if (service.Add(title, descr, imgFileName))
-            {
-                Directory.CreateDirectory("img\\projects-images");
-                using Stream s = System.IO.File.Create($"img\\projects-images\\{imgFileName}");
-                files[0].OpenReadStream().CopyTo(s);
-                s.Close();
-            }
-
-            return Ok();
+            service.Add(title, descr, files[0]);
         }
 
         [HttpPost]
         [Route(nameof(Edit))]
-        public IActionResult Edit()
+        public void Edit()
         {
-            string fileName = null;
-            Stream stream = null;
+            IFormFile file = null;
 
             IFormFileCollection files = HttpContext.Request.Form.Files;
 
@@ -79,14 +69,9 @@ namespace WebApiService.Controllers
             string descr = HttpContext.Request.Form["ProjectDescr"];
 
             if (files.Count > 0)
-            {
-                fileName = files[0].FileName;
-                stream = files[0].OpenReadStream();
-            }
+                file = files[0];
 
-            service.Edit(id, title, descr, stream, fileName);
-
-            return Ok();
+            service.Edit(id, title, descr, file);
         }
 
         [HttpDelete]
