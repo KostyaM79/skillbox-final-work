@@ -14,15 +14,20 @@ namespace DesktopClient.ViewModels
 {
     public class Guest_ViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private readonly UserControl startControl = new GuestCanvas();
         private UserControl content;
 
         private RelayCommand mainCmd;
         private RelayCommand projectsCmd;
+        private RelayCommand servicesCmd;
+        private RelayCommand blogCmd;
+        private RelayCommand contactsCmd;
 
         public Guest_ViewModel()
         {
-            GuestMain_ViewModel viewModel = new GuestMain_ViewModel(ServiceFactory.GetService<IOrderService>());
+            GuestMain_ViewModel viewModel = new GuestMain_ViewModel(ServiceFactory.GetService<IDesktopOrdersService>());
             content = new GuestMainControl(viewModel);
         }
 
@@ -47,7 +52,7 @@ namespace DesktopClient.ViewModels
             {
                 return mainCmd ?? (mainCmd = new RelayCommand(obj =>
                 {
-                    GuestMain_ViewModel viewModel = new GuestMain_ViewModel(ServiceFactory.GetService<IOrderService>());
+                    GuestMain_ViewModel viewModel = new GuestMain_ViewModel(ServiceFactory.GetService<IDesktopOrdersService>());
                     ContentControl = new GuestMainControl(viewModel);
                 }));
             }
@@ -65,6 +70,41 @@ namespace DesktopClient.ViewModels
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public RelayCommand Services_Cmd
+        {
+            get
+            {
+                return servicesCmd ?? (servicesCmd = new RelayCommand(obj =>
+                {
+                    ServicesControl_ViewModel viewModel = new ServicesControl_ViewModel(ServiceFactory.GetService<IDesktopServicesService>(), true);
+                    ServicesControl control = new ServicesControl(viewModel);
+                    control.contentGrid.Children.Remove(control.addBtn);
+                    ContentControl = control;
+                }));
+            }
+        }
+
+        public RelayCommand Blog_Cmd
+        {
+            get
+            {
+                return blogCmd ?? (blogCmd = new RelayCommand(obj =>
+                {
+                    Blog_ViewModel viewModel = new Blog_ViewModel(ServiceFactory.GetService<IDesktopArticlesService>(), true);
+                    ContentControl = new BlogControl(viewModel);
+                }));
+            }
+        }
+
+        public RelayCommand Contacts_Cmd
+        {
+            get
+            {
+                return contactsCmd ?? (contactsCmd = new RelayCommand(obj =>
+                {
+                    ContentControl = Contacts_VievModel.CreateContectsControl(true).ParentWnd;
+                }));
+            }
+        }
     }
 }

@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace DesktopClient.Events
 {
-    public delegate void DataReceivedEventHandler(object sender, DataReceivedEventArgs args);
+    public delegate void RequestingServicesEventHandler(object sender, RequestingServicesEventArgs args);
 }

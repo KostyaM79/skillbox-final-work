@@ -25,11 +25,12 @@ namespace DesktopClient.ViewModels
         /// <summary>
         /// Вызывается, когда получены новые данные
         /// </summary>
-        public event DataReceivedEventHandler DataReceived;
+        public event ArticlesReceivedEventHandler DataReceived;
 
         private BlogControl parentWnd;
         private IDesktopArticlesService service;
         private ArticleModel[] articles;
+        private bool viewMode = false;
 
         private RelayCommand addArticleCmd;
 
@@ -38,6 +39,11 @@ namespace DesktopClient.ViewModels
             this.service = service;
             RequestingData += OnRequestingData;
             DataReceived += OnDataReceived;
+        }
+
+        public Blog_ViewModel(IDesktopArticlesService service, bool viewMode) : this(service)
+        {
+            this.viewMode = viewMode;
         }
 
         /// <summary>
@@ -49,6 +55,7 @@ namespace DesktopClient.ViewModels
             set
             {
                 parentWnd = value;
+                if (viewMode) parentWnd.contantStackPanel.Children.Remove(parentWnd.addBtn);
                 RequestingData?.Invoke(parentWnd, new RequestingDataEventArgs());
             }
         }
@@ -59,7 +66,7 @@ namespace DesktopClient.ViewModels
             set
             {
                 articles = value;
-                DataReceived?.Invoke(this, new DataReceivedEventArgs(Articles));
+                DataReceived?.Invoke(this, new ArticlesReceivedEventArgs(Articles));
             }
         }
 
@@ -74,7 +81,7 @@ namespace DesktopClient.ViewModels
         }
 
 
-        private void OnDataReceived(object sender, DataReceivedEventArgs args)
+        private void OnDataReceived(object sender, ArticlesReceivedEventArgs args)
         {
             ShowData(args.Articles);
         }
@@ -95,7 +102,10 @@ namespace DesktopClient.ViewModels
 
             foreach (ArticleModel temp in articles)
             {
-                ParentWnd.articles.Children.Add(ArticleCard_ViewModel.CreateArticleCard(temp, new RelayCommand(EditAction), new RelayCommand(DeleteAction)).ParentWnd);
+                if (viewMode)
+                    ParentWnd.articles.Children.Add(ArticleCard_ViewModel.CreateArticleCard(temp).ParentWnd);
+                else
+                    ParentWnd.articles.Children.Add(ArticleCard_ViewModel.CreateArticleCard(temp, new RelayCommand(EditAction), new RelayCommand(DeleteAction)).ParentWnd);
             }
         }
 

@@ -6,8 +6,9 @@
              xmlns:local="clr-namespace:DesktopClient.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" MaxHeight="800" ScrollViewer.VerticalScrollBarVisibility="Visible">
-    <Grid>
-        <StackPanel>
+    
+    <Grid x:Name="contentGrid">
+        <StackPanel x:Name="contantStackPanel">
             <Border Style="{StaticResource title-border}">
                 <TextBlock Style="{StaticResource app-title}" Text="Блог"/>
             </Border>
@@ -18,7 +19,7 @@
                 </WrapPanel>
             </ScrollViewer>
 
-            <Button Content="Добавить статью" Style="{StaticResource app-btn}" HorizontalAlignment="Right" Cursor="Hand" Command="{Binding AddArticle_Cmd}"/>
+            <Button x:Name="addBtn" Content="Добавить статью" Style="{StaticResource app-btn}" HorizontalAlignment="Right" Cursor="Hand" Command="{Binding AddArticle_Cmd}"/>
         </StackPanel>
     </Grid>
 </UserControl>

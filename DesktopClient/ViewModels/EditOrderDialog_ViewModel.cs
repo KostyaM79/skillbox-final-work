@@ -15,13 +15,13 @@ namespace DesktopClient.ViewModels
     public class EditOrderDialog_ViewModel : INotifyPropertyChanged
     {
         private string token;
-        private IOrderService service;
+        private IDesktopOrdersService service;
         private ModifyOrderModel order;
         private OrderStatusModel status;
 
         private RelayCommand okCmd;
 
-        public EditOrderDialog_ViewModel(IOrderService service, int id, string token)
+        public EditOrderDialog_ViewModel(IDesktopOrdersService service, int id, string token)
         {
             this.token = token;
             this.service = service;

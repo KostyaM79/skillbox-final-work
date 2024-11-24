@@ -33,12 +33,12 @@
                 <Button HorizontalContentAlignment="Left" VerticalAlignment="Center"
                         Padding="10,5" Margin="0,5"
                         FontSize="20" Background="Transparent"
-                        BorderThickness="0" Foreground="#fff" Cursor="Hand">Блог</Button>
+                        BorderThickness="0" Foreground="#fff" Cursor="Hand" Command="{Binding Blog_Cmd}">Блог</Button>
 
                 <Button HorizontalContentAlignment="Left" VerticalAlignment="Center"
                         Padding="10,5" Margin="0,5"
                         FontSize="20" Background="Transparent"
-                        BorderThickness="0" Foreground="#fff" Cursor="Hand">Контакты</Button>
+                        BorderThickness="0" Foreground="#fff" Cursor="Hand" Command="{Binding Contacts_Cmd}">Контакты</Button>
 
             </StackPanel>
         </Border>

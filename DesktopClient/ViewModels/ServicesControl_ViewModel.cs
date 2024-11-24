@@ -30,6 +30,7 @@ namespace DesktopClient.ViewModels
         private ServicesControl parentWnd;
 
         private ServiceItem[] serviceItems;
+        private bool viewMode = false;
 
         public ServicesControl_ViewModel(IDesktopServicesService service)
         {
@@ -39,6 +40,12 @@ namespace DesktopClient.ViewModels
             this.service = service;
             GetDataAsync();
         }
+
+        public ServicesControl_ViewModel(IDesktopServicesService service, bool viewMode) : this(service)
+        {
+            this.viewMode = viewMode;
+        }
+
 
         public ServicesControl ParentWnd
         {
@@ -55,7 +62,14 @@ namespace DesktopClient.ViewModels
             parentWnd.itemsStack.Children.Clear();
 
             foreach (ServiceItem t in serviceItems)
+            {
+                if (viewMode)
+                {
+                    t.contentGrid.Children.Remove(t.deleteButton);
+                    t.contentGrid.Children.Remove(t.editButton);
+                }
                 parentWnd.itemsStack.Children.Add(t);
+            }
         }
 
         public ServiceModel[] Services

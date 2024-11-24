@@ -7,14 +7,14 @@ using Models;
 
 namespace DesktopClient.Events
 {
-    public class DataReceivedEventArgs : EventArgs
+    public class ServicesReceivedEventArgs
     {
-        public DataReceivedEventArgs(ArticleModel[] articles)
+        public ServicesReceivedEventArgs(ServiceModel[] services)
         {
-            Articles = articles;
+            Services = services;
         }
 
-        public ArticleModel[] Articles
+        public ServiceModel[] Services
         {
             get;
             private set;

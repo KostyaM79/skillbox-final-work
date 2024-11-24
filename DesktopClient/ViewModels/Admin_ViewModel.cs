@@ -301,7 +301,7 @@ namespace DesktopClient.ViewModels
         {
             if (args.Order != null)
             {
-                EditOrderDialog_ViewModel viewModel = new EditOrderDialog_ViewModel(ServiceFactory.GetService<IOrderService>(), args.Order.Id, token);
+                EditOrderDialog_ViewModel viewModel = new EditOrderDialog_ViewModel(ServiceFactory.GetService<IDesktopOrdersService>(), args.Order.Id, token);
                 EditOrderDialog dialog = new EditOrderDialog(viewModel);
                 dialog.ShowDialog();
             }
@@ -313,7 +313,7 @@ namespace DesktopClient.ViewModels
         private void GetOrders()
         {
             ContentControl = new OrdersControl();
-            IOrderService service = ServiceFactory.GetService<IOrderService>();
+            IOrderService service = ServiceFactory.GetService<IDesktopOrdersService>();
             OrdersListModel model = service.GetAll();
             orderItemListViewModel = new OrderItemList_ViewModel();
             orderItemListViewModel.SelectedOrderChanged += OnSelectedOrderChanged;

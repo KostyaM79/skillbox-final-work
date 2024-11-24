@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:DesktopClient.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" x:Name="window">
-    <Grid>
+    
+    <Grid x:Name="contentGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="580"/>
             <ColumnDefinition Width="*"/>
@@ -49,7 +50,7 @@
             <TextBlock Text="{Binding ServiceDescr}" DataContext="{Binding SelectedService}" Padding="5" Height="400" VerticalAlignment="Top" FontSize="16"/>
         </Border>
 
-        <Button Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom"
+        <Button x:Name="addBtn" Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom"
                 HorizontalAlignment="Right" Style="{StaticResource app-btn}" Command="{Binding CreateService_Cmd}" Cursor="Hand">Добавить услугу</Button>
     </Grid>
 </UserControl>

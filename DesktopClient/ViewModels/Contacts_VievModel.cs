@@ -12,12 +12,13 @@ namespace DesktopClient.ViewModels
     {
         private RelayCommand editCmd;
 
-        public static Contacts_VievModel CreateContectsControl()
+        public static Contacts_VievModel CreateContectsControl(bool viewMode = false)
         {
             Contacts_VievModel vievModel = new Contacts_VievModel();
             ContactsControl control = new ContactsControl();
             vievModel.ParentWnd = control;
             control.DataContext = vievModel;
+            if (viewMode) control.contentGrid.Children.Remove(control.editBtn);
             return vievModel;
         }
 
