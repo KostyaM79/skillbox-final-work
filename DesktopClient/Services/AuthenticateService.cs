@@ -10,7 +10,7 @@ namespace DesktopClient.Services
 {
     public class AuthenticateService : IAuthenticateService
     {
-        private readonly Server server = new Server();
+        private readonly Server server = Server.Create();
 
         public string Login(LoginModel model)
         {

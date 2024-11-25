@@ -47,6 +47,7 @@ namespace DesktopClient.ViewModels
         public Admin_ViewModel(string token)
         {
             this.token = token;
+            Server.SetToken(token);
             GetOrders();
         }
 

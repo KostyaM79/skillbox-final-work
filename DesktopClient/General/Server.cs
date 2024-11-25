@@ -14,6 +14,25 @@ namespace DesktopClient.General
 {
     class Server
     {
+        private static string _token;
+        private string token;
+
+        internal static void SetToken(string token)
+        {
+            _token = token;
+        }
+
+        internal static Server Create()
+        {
+            return new Server(_token);
+        }
+
+        public Server(string token)
+        {
+            this.token = token;
+        }
+
+
         #region Методы для Orders
         
         internal OrdersListModel GetAllOrders()
@@ -60,6 +79,7 @@ namespace DesktopClient.General
 
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             _ = httpClient.PostAsync("api/Projects/Create", fileContent).Result;
         }
 
@@ -112,6 +132,7 @@ namespace DesktopClient.General
 
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             _ = httpClient.PostAsync("api/Projects/Edit", fileContent).Result;
         }
 
@@ -119,6 +140,7 @@ namespace DesktopClient.General
         {
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             _ = httpClient.DeleteAsync($"api/Projects/Delete/{id}").Result;
         }
         #endregion
@@ -163,6 +185,7 @@ namespace DesktopClient.General
         {
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             _ = httpClient.PostAsync($"api/Services/Create", JsonContent.Create(model)).Result;
         }
 
@@ -170,6 +193,7 @@ namespace DesktopClient.General
         {
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             _ = httpClient.PostAsync($"api/Services/Update", JsonContent.Create(model)).Result;
         }
 
@@ -177,6 +201,7 @@ namespace DesktopClient.General
         {
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             _ = httpClient.DeleteAsync($"api/Services/Delete/{id}").Result;
         }
 
@@ -203,6 +228,7 @@ namespace DesktopClient.General
 
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             _ = httpClient.PostAsync("api/Articles/Create", fileContent).Result;
         }
 
@@ -210,6 +236,7 @@ namespace DesktopClient.General
         {
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             _ = httpClient.DeleteAsync($"api/Articles/Delete/{id}").Result;
         }
 
@@ -232,6 +259,7 @@ namespace DesktopClient.General
 
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpResponseMessage responseMessage = httpClient.PostAsync("api/Articles/Update", fileContent).Result;
         }
 
@@ -247,6 +275,7 @@ namespace DesktopClient.General
 
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             _ = httpClient.PostAsync("api/Contacts/Create", fileContent).Result;
         }
 
@@ -254,6 +283,7 @@ namespace DesktopClient.General
         {
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api-location"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             _ = httpClient.DeleteAsync($"api/Contacts/Delete/{id}").Result;
         }
 
@@ -285,6 +315,7 @@ namespace DesktopClient.General
 
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["api-location"]);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpResponseMessage responseMessage = httpClient.PostAsync("api/Contacts/Update", fileContent).Result;
         }
     }

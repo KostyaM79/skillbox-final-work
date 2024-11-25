@@ -64,22 +64,17 @@ namespace WebClient.Data
             StreamContent streamContent;
 
             using MultipartFormDataContent fileContent = new MultipartFormDataContent();
-            //MultipartContent content = new MultipartContent();
 
             if (fileStream != null)
             {
                 streamContent = new StreamContent(fileStream);
                 streamContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
                 fileContent.Add(streamContent, name: "file", fileName: fileName);
-
-                //content.Add(streamContent);
             }
 
             fileContent.Add(new StringContent($"{model.Id}"), "Id");
             fileContent.Add(new StringContent(model.ArticleCaption), "ArticleCaption");
             fileContent.Add(new StringContent(model.ArticleText), "ArticleText");
-
-            //content.Add(JsonContent.Create(model));
 
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);

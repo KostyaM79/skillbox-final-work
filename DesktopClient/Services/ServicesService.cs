@@ -10,7 +10,7 @@ namespace DesktopClient.Services
 {
     public class ServicesService : IDesktopServicesService
     {
-        private Server server = new Server();
+        private Server server = Server.Create();
 
         public void Add(ServiceModel model)
         {

@@ -12,7 +12,7 @@ namespace DesktopClient.Services
 {
     public class ProjectsService : IDesktopProjectsService
     {
-        private readonly Server server = new Server();
+        private readonly Server server = Server.Create();
 
         public void Add(ProjectModel model, string contentType, Stream fileStream, string fileName)
         {

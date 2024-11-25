@@ -85,5 +85,12 @@ namespace WebClient.Controllers
                 );
             return Redirect("/Articles/ReadAll");
         }
+
+        public IActionResult ViewArticle(int id)
+        {
+            ArticleModel article = service.Get(id);
+            article.ModifyFileName(configuration["ApiLocation"]);
+            return View(article);
+        }
     }
 }

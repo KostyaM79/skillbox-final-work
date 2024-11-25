@@ -157,6 +157,8 @@
 }
 
 .view-project__content {
+    display: flex;
+    flex-direction: column;
     padding: 20px 180px;
 }
 
@@ -180,4 +182,12 @@
 .view-project__paragraph {
     margin: 0;
     width: calc(100% - 200px);
+}
+
+.view-project__descr {
+    margin-bottom: 20px;
+}
+
+.view-project__btn {
+    align-self: end;
 }

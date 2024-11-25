@@ -12,7 +12,7 @@ namespace DesktopClient.Services
 {
     public class SocialsService : IDesktopSocialsService
     {
-        private Server server = new Server();
+        private Server server = Server.Create();
 
         public void Create(SocialModel model, string contentType, Stream stream, string fileName)
         {

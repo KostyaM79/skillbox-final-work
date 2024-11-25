@@ -13,7 +13,7 @@ namespace DesktopClient.Services
 {
     public class ArticlesService : IDesktopArticlesService
     {
-        private readonly Server server = new Server();
+        private readonly Server server = Server.Create();
 
         public void Create(ArticleModel model, string contentType, Stream fileStream, string fileName)
         {

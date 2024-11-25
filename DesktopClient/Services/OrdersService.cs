@@ -11,7 +11,7 @@ namespace DesktopClient.Services
 {
     public class OrdersService : IDesktopOrdersService
     {
-        private readonly Server server = new Server();
+        private readonly Server server = Server.Create();
 
         public bool Add(OrderModel model)
         {

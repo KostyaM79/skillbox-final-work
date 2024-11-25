@@ -22,6 +22,7 @@ namespace DesktopClient
             ServiceFactory.Add<IDesktopProjectsService, ProjectsService>();
             ServiceFactory.Add<IDesktopServicesService, ServicesService>();
             ServiceFactory.Add<IDesktopArticlesService, ArticlesService>();
+            ServiceFactory.Add<IDesktopSocialsService, SocialsService>();
         }
     }
 }

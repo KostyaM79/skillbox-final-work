@@ -1,0 +1,33 @@
+﻿@if(User.Identity.IsAuthenticated)
+{
+    Layout = "_AdminLayout2";
+}
+else
+{
+    Layout = "_GuestLayout2";
+}
+
+@model ArticleModel
+
+<div class="view-article">
+    <div class="view-article__content">
+        <div class="view-article__header">
+            <h2 class="view-article__title">@Model.ArticleCaption</h2>
+        </div>
+
+        <time class="article__date">@Model.ArticlePublishDate.ToString("dd MMM yyyy")</time>
+
+        <div class="view-article__body">
+            <img class="view-article__img" src="@Model.ArticleImageFileName" alt="Alternate Text" />
+
+            <div class="view-article__text">
+                @foreach (string temp in Model.Paragraphs())
+                {
+                    <p class="view-project__paragraph">@temp</p>
+                }
+            </div>
+        </div>
+
+        <a class="btn view-article__btn" asp-controller="Articles" asp-action="ReadAll">Назад</a>
+    </div>
+</div>

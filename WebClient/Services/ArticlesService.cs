@@ -43,6 +43,11 @@ namespace WebClient.Services
             return database.GetAllArticles();
         }
 
+        public ArticleModel Get(int id)
+        {
+            return database.FindArticle(id);
+        }
+
         public void Update(ArticleModel model, string contentType, Stream stream, string fileName, string token)
         {
             database.UpdateArticle(model, contentType, stream, fileName, token);
