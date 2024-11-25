@@ -233,6 +233,7 @@ a {
 
 /* modal */
 .modal-wrapper {
+    visibility: hidden;
     position: absolute;
     left: 0;
     top: 0;
@@ -247,6 +248,7 @@ a {
 .social-modal {
     z-index: 1000;
     width: 30%;
+    min-height: 400px;
 }
 
 .modal__header {
@@ -258,6 +260,7 @@ a {
 
 .modal__content {
     display: flex;
+    min-height: 400px;
     justify-content: center;
     padding: 20px 40px;
     background-color: #ddd;
@@ -266,14 +269,20 @@ a {
 .modal__links {
     width: 100%;
     margin: 0;
-    margin-bottom: 20px;
+    margin-bottom: auto;
     padding: 0;
     list-style: none;
 }
 
 .modal__inputs {
+    display: flex;
+    flex-direction: column;
     flex-basis: 80%;
     text-align: center;
+}
+
+.modal__item {
+    display: flex;
 }
 
 .modal__item:not(:last-child) {
@@ -282,6 +291,23 @@ a {
 
 .modal__input {
     width: 100%;
+}
+
+.modal-file {
+    display: none;
+}
+
+.modal__basket {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.modal__add {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-right: 5px;
 }
 
 .modal__btn {

@@ -38,14 +38,14 @@ else
 
     @if (User.Identity.IsAuthenticated)
     {
-        <button class="btn btn_right" onclick="show-modal()">Редактировать</button>
+        <button class="btn btn_right" onclick="show_modal()">Редактировать</button>
     }
 </div>
 
 @if (User.Identity.IsAuthenticated)
 {
     @* ----- Модальное окно ----- *@
-    <div class="modal-wrapper">
+    <div id="edit-contacts" class="modal-wrapper">
         <div class="social-modal">
             <div class="modal__header">
                 <span class="modal__title">Добавить / редактировать ссылки</span>
@@ -55,27 +55,16 @@ else
                 <div class="modal__inputs">
                     <ul class="modal__links">
                         <li class="modal__item">
-                            <input class="modal__input" type="text" name="link-1" />
-                        </li>
-
-                        <li class="modal__item">
-                            <input class="modal__input" type="text" name="link-2" />
-                        </li>
-
-                        <li class="modal__item">
-                            <input class="modal__input" type="text" name="link-3" />
-                        </li>
-
-                        <li class="modal__item">
-                            <input class="modal__input" type="text" name="link-4" />
-                        </li>
-
-                        <li class="modal__item">
-                            <input class="modal__input" type="text" name="link-5" />
+                            <label>
+                                <img class="modal__add" src="~/img/add-icon.svg" alt="Alternate Text" />
+                                <input class="modal-file" type="file" name="picture" />
+                            </label>
+                            <input class="modal__input" type="text" />
+                            <img class="modal__basket" src="~/img/delete.svg" alt="Корзина" />
                         </li>
                     </ul>
 
-                    <button class="btn modal__btn" onclick="add-link()">+ Добавить ещё</button>
+                    <button class="btn modal__btn" onclick="add_item()">+ Добавить ещё</button>
                 </div>
             </div>
         </div>
