@@ -12,11 +12,14 @@ using System.Windows.Controls;
 using DesktopClient.Dialogs;
 using DesktopClient.Services;
 using System.IO;
+using System.Windows.Input;
 
 namespace DesktopClient.ViewModels
 {
     public class Blog_ViewModel
     {
+        public event RequestingArticlesEventHandler RequestingArticle;
+
         /// <summary>
         /// Вызывается при необходимости обновить данные
         /// </summary>
@@ -102,10 +105,17 @@ namespace DesktopClient.ViewModels
 
             foreach (ArticleModel temp in articles)
             {
+                ArticleCard_ViewModel articleVm;
+
                 if (viewMode)
-                    ParentWnd.articles.Children.Add(ArticleCard_ViewModel.CreateArticleCard(temp).ParentWnd);
+                    articleVm = ArticleCard_ViewModel.CreateArticleCard(temp);
+                //ParentWnd.articles.Children.Add(ArticleCard_ViewModel.CreateArticleCard(temp).ParentWnd);
                 else
-                    ParentWnd.articles.Children.Add(ArticleCard_ViewModel.CreateArticleCard(temp, new RelayCommand(EditAction), new RelayCommand(DeleteAction)).ParentWnd);
+                    articleVm = ArticleCard_ViewModel.CreateArticleCard(temp, new RelayCommand(EditAction), new RelayCommand(DeleteAction));
+                //ParentWnd.articles.Children.Add(ArticleCard_ViewModel.CreateArticleCard(temp, new RelayCommand(EditAction), new RelayCommand(DeleteAction)).ParentWnd);
+
+                articleVm.ParentWnd.articleLnk.MouseLeftButtonDown += OnArticleCardClick;
+                ParentWnd.articles.Children.Add(articleVm.ParentWnd);
             }
         }
 
@@ -143,6 +153,12 @@ namespace DesktopClient.ViewModels
                     }
                 }));
             }
+        }
+
+        private void OnArticleCardClick(object sender, MouseButtonEventArgs args)
+        {
+            ArticleViewCard card = ((sender as StackPanel).Parent as Grid).Parent as ArticleViewCard;
+            RequestingArticle?.Invoke(this, new RequestingArticlesEventArgs((card.DataContext as ArticleCard_ViewModel).Model));
         }
     }
 }

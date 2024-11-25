@@ -9,17 +9,17 @@
     
     <Grid Width="300">
         <Grid.RowDefinitions>
-            <RowDefinition Height="32"/>
-            <RowDefinition Height="200"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="{Binding Date}" FontSize="16" Foreground="#aaa" Margin="5"/>
-        <Image x:Name="img" Grid.Row="1" Source="{Binding Image}" Width="300" Height="200" Stretch="Fill"/>
-        <TextBlock Grid.Row="2" Text="{Binding Title}" Padding="5" FontSize="20" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Justify"/>
-        <TextBlock Grid.Row="3" Text="{Binding Text}" Padding="5" MaxHeight="160" TextWrapping="Wrap" TextAlignment="Justify" VerticalAlignment="Top"/>
+        <StackPanel x:Name="articleLnk" Grid.Row="0" Cursor="Hand">
+            <TextBlock Text="{Binding Date}" FontSize="16" Foreground="#aaa" Margin="5"/>
+            <Image x:Name="img" Source="{Binding Image}" Width="300" Height="200" Stretch="Fill"/>
+            <TextBlock Text="{Binding Title}" Padding="5" FontSize="20" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Justify"/>
+            <TextBlock Text="{Binding Text}" Padding="5" MaxHeight="160" TextWrapping="Wrap" TextAlignment="Justify" VerticalAlignment="Top"/>
+        </StackPanel>
+        
         <StackPanel Name="btns" Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Left" Orientation="Horizontal"/>
 
     </Grid>

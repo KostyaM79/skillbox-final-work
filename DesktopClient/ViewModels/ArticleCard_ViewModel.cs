@@ -13,20 +13,27 @@ namespace DesktopClient.ViewModels
 {
     public class ArticleCard_ViewModel
     {
+        private ArticleModel model;
+
         public static ArticleCard_ViewModel CreateArticleCard(ArticleModel article, RelayCommand editAction = null, RelayCommand deleteAction = null)
         {
-            ArticleCard_ViewModel viewModel = CreateArticleCard();
+            ArticleCard_ViewModel viewModel = CreateArticleCard(article);
             FillData(viewModel, article, editAction, deleteAction);
             return viewModel;
         }
 
-        private static ArticleCard_ViewModel CreateArticleCard()
+        private static ArticleCard_ViewModel CreateArticleCard(ArticleModel article)
         {
             ArticleViewCard control = new ArticleViewCard();
-            ArticleCard_ViewModel viewModel = new ArticleCard_ViewModel();
+            ArticleCard_ViewModel viewModel = new ArticleCard_ViewModel(article);
             control.DataContext = viewModel;
             viewModel.ParentWnd = control;
             return viewModel;
+        }
+
+        public ArticleCard_ViewModel(ArticleModel model)
+        {
+            this.model = model;
         }
 
         private static void FillData(ArticleCard_ViewModel viewModel, ArticleModel article, RelayCommand editAction, RelayCommand deleteAction)
@@ -60,6 +67,8 @@ namespace DesktopClient.ViewModels
         }
 
         private ArticleViewCard parentWnd;
+
+        public ArticleModel Model => model;
 
         public ArticleViewCard ParentWnd
         {

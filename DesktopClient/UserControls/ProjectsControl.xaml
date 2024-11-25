@@ -16,7 +16,7 @@
     </UserControl.Resources>
     
     <Grid>
-        <StackPanel>
+        <StackPanel x:Name="content">
             <Border Style="{StaticResource title-border}">
                 <TextBlock Style="{StaticResource app-title}" Text="Проекты"/>
             </Border>
@@ -25,7 +25,7 @@
 
             </WrapPanel>
 
-            <Button Content="Добавить проект" Style="{StaticResource app-btn}" HorizontalAlignment="Right" Cursor="Hand" Command="{Binding AddProject_Cmd}"/>
+            <Button x:Name="addBtn" Content="Добавить проект" Style="{StaticResource app-btn}" HorizontalAlignment="Right" Cursor="Hand" Command="{Binding AddProject_Cmd}"/>
         </StackPanel>
     </Grid>
 </UserControl>

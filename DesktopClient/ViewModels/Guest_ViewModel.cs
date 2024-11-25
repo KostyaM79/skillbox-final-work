@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Windows.Controls;
 using DesktopClient.UserControls;
 using DesktopClient.General;
-using Services;
+using DesktopClient.Events;
 
 namespace DesktopClient.ViewModels
 {
@@ -64,8 +64,9 @@ namespace DesktopClient.ViewModels
             {
                 return projectsCmd ?? (projectsCmd = new RelayCommand(obj =>
                 {
-                    GuestProjects_ViewModel viewModel = new GuestProjects_ViewModel(ServiceFactory.GetService<IDesktopProjectsService>());
-                    ContentControl = new GuestProjectsControl(viewModel);
+                    ProjectsControl_ViewModel viewModel = ProjectsControl_ViewModel.Create(ServiceFactory.GetService<IDesktopProjectsService>(), true);
+                    viewModel.RequestingProject += OnRequestingProject;
+                    ContentControl = viewModel.ParentWnd;
                 }));
             }
         }
@@ -91,6 +92,7 @@ namespace DesktopClient.ViewModels
                 return blogCmd ?? (blogCmd = new RelayCommand(obj =>
                 {
                     Blog_ViewModel viewModel = new Blog_ViewModel(ServiceFactory.GetService<IDesktopArticlesService>(), true);
+                    viewModel.RequestingArticle += OnRequestingArticle;
                     ContentControl = new BlogControl(viewModel);
                 }));
             }
@@ -105,6 +107,16 @@ namespace DesktopClient.ViewModels
                     ContentControl = Contacts_VievModel.CreateContectsControl(ServiceFactory.GetService<IDesktopSocialsService>(), true).ParentWnd;
                 }));
             }
+        }
+
+        private void OnRequestingProject(object sender, RequestingProjectEventArgs args)
+        {
+            ContentControl = ViewProject_ViewModel.Create(args.Project).ParentWnd;
+        }
+
+        private void OnRequestingArticle(object sender, RequestingArticlesEventArgs args)
+        {
+            ContentControl = ViewArticle_ViewModel.Create(args.Article).ParentWnd;
         }
     }
 }

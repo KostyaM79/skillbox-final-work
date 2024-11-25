@@ -151,6 +151,7 @@ namespace DesktopClient.ViewModels
                 return projectsCmd ?? (projectsCmd = new RelayCommand(obj =>
                 {
                     ProjectsControl_ViewModel viewModel = new ProjectsControl_ViewModel(ServiceFactory.GetService<IDesktopProjectsService>());
+                    viewModel.RequestingProject += OnRequestingProject;
                     ContentControl = new ProjectsControl(viewModel);
                 }));
             }
@@ -183,6 +184,7 @@ namespace DesktopClient.ViewModels
                 return blogCmd ?? (blogCmd = new RelayCommand(obj =>
                 {
                     Blog_ViewModel viewModel = new Blog_ViewModel(ServiceFactory.GetService<IDesktopArticlesService>());
+                    viewModel.RequestingArticle += OnRequestingArticle;
                     ContentControl = new BlogControl(viewModel);
                 }));
             }
@@ -321,6 +323,16 @@ namespace DesktopClient.ViewModels
             OrderItemList itemList = new OrderItemList(orderItemListViewModel);
             orderItemListViewModel.OrderItems = model.OrdersList;
             OrdersItems = itemList;
+        }
+
+        private void OnRequestingProject(object sender, RequestingProjectEventArgs args)
+        {
+            ContentControl = ViewProject_ViewModel.Create(args.Project).ParentWnd;
+        }
+
+        private void OnRequestingArticle(object sender, RequestingArticlesEventArgs args)
+        {
+            ContentControl = ViewArticle_ViewModel.Create(args.Article).ParentWnd;
         }
     }
 }

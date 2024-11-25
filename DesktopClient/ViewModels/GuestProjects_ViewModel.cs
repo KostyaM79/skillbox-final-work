@@ -52,6 +52,9 @@ namespace DesktopClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Получает проекты из БД
+        /// </summary>
         private async void GetDataAsync()
         {
             ProjectModel[] projects = await service.GetAllAsync();

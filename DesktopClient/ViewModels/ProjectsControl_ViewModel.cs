@@ -14,24 +14,34 @@ using DesktopClient.Events;
 using System.Windows.Media.Imaging;
 using System.Windows;
 using DesktopClient.Dialogs;
-using System.IO;
+using System.Windows.Input;
 
 namespace DesktopClient.ViewModels
 {
     public class ProjectsControl_ViewModel
     {
         private object locker = new object();
-        private bool viewMode = false;
+        private bool viewMode;
         private RelayCommand addProjectCmd;
 
         private ProjectsControl parentWnd;
         public event RequestingProjects_EventHandler ProjectsReceived;
+        public event RequestingProjectEventHandler RequestingProject;
 
         private readonly IDesktopProjectsService service;
         private ProjectModel[] projects;
 
-        public ProjectsControl_ViewModel(IDesktopProjectsService service)
+        public static ProjectsControl_ViewModel Create(IDesktopProjectsService service, bool viewMode = false)
         {
+            ProjectsControl_ViewModel viewModel = new ProjectsControl_ViewModel(service, viewMode);
+            ProjectsControl control = new ProjectsControl(viewModel);
+            if (viewMode) control.content.Children.Remove(control.addBtn);
+            return viewModel;
+        }
+
+        public ProjectsControl_ViewModel(IDesktopProjectsService service, bool viewMode = false)
+        {
+            this.viewMode = viewMode;
             ProjectsReceived += OnRequestingProjects;
             this.service = service;
             GetDataAsync();
@@ -78,10 +88,19 @@ namespace DesktopClient.ViewModels
 
                     foreach (ProjectModel temp in projects)
                     {
+                        ProjectCard_ViewModel projVm;
+
                         if (viewMode)
-                            ParentWnd.projects.Children.Add(ProjectCard_ViewModel.CreateProjectCard(temp).ParentWnd);
+                        {
+                            projVm = ProjectCard_ViewModel.CreateProjectCard(temp);
+                        }
                         else
-                            ParentWnd.projects.Children.Add(ProjectCard_ViewModel.CreateProjectCard(temp, new RelayCommand(EditAction), new RelayCommand(DeleteAction)).ParentWnd);
+                        {
+                            projVm = ProjectCard_ViewModel.CreateProjectCard(temp, new RelayCommand(EditAction), new RelayCommand(DeleteAction));
+                        }
+
+                        projVm.ParentWnd.projectLnk.MouseLeftButtonDown += OnProjectCardClick;
+                        ParentWnd.projects.Children.Add(projVm.ParentWnd);
                     }
                 }
             }
@@ -127,6 +146,12 @@ namespace DesktopClient.ViewModels
                     AddProject();
                 }));
             }
+        }
+
+        private void OnProjectCardClick(object sender, MouseButtonEventArgs args)
+        {
+            ProjectViewCard card = ((sender as StackPanel).Parent as Grid).Parent as ProjectViewCard;
+            RequestingProject?.Invoke(this, new RequestingProjectEventArgs((card.DataContext as ProjectCard_ViewModel).Model));
         }
     }
 }

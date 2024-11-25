@@ -9,14 +9,17 @@
     
     <Grid Width="300">
         <Grid.RowDefinitions>
-            <RowDefinition Height="200"/>
+            <!--<RowDefinition Height="200"/>-->
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <Image x:Name="img" Grid.Row="0" Source="{Binding Image}" Width="300" Height="200" Stretch="Fill"/>
-        <TextBlock Grid.Row="1" Text="{Binding Title}" Padding="5" FontSize="20" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Justify"/>
-        <TextBlock Grid.Row="2" Text="{Binding Text}" Padding="5" MaxHeight="160" TextWrapping="Wrap" TextAlignment="Justify" VerticalAlignment="Top"/>
+        
+        <StackPanel x:Name="projectLnk" Orientation="Vertical" Cursor="Hand">
+            <Image x:Name="img" Grid.Row="0" Source="{Binding Image}" Width="300" Height="200" Stretch="Fill"/>
+            <TextBlock Grid.Row="1" Text="{Binding Title}" Padding="5" FontSize="20" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Justify"/>
+            <TextBlock Grid.Row="2" Text="{Binding Text}" Padding="5" MaxHeight="160" TextWrapping="Wrap" TextAlignment="Justify" VerticalAlignment="Top"/>
+        </StackPanel>
+        
         <StackPanel Name="btns" Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Left" Orientation="Horizontal"/>
     </Grid>
 </UserControl>
