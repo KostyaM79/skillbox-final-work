@@ -16,10 +16,12 @@ namespace WebApiService
         {
             string imgFileName = CreateFileName(file.FileName);
 
-            Directory.CreateDirectory("img\\projects-images");                                  // Создаём каталог для изображений, если он не существует.
-            using Stream s = System.IO.File.Create($"img\\{directoryName}\\{imgFileName}");     // Открываем поток для сохранения файла.
-            file.OpenReadStream().CopyTo(s);                                                    // Записываем в поток файл.
-            s.Close();                                                                          // Закрываем поток.
+            DirectoryInfo dir = Directory.CreateDirectory($"img\\{directoryName}");             // Создаём каталог для изображений, если он не существует.
+            using Stream s = System.IO.File.Create($"{dir.FullName}\\{imgFileName}");      // Открываем поток для сохранения файла.
+            using Stream f = file.OpenReadStream();                                             // Записываем в поток файл.
+            f.CopyTo(s);
+            s.Close();
+            f.Close();
 
             return imgFileName;
         }

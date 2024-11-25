@@ -8,6 +8,7 @@ using WebClient.Services;
 using Exceptions;
 using WebClient.Models;
 using Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebClient.Controllers
 {
@@ -59,12 +60,14 @@ namespace WebClient.Controllers
 
         [HttpGet]
         [Route("edit/{id}")]
+        [Authorize]
         public IActionResult Update(int id)
         {
             return View(orderService.Get(id));
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Update(UpdateOrderModel model)
         {
             try

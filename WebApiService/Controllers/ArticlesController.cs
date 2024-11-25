@@ -39,7 +39,7 @@ namespace WebApiService.Controllers
 
         [HttpPost]
         [Route(nameof(Create))]
-        public IActionResult Create()
+        public IActionResult Create([FromForm] ArticleModel model)
         {
             IFormFileCollection files = HttpContext.Request.Form.Files;
 

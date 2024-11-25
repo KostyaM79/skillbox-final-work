@@ -24,6 +24,7 @@ namespace WebApiService.Services
         {
             ImageManager im = new ImageManager();
             string imgFileName = im.SaveImage("articles-images", file);
+
             Article article = new Article()
             {
                 ArticleCaption = title,

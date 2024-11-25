@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Models;
 using Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebClient.Controllers
 {
@@ -28,24 +29,28 @@ namespace WebClient.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Create(ServiceModel model)
         {
             service.Add(model);
             return Redirect("/Services/ReadAll");
         }
 
+        [Authorize]
         public IActionResult Update(ServiceModel model)
         {
             service.Update(model);
             return Redirect("/Services/ReadAll");
         }
 
+        [Authorize]
         public IActionResult Delete(int id)
         {
             service.Delete(id);

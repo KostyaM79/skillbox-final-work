@@ -7,6 +7,7 @@ using WebClient.Services;
 using Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebClient.Controllers
 {
@@ -40,12 +41,14 @@ namespace WebClient.Controllers
             return View(article);
         }
 
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Create(ArticleModel model)
         {
             service.Create(
@@ -57,12 +60,14 @@ namespace WebClient.Controllers
             return Redirect("/Articles/ReadAll");
         }
 
+        [Authorize]
         public IActionResult Delete(int id)
         {
             service.Delete(id);
             return Redirect("/Articles/ReadAll");
         }
 
+        [Authorize]
         public IActionResult Update(ArticleModel model)
         {
             IFormFileCollection files = HttpContext.Request.Form.Files;

@@ -7,6 +7,7 @@ using Models;
 using WebClient.Services;
 using Microsoft.Extensions.Configuration;
 using Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebClient.Controllers
 {
@@ -26,6 +27,7 @@ namespace WebClient.Controllers
         /// Возвращает форму для добавления нового проекта
         /// </summary>
         /// <returns></returns>
+        [Authorize]
         public IActionResult Create()
         {
             return View(new ProjectModel());
@@ -37,6 +39,7 @@ namespace WebClient.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize]
         public IActionResult Create(ProjectModel model)
         {
             projectService.Add(
@@ -73,6 +76,7 @@ namespace WebClient.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Update(ProjectModel model)
         {
             if (projectService.Edit(
@@ -86,6 +90,7 @@ namespace WebClient.Controllers
         }
 
         [Route("Delete/{id:int}")]
+        [Authorize]
         public IActionResult Delete(int id)
         {
             projectService.Delete(id);
