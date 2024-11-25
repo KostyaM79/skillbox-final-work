@@ -12,7 +12,7 @@ namespace WebClient.Data
         #region Добавление данных
         bool AddOrder(OrderModel model);
 
-        bool AddProject(ProjectModel model, string contentType, Stream fileStream, string fileName);
+        bool AddProject(ProjectModel model, string contentType, Stream fileStream, string fileName, string token);
 
         void AddService(ServiceModel model, string token);
         #endregion
@@ -35,11 +35,11 @@ namespace WebClient.Data
 
         ServiceModel[] GetAllServices();
 
-        bool EditProject(ProjectModel model, string contentType, Stream fileStream, string fileName);
+        bool EditProject(ProjectModel model, string contentType, Stream fileStream, string fileName, string token);
 
         void UpdateOrder(UpdateOrderModel model);
 
-        void DeleteProject(int id);
+        void DeleteProject(int id, string token);
 
         void UpdateService(ServiceModel model, string token);
 

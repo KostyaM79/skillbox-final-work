@@ -6,12 +6,18 @@ using System.Threading.Tasks;
 using Models;
 using System.IO;
 
-namespace Services
+namespace WebClient.Services
 {
-    public interface IClientProjectService : IProjectsService
+    public interface IClientProjectService
     {
-        bool Add(ProjectModel model, string contentType, Stream fileStream, string fileName);
+        ProjectModel[] GetAll();
 
-        bool Edit(ProjectModel model, string contentType, Stream fileStream, string fileName);
+        ProjectModel Get(int id);
+
+        void Delete(int id, string token);
+
+        bool Add(ProjectModel model, string contentType, Stream fileStream, string fileName, string token);
+
+        bool Edit(ProjectModel model, string contentType, Stream fileStream, string fileName, string token);
     }
 }

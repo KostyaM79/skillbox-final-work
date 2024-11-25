@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WebClient.Data;
-using Services;
+using WebClient.Services;
 
 namespace WebClient.Services
 {
@@ -18,19 +18,19 @@ namespace WebClient.Services
             this.database = database;
         }
 
-        public bool Add(ProjectModel model, string contentType, Stream fileStream, string fileName)
+        public bool Add(ProjectModel model, string contentType, Stream fileStream, string fileName, string token)
         {
-            return database.AddProject(model, contentType, fileStream, fileName);
+            return database.AddProject(model, contentType, fileStream, fileName, token);
         }
 
-        public void Delete(int id)
+        public void Delete(int id, string token)
         {
-            database.DeleteProject(id);
+            database.DeleteProject(id, token);
         }
 
-        public bool Edit(ProjectModel model, string contentType, Stream fileStream, string fileName)
+        public bool Edit(ProjectModel model, string contentType, Stream fileStream, string fileName, string token)
         {
-            return database.EditProject(model, contentType, fileStream, fileName);
+            return database.EditProject(model, contentType, fileStream, fileName, token);
         }
 
         public ProjectModel Get(int id)

@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Models;
 using Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApiService.Controllers
 {
@@ -44,6 +45,7 @@ namespace WebApiService.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route(nameof(Create))]
         public void Create()
         {
@@ -58,6 +60,7 @@ namespace WebApiService.Controllers
 
         [HttpPost]
         [Route(nameof(Edit))]
+        [Authorize]
         public void Edit()
         {
             IFormFile file = null;
@@ -75,6 +78,7 @@ namespace WebApiService.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("Delete/{id}")]
         public void Delete(int id)
         {

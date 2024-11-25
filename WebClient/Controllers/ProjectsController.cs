@@ -42,11 +42,14 @@ namespace WebClient.Controllers
         [Authorize]
         public IActionResult Create(ProjectModel model)
         {
+            string token = HttpContext.Request.Cookies["jwt"];
+
             projectService.Add(
                 model,
                 HttpContext.Request.Form.Files[0].ContentType,
                 HttpContext.Request.Form.Files[0].OpenReadStream(),
-                HttpContext.Request.Form.Files[0].FileName);
+                HttpContext.Request.Form.Files[0].FileName,
+                token);
 
             return Redirect("/Projects/ReadAll");
         }
@@ -79,11 +82,13 @@ namespace WebClient.Controllers
         [Authorize]
         public IActionResult Update(ProjectModel model)
         {
+            string token = HttpContext.Request.Cookies["jwt"];
+
             if (projectService.Edit(
                 model,
                 HttpContext.Request.Form.Files.Any() ? HttpContext.Request.Form.Files[0].ContentType : null,
                 HttpContext.Request.Form.Files.Any() ? HttpContext.Request.Form.Files[0].OpenReadStream() : null,
-                HttpContext.Request.Form.Files.Any() ? HttpContext.Request.Form.Files[0].FileName : null))
+                HttpContext.Request.Form.Files.Any() ? HttpContext.Request.Form.Files[0].FileName : null, token))
                 return Redirect("/Projects/ReadAll");
 
             else return Problem();
@@ -93,7 +98,8 @@ namespace WebClient.Controllers
         [Authorize]
         public IActionResult Delete(int id)
         {
-            projectService.Delete(id);
+            string token = HttpContext.Request.Cookies["jwt"];
+            projectService.Delete(id, token);
             return Redirect("/Projects/ReadAll");
         }
 

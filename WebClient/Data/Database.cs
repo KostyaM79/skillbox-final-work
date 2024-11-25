@@ -189,7 +189,7 @@ namespace WebClient.Data
         #endregion
 
         #region Методы для Projects
-        public bool AddProject(ProjectModel model, string contentType, Stream fileStream, string fileName)
+        public bool AddProject(ProjectModel model, string contentType, Stream fileStream, string fileName, string token)
         {
             using MultipartFormDataContent fileContent = new MultipartFormDataContent();
 
@@ -202,6 +202,7 @@ namespace WebClient.Data
 
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpResponseMessage responseMessage = httpClient.PostAsync("api/Projects/Create", fileContent).Result;
             return responseMessage.IsSuccessStatusCode;
         }
@@ -220,7 +221,7 @@ namespace WebClient.Data
             return responseMessage.Content.ReadFromJsonAsync<ProjectModel[]>().Result;
         }
 
-        public bool EditProject(ProjectModel model, string contentType, Stream fileStream, string fileName)
+        public bool EditProject(ProjectModel model, string contentType, Stream fileStream, string fileName, string token)
         {
             StreamContent streamContent;
 
@@ -239,14 +240,16 @@ namespace WebClient.Data
 
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpResponseMessage responseMessage = httpClient.PostAsync("api/Projects/Edit", fileContent).Result;
             return responseMessage.IsSuccessStatusCode;
         }
 
-        public void DeleteProject(int id)
+        public void DeleteProject(int id, string token)
         {
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             _ = httpClient.DeleteAsync($"api/Projects/Delete/{id}").Result;
         }
         #endregion
