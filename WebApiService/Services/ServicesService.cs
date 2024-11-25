@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApiService.Data;
-using Services;
+using WebApiService.Services;
 using Models;
 
 namespace WebApiService.Services

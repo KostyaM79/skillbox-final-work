@@ -17,9 +17,9 @@ namespace WebClient.Services
             this.database = database;
         }
 
-        public void Add(ServiceModel model)
+        public void Add(ServiceModel model, string token)
         {
-            database.AddService(model);
+            database.AddService(model, token);
         }
 
         public ServiceModel Get(int id)
@@ -32,14 +32,14 @@ namespace WebClient.Services
             return database.GetAllServices();
         }
 
-        public void Update(ServiceModel model)
+        public void Update(ServiceModel model, string token)
         {
-            database.UpdateService(model);
+            database.UpdateService(model, token);
         }
 
-        public void Delete(int id)
+        public void Delete(int id, string token)
         {
-            database.DeleteService(id);
+            database.DeleteService(id, token);
         }
     }
 }

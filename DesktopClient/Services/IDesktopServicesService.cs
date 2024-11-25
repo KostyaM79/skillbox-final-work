@@ -3,13 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Services;
 using Models;
 
 namespace DesktopClient.Services
 {
-    public interface IDesktopServicesService : IServicesService
+    public interface IDesktopServicesService
     {
+        ServiceModel[] GetAll();
+
+        ServiceModel Get(int id);
+
+        void Add(ServiceModel model);
+
+        void Update(ServiceModel model);
+
+        void Delete(int id);
+
         Task<ServiceModel[]> GetAllAsync();
     }
 }

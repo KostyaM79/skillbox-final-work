@@ -9,7 +9,7 @@ using Models;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
-using Services;
+using WebApiService.Services;
 using Microsoft.AspNetCore.Http;
 
 namespace WebApiService.Services

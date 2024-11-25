@@ -14,7 +14,7 @@ namespace WebClient.Data
 
         bool AddProject(ProjectModel model, string contentType, Stream fileStream, string fileName);
 
-        void AddService(ServiceModel model);
+        void AddService(ServiceModel model, string token);
         #endregion
 
         OrdersListModel GetAllOrders();
@@ -41,9 +41,9 @@ namespace WebClient.Data
 
         void DeleteProject(int id);
 
-        void UpdateService(ServiceModel model);
+        void UpdateService(ServiceModel model, string token);
 
-        void DeleteService(int id);
+        void DeleteService(int id, string token);
 
         void AddArticle(ArticleModel model, string contentType, Stream fileStream, string fileName, string token);
 

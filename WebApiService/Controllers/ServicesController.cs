@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Models;
-using Services;
+using WebApiService.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApiService.Controllers
 {
@@ -39,6 +40,7 @@ namespace WebApiService.Controllers
 
         [HttpPost]
         [Route(nameof(Create))]
+        [Authorize]
         public IActionResult Create(ServiceModel model)
         {
             service.Add(model);
@@ -47,6 +49,7 @@ namespace WebApiService.Controllers
 
         [HttpPost]
         [Route("Update")]
+        [Authorize]
         public IActionResult Update(ServiceModel model)
         {
             service.Update(model);
@@ -55,6 +58,7 @@ namespace WebApiService.Controllers
 
         [HttpDelete]
         [Route("Delete/{id:int}")]
+        [Authorize]
         public IActionResult Delete(int id)
         {
             service.Delete(id);

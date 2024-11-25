@@ -39,21 +39,24 @@ namespace WebClient.Controllers
         [Authorize]
         public IActionResult Create(ServiceModel model)
         {
-            service.Add(model);
+            string token = HttpContext.Request.Cookies["jwt"];
+            service.Add(model, token);
             return Redirect("/Services/ReadAll");
         }
 
         [Authorize]
         public IActionResult Update(ServiceModel model)
         {
-            service.Update(model);
+            string token = HttpContext.Request.Cookies["jwt"];
+            service.Update(model, token);
             return Redirect("/Services/ReadAll");
         }
 
         [Authorize]
         public IActionResult Delete(int id)
         {
-            service.Delete(id);
+            string token = HttpContext.Request.Cookies["jwt"];
+            service.Delete(id, token);
             return Redirect("/Services/ReadAll");
         }
     }

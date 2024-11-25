@@ -14,7 +14,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApiService.Data;
 using WebApiService.Services;
-using Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;

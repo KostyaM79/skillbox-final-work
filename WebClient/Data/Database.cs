@@ -147,10 +147,11 @@ namespace WebClient.Data
         #endregion
 
         #region Методы для Services
-        public void AddService(ServiceModel model)
+        public void AddService(ServiceModel model, string token)
         {
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpResponseMessage responseMessage = httpClient.PostAsync("api/Services/Create", JsonContent.Create(model)).Result;
             if (!responseMessage.IsSuccessStatusCode)
                 throw new DatabaseServiceException((int)responseMessage.StatusCode, responseMessage.Content.ReadAsStringAsync().Result);
@@ -170,17 +171,19 @@ namespace WebClient.Data
             return responseMessage.Content.ReadFromJsonAsync<ServiceModel[]>().Result;
         }
 
-        public void UpdateService(ServiceModel model)
+        public void UpdateService(ServiceModel model, string token)
         {
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             _ = httpClient.PostAsync("api/Services/Update", JsonContent.Create(model)).Result;
         }
 
-        public void DeleteService(int id)
+        public void DeleteService(int id, string token)
         {
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             _ = httpClient.DeleteAsync($"api/Services/Delete/{id}").Result;
         }
         #endregion

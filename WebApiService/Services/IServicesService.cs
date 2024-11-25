@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Models;
 
-namespace Services
+namespace WebApiService.Services
 {
     public interface IServicesService
     {
@@ -12,10 +12,10 @@ namespace Services
 
         ServiceModel Get(int id);
 
-        void Add(ServiceModel model, string token);
+        void Add(ServiceModel model);
 
-        void Update(ServiceModel model, string token);
+        void Update(ServiceModel model);
 
-        void Delete(int id, string token);
+        void Delete(int id);
     }
 }
