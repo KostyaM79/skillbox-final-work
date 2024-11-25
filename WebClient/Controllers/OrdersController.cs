@@ -72,7 +72,8 @@ namespace WebClient.Controllers
         {
             try
             {
-                orderService.Update(model);
+                string token = HttpContext.Request.Cookies["jwt"];
+                orderService.Update(model, token);
                 return View("ReadAll", orderService.GetAll());
             }
             catch (DatabaseServiceException ex)

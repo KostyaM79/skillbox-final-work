@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebClient.Data;
 using Models;
-using WebClient.Services;
 
 namespace WebClient.Services
 {
@@ -38,25 +37,25 @@ namespace WebClient.Services
             return database.GetAllOrders();
         }
 
-        public OrdersListModel GetByToday()
-        {
-            return database.GetOrders("Today", 0, 0);
-        }
+        //public OrdersListModel GetByToday()
+        //{
+        //    return database.GetOrders("Today", 0, 0);
+        //}
 
-        public OrdersListModel GetByYesterday()
-        {
-            return database.GetOrdersByYesterday();
-        }
+        //public OrdersListModel GetByYesterday()
+        //{
+        //    return database.GetOrdersByYesterday();
+        //}
 
-        public OrdersListModel GetByWeek()
-        {
-            return database.GetOrdersByWeek();
-        }
+        //public OrdersListModel GetByWeek()
+        //{
+        //    return database.GetOrdersByWeek();
+        //}
 
 
-        public void Update(UpdateOrderModel model)
+        public void Update(UpdateOrderModel model, string token)
         {
-            database.UpdateOrder(model);
+            database.UpdateOrder(model, token);
         }
     }
 }

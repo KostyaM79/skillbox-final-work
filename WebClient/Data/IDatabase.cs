@@ -37,7 +37,7 @@ namespace WebClient.Data
 
         bool EditProject(ProjectModel model, string contentType, Stream fileStream, string fileName, string token);
 
-        void UpdateOrder(UpdateOrderModel model);
+        void UpdateOrder(UpdateOrderModel model, string token);
 
         void DeleteProject(int id, string token);
 

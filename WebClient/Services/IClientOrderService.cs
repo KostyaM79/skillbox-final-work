@@ -14,14 +14,14 @@ namespace WebClient.Services
 
         ModifyOrderModel Get(int id);
 
-        OrdersListModel GetByToday();
+        //OrdersListModel GetByToday();
 
-        OrdersListModel GetByYesterday();
+        //OrdersListModel GetByYesterday();
 
-        OrdersListModel GetByWeek();
+        //OrdersListModel GetByWeek();
 
         OrdersListModel Get(string filterName, int startOffset, int endOffset);
 
-        void Update(UpdateOrderModel model);
+        void Update(UpdateOrderModel model, string token);
     }
 }

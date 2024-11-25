@@ -136,10 +136,11 @@ namespace WebClient.Data
         }
 
 
-        public void UpdateOrder(UpdateOrderModel model)
+        public void UpdateOrder(UpdateOrderModel model, string token)
         {
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpResponseMessage responseMessage = httpClient.PostAsync($"api/Orders/Update", JsonContent.Create(model)).Result;
             if (!responseMessage.IsSuccessStatusCode)
                 throw new DatabaseServiceException((int)responseMessage.StatusCode, responseMessage.Content.ReadAsStringAsync().Result);

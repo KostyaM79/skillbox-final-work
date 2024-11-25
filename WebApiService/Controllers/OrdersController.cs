@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Models;
 using WebApiService.Services;
 using WebApiService.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApiService.Controllers
 {
@@ -61,6 +62,7 @@ namespace WebApiService.Controllers
 
         [HttpPost]
         [Route(nameof(Update))]
+        [Authorize]
         public IActionResult Update(UpdateOrderModel model)
         {
             service.Update(model);
