@@ -24,6 +24,71 @@ namespace WebClient.Data
             this.httpClientFactory = httpClientFactory;
         }
 
+        #region Методы для Articles
+        public void AddArticle(ArticleModel model, string contentType, Stream fileStream, string fileName, string token)
+        {
+            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
+
+            StreamContent streamContent = new StreamContent(fileStream);
+            streamContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
+
+            fileContent.Add(new StringContent(model.ArticleCaption), "ArticleTitle");
+            fileContent.Add(new StringContent(model.ArticleText), "ArticleText");
+            fileContent.Add(streamContent, name: "file", fileName: fileName);
+
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Articles/Create", fileContent).Result;
+        }
+
+        public ArticleModel[] GetAllArticles()
+        {
+            HttpResponseMessage responseMessage = ReadAllAsync("Articles").Result;
+            return responseMessage.Content.ReadFromJsonAsync<ArticleModel[]>().Result;
+        }
+
+        public void DeleteArticle(int id, string token)
+        {
+            _ = Delete("Articles", id, token).Result;
+        }
+
+        public ArticleModel FindArticle(int id)
+        {
+            HttpResponseMessage responseMessage = FindAsync("Articles", id).Result;
+            return responseMessage.Content.ReadFromJsonAsync<ArticleModel>().Result;
+        }
+
+        public void UpdateArticle(ArticleModel model, string contentType, Stream fileStream, string fileName, string token)
+        {
+            StreamContent streamContent;
+
+            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
+            //MultipartContent content = new MultipartContent();
+
+            if (fileStream != null)
+            {
+                streamContent = new StreamContent(fileStream);
+                streamContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+                fileContent.Add(streamContent, name: "file", fileName: fileName);
+
+                //content.Add(streamContent);
+            }
+
+            fileContent.Add(new StringContent($"{model.Id}"), "Id");
+            fileContent.Add(new StringContent(model.ArticleCaption), "ArticleCaption");
+            fileContent.Add(new StringContent(model.ArticleText), "ArticleText");
+
+            //content.Add(JsonContent.Create(model));
+
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Articles/Update", fileContent).Result;
+        }
+        #endregion
+
+        #region Методы для Orders
         public bool AddOrder(OrderModel model)
         {
             HttpClient httpClient = httpClientFactory.CreateClient();
@@ -32,38 +97,8 @@ namespace WebClient.Data
             return responseMessage.IsSuccessStatusCode;
         }
 
-        public void AddService(ServiceModel model)
-        {
-            HttpClient httpClient = httpClientFactory.CreateClient();
-            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
-            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Services/Create", JsonContent.Create(model)).Result;
-            if (!responseMessage.IsSuccessStatusCode)
-                throw new DatabaseServiceException((int)responseMessage.StatusCode, responseMessage.Content.ReadAsStringAsync().Result);
-        }
-
-        public bool AddProject(ProjectModel model, string contentType, Stream fileStream, string fileName)
-        {
-            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
-
-            StreamContent streamContent = new StreamContent(fileStream);
-            streamContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
-
-            fileContent.Add(new StringContent(model.ProjectTitle), "ProjectTitle");
-            fileContent.Add(new StringContent(model.ProjectDescr), "ProjectDescr");
-            fileContent.Add(streamContent, name: "file", fileName: fileName);
-
-            HttpClient httpClient = httpClientFactory.CreateClient();
-            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
-            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Projects/Create", fileContent).Result;
-            return responseMessage.IsSuccessStatusCode;
-        }
-
         public OrdersListModel GetAllOrders()
         {
-            //HttpClient httpClient = httpClientFactory.CreateClient();
-            //httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
-            //HttpResponseMessage responseMessage = httpClient.GetAsync("api/Orders/ReadAll").Result;
-
             HttpResponseMessage responseMessage = ReadAllAsync("Orders").Result;
             return responseMessage.Content.ReadFromJsonAsync<OrdersListModel>().Result;
         }
@@ -82,14 +117,6 @@ namespace WebClient.Data
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
             HttpResponseMessage responseMessage = httpClient.GetAsync($"api/Orders/Read/{id}").Result;
             return responseMessage.Content.ReadFromJsonAsync<ModifyOrderModel>().Result;
-        }
-
-        public ServiceModel GetService(int id)
-        {
-            HttpClient httpClient = httpClientFactory.CreateClient();
-            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
-            HttpResponseMessage responseMessage = httpClient.GetAsync($"api/Services/Read/{id}").Result;
-            return responseMessage.Content.ReadFromJsonAsync<ServiceModel>().Result;
         }
 
         public OrdersListModel GetOrdersByYesterday()
@@ -117,6 +144,64 @@ namespace WebClient.Data
             if (!responseMessage.IsSuccessStatusCode)
                 throw new DatabaseServiceException((int)responseMessage.StatusCode, responseMessage.Content.ReadAsStringAsync().Result);
         }
+        #endregion
+
+        #region Методы для Services
+        public void AddService(ServiceModel model)
+        {
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Services/Create", JsonContent.Create(model)).Result;
+            if (!responseMessage.IsSuccessStatusCode)
+                throw new DatabaseServiceException((int)responseMessage.StatusCode, responseMessage.Content.ReadAsStringAsync().Result);
+        }
+
+        public ServiceModel GetService(int id)
+        {
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            HttpResponseMessage responseMessage = httpClient.GetAsync($"api/Services/Read/{id}").Result;
+            return responseMessage.Content.ReadFromJsonAsync<ServiceModel>().Result;
+        }
+
+        public ServiceModel[] GetAllServices()
+        {
+            HttpResponseMessage responseMessage = ReadAllAsync("Services").Result;
+            return responseMessage.Content.ReadFromJsonAsync<ServiceModel[]>().Result;
+        }
+
+        public void UpdateService(ServiceModel model)
+        {
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            _ = httpClient.PostAsync("api/Services/Update", JsonContent.Create(model)).Result;
+        }
+
+        public void DeleteService(int id)
+        {
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            _ = httpClient.DeleteAsync($"api/Services/Delete/{id}").Result;
+        }
+        #endregion
+
+        #region Методы для Projects
+        public bool AddProject(ProjectModel model, string contentType, Stream fileStream, string fileName)
+        {
+            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
+
+            StreamContent streamContent = new StreamContent(fileStream);
+            streamContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
+
+            fileContent.Add(new StringContent(model.ProjectTitle), "ProjectTitle");
+            fileContent.Add(new StringContent(model.ProjectDescr), "ProjectDescr");
+            fileContent.Add(streamContent, name: "file", fileName: fileName);
+
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Projects/Create", fileContent).Result;
+            return responseMessage.IsSuccessStatusCode;
+        }
 
         public ProjectModel GetProject(int id)
         {
@@ -128,10 +213,6 @@ namespace WebClient.Data
 
         public ProjectModel[] GetAllProjects()
         {
-            //HttpClient httpClient = httpClientFactory.CreateClient();
-            //httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
-            //HttpResponseMessage responseMessage = httpClient.GetAsync("api/Projects/ReadAll").Result;
-
             HttpResponseMessage responseMessage = ReadAllAsync("Projects").Result;
             return responseMessage.Content.ReadFromJsonAsync<ProjectModel[]>().Result;
         }
@@ -165,92 +246,7 @@ namespace WebClient.Data
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
             _ = httpClient.DeleteAsync($"api/Projects/Delete/{id}").Result;
         }
-
-        public ServiceModel[] GetAllServices()
-        {
-            //HttpClient httpClient = httpClientFactory.CreateClient();
-            //httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
-            //HttpResponseMessage responseMessage = httpClient.GetAsync("api/Services/ReadAll").Result;
-
-            HttpResponseMessage responseMessage = ReadAllAsync("Services").Result;
-            return responseMessage.Content.ReadFromJsonAsync<ServiceModel[]>().Result;
-        }
-
-        public void UpdateService(ServiceModel model)
-        {
-            HttpClient httpClient = httpClientFactory.CreateClient();
-            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
-            _ = httpClient.PostAsync("api/Services/Update", JsonContent.Create(model)).Result;
-        }
-
-        public void DeleteService(int id)
-        {
-            HttpClient httpClient = httpClientFactory.CreateClient();
-            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
-            _ = httpClient.DeleteAsync($"api/Services/Delete/{id}").Result;
-        }
-
-        public void AddArticle(ArticleModel model, string contentType, Stream fileStream, string fileName)
-        {
-            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
-
-            StreamContent streamContent = new StreamContent(fileStream);
-            streamContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
-
-            fileContent.Add(new StringContent(model.ArticleCaption), "ArticleTitle");
-            fileContent.Add(new StringContent(model.ArticleText), "ArticleText");
-            fileContent.Add(streamContent, name: "file", fileName: fileName);
-
-            HttpClient httpClient = httpClientFactory.CreateClient();
-            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
-            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Articles/Create", fileContent).Result;
-        }
-
-        public ArticleModel[] GetAllArticles()
-        {
-            HttpResponseMessage responseMessage = ReadAllAsync("Articles").Result;
-            return responseMessage.Content.ReadFromJsonAsync<ArticleModel[]>().Result;
-        }
-
-        public void DeleteArticle(int id)
-        {
-            _ = Delete("Articles", id).Result;
-        }
-
-        public ArticleModel FindArticle(int id)
-        {
-            HttpResponseMessage responseMessage = FindAsync("Articles", id).Result;
-            return responseMessage.Content.ReadFromJsonAsync<ArticleModel>().Result;
-        }
-
-        public void UpdateArticle(ArticleModel model, string contentType, Stream fileStream, string fileName)
-        {
-            StreamContent streamContent;
-
-            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
-            //MultipartContent content = new MultipartContent();
-
-            if (fileStream != null)
-            {
-                streamContent = new StreamContent(fileStream);
-                streamContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
-                fileContent.Add(streamContent, name: "file", fileName: fileName);
-
-                //content.Add(streamContent);
-            }
-
-            fileContent.Add(new StringContent($"{model.Id}"), "Id");
-            fileContent.Add(new StringContent(model.ArticleCaption), "ArticleCaption");
-            fileContent.Add(new StringContent(model.ArticleText), "ArticleText");
-
-            //content.Add(JsonContent.Create(model));
-
-            HttpClient httpClient = httpClientFactory.CreateClient();
-            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
-            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Articles/Update", fileContent).Result;
-        }
-
-
+        #endregion
 
 
         private Task<HttpResponseMessage> ReadAllAsync(string controllerName)
@@ -260,10 +256,11 @@ namespace WebClient.Data
             return httpClient.GetAsync($"api/{controllerName}/ReadAll");
         }
 
-        private Task<HttpResponseMessage> Delete(string controllerName, int entityId)
+        private Task<HttpResponseMessage> Delete(string controllerName, int entityId, string token)
         {
             HttpClient httpClient = httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             return httpClient.DeleteAsync($"api/{controllerName}/Delete/{entityId}");
         }
 

@@ -45,14 +45,14 @@ namespace WebClient.Data
 
         void DeleteService(int id);
 
-        void AddArticle(ArticleModel model, string contentType, Stream fileStream, string fileName);
+        void AddArticle(ArticleModel model, string contentType, Stream fileStream, string fileName, string token);
 
         ArticleModel[] GetAllArticles();
 
-        void DeleteArticle(int id);
+        void DeleteArticle(int id, string token);
 
         ArticleModel FindArticle(int id);
 
-        void UpdateArticle(ArticleModel model, string contentType, Stream stream, string fileName);
+        void UpdateArticle(ArticleModel model, string contentType, Stream stream, string fileName, string token);
     }
 }

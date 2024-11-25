@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.IO;
 using WebApiService.Services;
 using Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApiService.Controllers
 {
@@ -39,6 +40,7 @@ namespace WebApiService.Controllers
 
         [HttpPost]
         [Route(nameof(Create))]
+        [Authorize]
         public IActionResult Create([FromForm] ArticleModel model)
         {
             IFormFileCollection files = HttpContext.Request.Form.Files;
@@ -53,6 +55,7 @@ namespace WebApiService.Controllers
 
         [HttpDelete]
         [Route("Delete/{id:int}")]
+        [Authorize]
         public IActionResult Delete(int id)
         {
             service.Delete(id);
@@ -61,6 +64,7 @@ namespace WebApiService.Controllers
 
         [HttpPost]
         [Route("Update")]
+        [Authorize]
         public void Update([FromForm] ArticleModel model)
         {
             IFormFileCollection files = HttpContext.Request.Form.Files;

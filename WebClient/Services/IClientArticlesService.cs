@@ -10,6 +10,10 @@ namespace WebClient.Services
 {
     public interface IClientArticlesService : IArticleService
     {
-        void Create(ArticleModel model, string contentType, Stream fileStream, string fileName);
+        void Create(ArticleModel model, string contentType, Stream fileStream, string fileName, string token);
+
+        void Update(ArticleModel model, string contentType, Stream stream, string fileName, string token);
+
+        void Delete(int id, string token);
     }
 }

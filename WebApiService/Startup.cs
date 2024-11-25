@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 using WebApiService.Data;
 using WebApiService.Services;
 using Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace WebApiService
 {
@@ -35,11 +38,29 @@ namespace WebApiService
             services.AddScoped<IServicesService, ServicesService>();
             services.AddScoped<IApiArticlesService, ArticleService>();
 
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApiService", Version = "v1" });
+            });
+
+            services.AddAuthentication(option =>
+            {
+                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = false,
+                    ValidateLifetime = false,
+                    ValidateActor = false,
+                    ValidateTokenReplay = false,
+                    ValidateIssuerSigningKey = false,
+                    ValidIssuer = "https://localhost:44351",
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["SecretKey"]))
+                };
             });
         }
 
@@ -56,6 +77,7 @@ namespace WebApiService
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

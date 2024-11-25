@@ -51,11 +51,14 @@ namespace WebClient.Controllers
         [Authorize]
         public IActionResult Create(ArticleModel model)
         {
+            string token = HttpContext.Request.Cookies["jwt"];
+
             service.Create(
                 model,
                 HttpContext.Request.Form.Files[0].ContentType,
                 HttpContext.Request.Form.Files[0].OpenReadStream(),
-                HttpContext.Request.Form.Files[0].FileName);
+                HttpContext.Request.Form.Files[0].FileName,
+                token);
 
             return Redirect("/Articles/ReadAll");
         }
@@ -63,19 +66,22 @@ namespace WebClient.Controllers
         [Authorize]
         public IActionResult Delete(int id)
         {
-            service.Delete(id);
+            string token = HttpContext.Request.Cookies["jwt"];
+            service.Delete(id, token);
             return Redirect("/Articles/ReadAll");
         }
 
         [Authorize]
         public IActionResult Update(ArticleModel model)
         {
+            string token = HttpContext.Request.Cookies["jwt"];
             IFormFileCollection files = HttpContext.Request.Form.Files;
             service.Update(
                 model,
                 files.Any() ? files[0].ContentType : null,
                 files.Any() ? files[0].OpenReadStream() : null,
-                files.Any() ? files[0].FileName : null
+                files.Any() ? files[0].FileName : null,
+                token
                 );
             return Redirect("/Articles/ReadAll");
         }

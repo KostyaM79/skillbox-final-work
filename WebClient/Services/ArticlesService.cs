@@ -18,14 +18,19 @@ namespace WebClient.Services
             this.database = database;
         }
 
-        public void Create(ArticleModel model, string contentType, Stream fileStream, string fileName)
+        public void Create(ArticleModel model, string contentType, Stream fileStream, string fileName, string token)
         {
-            database.AddArticle(model, contentType, fileStream, fileName);
+            database.AddArticle(model, contentType, fileStream, fileName, token);
+        }
+
+        public void Delete(int id, string token)
+        {
+            database.DeleteArticle(id, token);
         }
 
         public void Delete(int id)
         {
-            database.DeleteArticle(id);
+            throw new NotImplementedException();
         }
 
         public ArticleModel Find(int id)
@@ -38,9 +43,14 @@ namespace WebClient.Services
             return database.GetAllArticles();
         }
 
-        public void Update(ArticleModel model, string contentType, Stream stream, string fileName)
+        public void Update(ArticleModel model, string contentType, Stream stream, string fileName, string token)
         {
-            database.UpdateArticle(model, contentType, stream, fileName);
+            database.UpdateArticle(model, contentType, stream, fileName, token);
+        }
+
+        public void Update(ArticleModel model, string contentType, Stream stream, string fileNam)
+        {
+            throw new NotImplementedException();
         }
     }
 }
