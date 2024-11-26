@@ -17,7 +17,7 @@ namespace WebApiService.Controllers
         public IActionResult Read(string dir, string file)
         {
             ImageManager im = new ImageManager();
-            return File(im.GetImage(dir, file), "image/jpg");
+            return File(im.GetImage(dir, file), im.ContentType(file));
         }
     }
 }

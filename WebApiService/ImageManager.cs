@@ -37,14 +37,20 @@ namespace WebApiService
             return newFileName;
         }
 
-        public void DeleteImage()
+        public void DeleteImage(string directoryName, string fileName)
         {
-
+            File.Delete($"img\\{directoryName}\\{fileName}");
         }
 
         public FileStream GetImage(string dir, string fileName)
         {
             return new FileStream($"img\\{dir}\\{fileName}", FileMode.Open);
+        }
+
+        public string ContentType(string fileName)
+        {
+            if (Path.GetExtension(fileName) == "svg" || Path.GetExtension(fileName) == ".svg") return "image/svg+xml";
+            else return "image/jpg";
         }
 
         private string CreateFileName(string srcFileName)

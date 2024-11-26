@@ -36,6 +36,7 @@ namespace WebApiService
             services.AddScoped<IApiProjectService, ProjectService>();
             services.AddScoped<IServicesService, ServicesService>();
             services.AddScoped<IApiArticlesService, ArticleService>();
+            services.AddScoped<IApiSocialsService, SocialsService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

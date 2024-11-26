@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 using Models;
+using Microsoft.AspNetCore.Http;
 
 namespace WebClient.Data
 {
@@ -54,5 +55,9 @@ namespace WebClient.Data
         ArticleModel FindArticle(int id);
 
         void UpdateArticle(ArticleModel model, string contentType, Stream stream, string fileName, string token);
+
+        void UpdateSocials(string[] links, IFormFileCollection files, string token);
+
+        SocialModel[] GetAllSocials();
     }
 }

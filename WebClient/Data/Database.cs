@@ -10,6 +10,7 @@ using System.IO;
 using Models;
 using System.Net.Http.Headers;
 using Exceptions;
+using Microsoft.AspNetCore.Http;
 
 namespace WebClient.Data
 {
@@ -273,5 +274,32 @@ namespace WebClient.Data
             return httpClient.GetAsync($"api/{controllerName}/Read/{entityId}");
         }
 
+        public void UpdateSocials(string[] links, IFormFileCollection files, string token)
+        {
+            using MultipartFormDataContent fileContent = new MultipartFormDataContent();
+
+            foreach (IFormFile file in files)
+            {
+                StreamContent content = new StreamContent(file.OpenReadStream());
+                content.Headers.ContentType = new MediaTypeHeaderValue(file.ContentType);
+                fileContent.Add(content, name: "file", fileName: file.FileName);
+            }
+
+            for (int i = 0; i < links.Length; i++)
+            {
+                fileContent.Add(new StringContent(links[i]), $"Links[{i}]");
+            }
+
+            HttpClient httpClient = httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(configuration["ApiLocation"]);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpResponseMessage responseMessage = httpClient.PostAsync("api/Contacts/Update", fileContent).Result;
+        }
+
+        public SocialModel[] GetAllSocials()
+        {
+            HttpResponseMessage responseMessage = ReadAllAsync("Contacts").Result;
+            return responseMessage.Content.ReadFromJsonAsync<SocialModel[]>().Result;
+        }
     }
 }

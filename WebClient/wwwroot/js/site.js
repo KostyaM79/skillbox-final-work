@@ -103,6 +103,51 @@ function show_modal() {
     basket.onclick = remove_item;
     let file = modal.getElementsByClassName("modal-file")[0];
     file.onchange = fileOnChanged;
+
+    let saveBtn = document.getElementsByClassName("btn_right")[0];
+    saveBtn.innerHTML = "Сохранить";
+    saveBtn.onclick = save;
+    //saveBtn.Form = "socialFrm";
+    saveBtn.style.zIndex = 1001;
+}
+
+function save(e) {
+    let items = document.getElementsByClassName("modal__input");
+    let full = true;
+
+    for (let i = 0; i < items.length; i++) {
+        if (!items[i].value) {
+            full = false;
+            break;
+        }
+
+        let file = items[i].parentElement.getElementsByClassName("modal-file")[0];
+
+        if (!file.value) {
+            full = false;
+            break;
+        }
+    }
+
+    if (full) {
+        for (let i = 0; i < items.length; i++) {
+            items[i].setAttribute("name", `Links[${i}]`);
+            let file = items[i].parentElement.getElementsByClassName("modal-file")[0];
+            file.setAttribute("name", `Filess[${i}]`);
+        }
+
+        let btn = e.currentTarget;
+        btn.innerHTML = "Редактировать";
+        btn.onclick = show_modal;
+        //btn.Form = null;
+        btn.zIndex = 10;
+
+        let frm = document.getElementById("socialFrm");
+        frm.submit();
+
+        let modal = document.getElementById("edit-contacts");
+        modal.style.visibility = "hidden";
+    }
 }
 
 //Добавляет элемент в список соц. сетей

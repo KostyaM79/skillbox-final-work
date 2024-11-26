@@ -14,6 +14,7 @@ namespace Services
 
         void Update(SocialModel model, string contentType, Stream stream, string fileName);
 
+
         void Delete(int id);
     }
 }

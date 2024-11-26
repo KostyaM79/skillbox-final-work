@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Services;
+using Models;
 
 namespace WebApiService.Services
 {
-    public interface IApiSocialsService : ISocialsService
+    public interface IApiSocialsService 
     {
-        void Create(string link, IFormFile file);
+        SocialModel[] GetAll();
+
+        void Update(string[] links, IFormFileCollection files);
     }
 }

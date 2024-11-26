@@ -1,4 +1,5 @@
-﻿
+﻿@model SocialModel[]
+
 @if (User.Identity.IsAuthenticated)
 {
     Layout = "_AdminLayout2";
@@ -24,10 +25,14 @@ else
             </div>
 
             <ul class="contacts__socials">
-                <li class="contacts__item">A</li>
-                <li class="contacts__item">B</li>
-                <li class="contacts__item">C</li>
-                <li class="contacts__item">D</li>
+                @foreach (SocialModel social in Model)
+                {
+                    <li class="socials-lnk__item">
+                        <a href="@social.Link">
+                            <img class="social-img" src="@social.FileName" alt="Иконка" />
+                        </a>
+                    </li>
+                }
             </ul>
         </div>
 
@@ -46,7 +51,7 @@ else
 {
     @* ----- Модальное окно ----- *@
     <div id="edit-contacts" class="modal-wrapper">
-        <div class="social-modal">
+        <form id="socialFrm" class="social-modal" asp-controller="Contacts" asp-action="Update" enctype="multipart/form-data">
             <div class="modal__header">
                 <span class="modal__title">Добавить / редактировать ссылки</span>
             </div>
@@ -57,16 +62,16 @@ else
                         <li class="modal__item">
                             <label>
                                 <img class="modal__add" src="~/img/add-icon.svg" alt="Alternate Text" />
-                                <input class="modal-file" type="file" name="picture" />
+                                <input class="modal-file" type="file" />
                             </label>
                             <input class="modal__input" type="text" />
                             <img class="modal__basket" src="~/img/delete.svg" alt="Корзина" />
                         </li>
                     </ul>
 
-                    <button class="btn modal__btn" onclick="add_item()">+ Добавить ещё</button>
+                    <button class="btn modal__btn" type="button" onclick="add_item()">+ Добавить ещё</button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 }

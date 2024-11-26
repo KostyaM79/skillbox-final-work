@@ -365,3 +365,12 @@ a {
 .view-article__btn {
     align-self: end;
 }
+
+.social-img {
+    width: 24px;
+    height: 24px;
+}
+
+.socials-lnk__item:not(:last-child) {
+    margin-right: 10px;
+}

@@ -27,5 +27,7 @@ namespace WebApiService.Data
         public DbSet<Project> Projects { get; set; }
 
         public DbSet<Service> Services { get; set; }
+
+        public DbSet<Socials> Socials { get; set; }
     }
 }

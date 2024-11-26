@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Models
+namespace WebApiService.Data
 {
-    public class SocialModel
+    public class Socials
     {
         public int Id { get; set; }
 
-        public string FileName { get; set; }
-
         public string Link { get; set; }
+
+        public string ImageFileName { get; set; }
     }
 }
