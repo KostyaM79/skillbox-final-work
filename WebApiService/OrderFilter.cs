@@ -6,6 +6,9 @@ using WebApiService.Data;
 
 namespace WebApiService
 {
+    /// <summary>
+    /// Содержит именованные фильтры для заявок
+    /// </summary>
     public class OrderFilter
     {
         private readonly Dictionary<string, Func<Order, bool>> filters;

@@ -11,6 +11,9 @@ using Services;
 
 namespace WebClient.Services
 {
+    /// <summary>
+    /// Управляет авторизацией
+    /// </summary>
     public class AuthService : IAuthService
     {
         private readonly IConfiguration configuration;

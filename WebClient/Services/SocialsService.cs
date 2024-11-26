@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace WebClient.Services
 {
+    /// <summary>
+    /// Управляет ссылками на соц. сети
+    /// </summary>
     public class SocialsService : IClientSocialsService
     {
         private IConfiguration config;

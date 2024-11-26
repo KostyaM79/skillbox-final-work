@@ -8,6 +8,9 @@ using Models;
 
 namespace DesktopClient.Services
 {
+    /// <summary>
+    /// Управляет услугами
+    /// </summary>
     public class ServicesService : IDesktopServicesService
     {
         private Server server = Server.Create();

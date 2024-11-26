@@ -8,6 +8,9 @@ using WebClient.Data;
 
 namespace WebClient.Services
 {
+    /// <summary>
+    /// Управляет услугами
+    /// </summary>
     public class ServicesService : IServicesService
     {
         private readonly IDatabase database;

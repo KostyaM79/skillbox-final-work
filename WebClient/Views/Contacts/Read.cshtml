@@ -28,7 +28,8 @@ else
                 @foreach (SocialModel social in Model)
                 {
                     <li class="socials-lnk__item">
-                        <a href="@social.Link">
+                        <input type="hidden" value="@social.Link"/>
+                        <a class="social__lnk" href="@social.Link">
                             <img class="social-img" src="@social.FileName" alt="Иконка" />
                         </a>
                     </li>

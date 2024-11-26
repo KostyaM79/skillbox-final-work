@@ -22,7 +22,7 @@ namespace JwtAuthenticationService.Data
             if (context.Users.Any()) return;
 
             User user = new User() { UserName = "Admin" };
-            IdentityResult result = userManager.CreateAsync(user, "1_Qwerty").Result;
+            IdentityResult result = userManager.CreateAsync(user, "Admin").Result;
 
             Claim claim = new Claim("IsAdmin", "");
             IdentityResult result2 = userManager.AddClaimAsync(user, claim).Result;

@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace WebApiService.Services
 {
+    /// <summary>
+    /// Управляет проектами
+    /// </summary>
     public class ProjectService : IApiProjectService
     {
         private AppDbContext context;

@@ -27,17 +27,30 @@ namespace WebClient.Controllers
             return View();
         }
 
+
         public IActionResult ReadAll()
         {
             return View(orderService.GetAll());
         }
 
+        /// <summary>
+        /// Возвращает все заявки
+        /// </summary>
+        /// <param name="filterName"></param>
+        /// <param name="startOffset"></param>
+        /// <param name="endOffset"></param>
+        /// <returns></returns>
         [Route("read/filter/{filterName}/{startOffset?}/{endOffset?}")]
         public IActionResult Read(string filterName, int startOffset = 0, int endOffset = 0)
         {
             return View("ReadAll", orderService.Get(filterName, startOffset, endOffset));
         }
 
+        /// <summary>
+        /// Возвращает заявку
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("read/{id:int}")]
         public IActionResult Find(int id)
         {
@@ -66,6 +79,11 @@ namespace WebClient.Controllers
             return View(orderService.Get(id));
         }
 
+        /// <summary>
+        /// Обновляет заявку
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize]
         public IActionResult Update(UpdateOrderModel model)

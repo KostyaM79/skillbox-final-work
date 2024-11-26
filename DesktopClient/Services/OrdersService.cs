@@ -9,6 +9,9 @@ using DesktopClient.General;
 
 namespace DesktopClient.Services
 {
+    /// <summary>
+    /// Управляет заявками
+    /// </summary>
     public class OrdersService : IDesktopOrdersService
     {
         private readonly Server server = Server.Create();

@@ -11,6 +11,9 @@ using Services;
 
 namespace WebApiService.Services
 {
+    /// <summary>
+    /// Управляет заявками
+    /// </summary>
     public class OrderService : IApiOrderService
     {
         private AppDbContext context;

@@ -1,3 +1,4 @@
+const { get } = require("jquery");
 
 // Фразы для случайного отображения
 let phrases = [
@@ -77,6 +78,9 @@ function addevents() {
 
 
 function check() {
+    let f = document.getElementById("order-frm");
+    let inputs = f.getElementsByClassName("order-frm__input");
+
     let btn = document.getElementById("btn");
 
     for (let i = 0; i < inputs.length; i++) {
@@ -96,18 +100,35 @@ function showFrm() {
 }
 
 // Отображает модальное окно для редактирования соц. сетей
-function show_modal() {
-    let modal = document.getElementById("edit-contacts");
-    modal.style.visibility = "visible";
-    let basket = modal.getElementsByClassName("modal__basket")[0];
-    basket.onclick = remove_item;
-    let file = modal.getElementsByClassName("modal-file")[0];
-    file.onchange = fileOnChanged;
+async function show_modal() {
+    let lnkColl = document.getElementsByClassName("social__lnk");
+    let imgColl = document.getElementsByClassName("social-img");
+    let inputsItems = document.getElementsByClassName("modal__links")[0];  // Получаем список inputs
+    let filereader = new FileReader();
+
+        let modal = document.getElementById("edit-contacts");
+        modal.style.visibility = "visible";
+        let basket = modal.getElementsByClassName("modal__basket")[0];
+        basket.onclick = remove_item;
+        let file = modal.getElementsByClassName("modal-file")[0];
+        file.onchange = fileOnChanged;
+
+    for (let i = 0; i < lnkColl.length; i++) {
+        let input = inputsItems.children.item(inputsItems.children.length - 1);
+
+        if (input) {
+            let img = input.children.item(0).children.item(0);
+            let txtEl = input.children.item(1);
+            img.src = imgColl[i].src;
+            txtEl.value = lnkColl[i].parentElement.children.item(0).value;
+        }
+
+        if (i < lnkColl.length - 1) add_item();
+    }
 
     let saveBtn = document.getElementsByClassName("btn_right")[0];
     saveBtn.innerHTML = "Сохранить";
     saveBtn.onclick = save;
-    //saveBtn.Form = "socialFrm";
     saveBtn.style.zIndex = 1001;
 }
 
@@ -171,8 +192,8 @@ function add_item() {
         inputFile.classList.add("modal-file");
         inputFile.onchange = fileOnChanged;
 
-        label.appendChild(inputFile);
         label.appendChild(img);
+        label.appendChild(inputFile);
 
         item.classList.add("modal__item");
 
@@ -190,7 +211,7 @@ function add_item() {
         basket.classList.add("modal__basket");
         basket.onclick = remove_item;
 
-        item.append(inputHide);
+        //item.append(inputHide);
         item.appendChild(label);
         item.appendChild(input);
         item.appendChild(basket);

@@ -10,6 +10,9 @@ using WebApiService.Data;
 
 namespace WebApiService.Services
 {
+    /// <summary>
+    /// Управляет ссылками на соц сети
+    /// </summary>
     public class SocialsService : IApiSocialsService
     {
         private AppDbContext context;
@@ -59,16 +62,20 @@ namespace WebApiService.Services
                 models.Add(model);
             }
 
+
+            List<Socials> socials1 = new List<Socials>();
+
             // Сохраняем новые ссылки в БД
             foreach (SocialModel model in models)
             {
-                context.Socials.Add(new Socials()
+                socials1.Add(new Socials()
                 {
                     Link = model.Link,
                     ImageFileName = model.FileName
                 });
             }
 
+            context.AddRange(socials1);
             context.SaveChanges();
         }
     }

@@ -10,6 +10,9 @@ using System.IO;
 
 namespace DesktopClient.Services
 {
+    /// <summary>
+    /// Управляет проектами
+    /// </summary>
     public class ProjectsService : IDesktopProjectsService
     {
         private readonly Server server = Server.Create();

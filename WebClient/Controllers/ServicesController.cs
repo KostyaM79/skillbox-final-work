@@ -18,16 +18,29 @@ namespace WebClient.Controllers
             this.service = service;
         }
 
+        /// <summary>
+        /// Возарвщает все услуги
+        /// </summary>
+        /// <returns></returns>
         public IActionResult ReadAll()
         {
             return View(service.GetAll());
         }
 
+        /// <summary>
+        /// Возвращает услугу
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult Read(int id)
         {
             return View(service.Get(id));
         }
 
+        /// <summary>
+        /// Возвращает форму для добавления услуги
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Authorize]
         public IActionResult Create()
@@ -35,6 +48,11 @@ namespace WebClient.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Добавляет новую услугу
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize]
         public IActionResult Create(ServiceModel model)
@@ -44,6 +62,11 @@ namespace WebClient.Controllers
             return Redirect("/Services/ReadAll");
         }
 
+        /// <summary>
+        /// Обновляет услугу
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [Authorize]
         public IActionResult Update(ServiceModel model)
         {
@@ -52,6 +75,11 @@ namespace WebClient.Controllers
             return Redirect("/Services/ReadAll");
         }
 
+        /// <summary>
+        /// Удаляет услугу
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize]
         public IActionResult Delete(int id)
         {

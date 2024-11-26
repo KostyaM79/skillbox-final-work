@@ -9,6 +9,10 @@ using WebClient.Data;
 
 namespace WebClient.Services
 {
+
+    /// <summary>
+    /// Управляет блогом
+    /// </summary>
     public class ArticlesService : IClientArticlesService
     {
         private readonly IDatabase database;

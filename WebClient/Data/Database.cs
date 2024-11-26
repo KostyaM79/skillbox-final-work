@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace WebClient.Data
 {
+    /// <summary>
+    /// Взаимодействует с Web Api
+    /// </summary>
     public class Database : IDatabase
     {
         private readonly IConfiguration configuration;

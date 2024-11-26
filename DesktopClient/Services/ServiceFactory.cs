@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DesktopClient.Services
 {
+    /// <summary>
+    /// Создаёт сервисы
+    /// </summary>
     public static class ServiceFactory
     {
         private static readonly Dictionary<Type, Func<object>> services = new();

@@ -8,6 +8,9 @@ using Models;
 
 namespace WebClient.Services
 {
+    /// <summary>
+    /// Управляет заявками
+    /// </summary>
     public class OrderService : IClientOrderService
     {
         private readonly IDatabase database;

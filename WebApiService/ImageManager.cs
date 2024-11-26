@@ -10,6 +10,9 @@ using System.Security.Cryptography;
 
 namespace WebApiService
 {
+    /// <summary>
+    /// Управляет сохранением файлов изображений
+    /// </summary>
     public class ImageManager
     {
         public string SaveImage(string directoryName, IFormFile file)

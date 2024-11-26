@@ -70,7 +70,11 @@ namespace WebClient.Controllers
             return View(model);
         }
 
-
+        /// <summary>
+        /// Возвращает проект
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult Read(int id)
         {
             ProjectModel project = projectService.Get(id);
@@ -78,6 +82,11 @@ namespace WebClient.Controllers
             return View(project);
         }
 
+        /// <summary>
+        /// Обновляет проект
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize]
         public IActionResult Update(ProjectModel model)
@@ -94,6 +103,11 @@ namespace WebClient.Controllers
             else return Problem();
         }
 
+        /// <summary>
+        /// Удаляет прект
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("Delete/{id:int}")]
         [Authorize]
         public IActionResult Delete(int id)
@@ -103,6 +117,11 @@ namespace WebClient.Controllers
             return Redirect("/Projects/ReadAll");
         }
 
+        /// <summary>
+        /// Возвращает представление проекта
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult ViewProject(int id)
         {
             ProjectModel project = projectService.Get(id);

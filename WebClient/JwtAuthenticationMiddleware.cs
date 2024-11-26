@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace WebClient
 {
+    /// <summary>
+    /// Берёт JWT из Cookie и кладёт в Authorization
+    /// </summary>
     public class JwtAuthenticationMiddleware
     {
         private readonly RequestDelegate next;

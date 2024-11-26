@@ -23,6 +23,11 @@ namespace WebClient.Controllers
             return View(service.GetAll());
         }
 
+        /// <summary>
+        /// Обновляет ссылки на соц сети.
+        /// </summary>
+        /// <param name="links"></param>
+        /// <returns></returns>
         [Authorize]
         public IActionResult Update(string[] links)
         {

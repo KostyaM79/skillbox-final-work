@@ -11,6 +11,9 @@ using System.IO;
 
 namespace WebApiService.Services
 {
+    /// <summary>
+    /// Управляет блогом
+    /// </summary>
     public class ArticleService : IApiArticlesService
     {
         private readonly AppDbContext context;

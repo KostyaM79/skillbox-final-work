@@ -22,6 +22,10 @@ namespace WebClient.Controllers
             this.configuration = configuration;
         }
 
+        /// <summary>
+        /// Возвращает все статьи
+        /// </summary>
+        /// <returns></returns>
         public IActionResult ReadAll()
         {
             ArticleModel[] articles = service.GetAll();
@@ -34,6 +38,11 @@ namespace WebClient.Controllers
             return View(articles);
         }
 
+        /// <summary>
+        /// Возвращает статью
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult Find(int id)
         {
             ArticleModel article = service.Find(id);
@@ -47,6 +56,11 @@ namespace WebClient.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Добавляе статью
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize]
         public IActionResult Create(ArticleModel model)
@@ -63,6 +77,11 @@ namespace WebClient.Controllers
             return Redirect("/Articles/ReadAll");
         }
 
+        /// <summary>
+        /// Удаляет статью
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize]
         public IActionResult Delete(int id)
         {
@@ -71,6 +90,11 @@ namespace WebClient.Controllers
             return Redirect("/Articles/ReadAll");
         }
 
+        /// <summary>
+        /// Обновляет статью
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [Authorize]
         public IActionResult Update(ArticleModel model)
         {

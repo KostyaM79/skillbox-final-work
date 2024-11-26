@@ -9,6 +9,9 @@ using WebClient.Services;
 
 namespace WebClient.Services
 {
+    /// <summary>
+    /// Управляет проектами
+    /// </summary>
     public class ProjectService : IClientProjectService
     {
         private readonly IDatabase database;

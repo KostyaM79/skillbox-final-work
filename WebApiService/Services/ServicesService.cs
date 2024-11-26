@@ -9,6 +9,9 @@ using Models;
 
 namespace WebApiService.Services
 {
+    /// <summary>
+    /// Управляет услугами
+    /// </summary>
     public class ServicesService : IServicesService
     {
         private readonly AppDbContext context;
