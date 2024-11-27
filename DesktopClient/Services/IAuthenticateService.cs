@@ -7,8 +7,10 @@ using Models;
 
 namespace DesktopClient.Services
 {
-    interface IAuthenticateService
+    public interface IAuthenticateService
     {
         string Login(LoginModel model);
+
+        Task<string> LoginAsync(LoginModel model);
     }
 }

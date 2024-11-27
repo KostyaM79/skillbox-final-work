@@ -4,32 +4,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.ComponentModel;
 using DesktopClient.UserControls;
 using DesktopClient.General;
 using DesktopClient.Services;
-using Models;
+using System.Windows;
 
 namespace DesktopClient.ViewModels
 {
     public class MainVindow_ViewModel
     {
         private readonly MainWindow wnd;
-        private readonly UserControl startControl = new AppStartUserControl();
+        private ILoginFormViewModel loginFormViewModel = LoginForm_ViewModel.Create(ServiceFactory.GetService<IAuthenticateService>());
+        private readonly UserControl startControl;
         private RelayCommand continueAsGuestCmd;
-        private RelayCommand loginCmd;
 
         public MainVindow_ViewModel(MainWindow window)
         {
+            startControl = loginFormViewModel.Owner;
+            loginFormViewModel.Authorized += OnAuthorized;
+            loginFormViewModel.Unauthorized += OnUnauthorized;
             wnd = window;
         }
 
+        /// <summary>
+        /// Отображает форму входа в главном окне
+        /// </summary>
         public UserControl StartControl
         {
             get => startControl;
         }
 
-        public string Username { get; set; }
-
+        /// <summary>
+        /// Выполняется, если пользователь нажал "Продолжить как гость".
+        /// Отображает главное окно для работы с гостями.
+        /// </summary>
         public RelayCommand ContinueAsGuest_Cmd
         {
             get
@@ -41,17 +50,14 @@ namespace DesktopClient.ViewModels
             }
         }
 
-        public RelayCommand Login_Cmd
+        private void OnAuthorized(object sender, AuthorizedEventArgs args)
         {
-            get
-            {
-                return loginCmd ?? (loginCmd = new RelayCommand(obj =>
-                {
-                    IAuthenticateService service = ServiceFactory.GetService<IAuthenticateService>();
-                    string token = service.Login(new LoginModel() { Username = Username, Password = (obj as PasswordBox).Password });
-                    if (!string.IsNullOrEmpty(token)) wnd.DataContext = new Admin_ViewModel(token);
-                }));
-            }
+            wnd.DataContext = new Admin_ViewModel(args.Jwt);
+        }
+
+        private void OnUnauthorized(object sender, UnauthorizedEventArgs args)
+        {
+            MessageBox.Show(wnd, Constants.UNAUTHORIZE_ERROR_MESSAGE, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

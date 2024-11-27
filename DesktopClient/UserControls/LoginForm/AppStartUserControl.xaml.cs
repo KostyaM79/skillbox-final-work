@@ -21,9 +21,10 @@ namespace DesktopClient.UserControls
     /// </summary>
     public partial class AppStartUserControl : UserControl
     {
-        public AppStartUserControl()
+        public AppStartUserControl(ILoginFormViewModel viewModel)
         {
             InitializeComponent();
+            DataContext = viewModel;
         }
     }
 }

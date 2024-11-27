@@ -16,5 +16,12 @@ namespace DesktopClient.Services
         {
             return server.Login(model);
         }
+
+        public Task<string> LoginAsync(LoginModel model)
+        {
+            Task<string> t = new Task<string>(() => server.Login(model));
+            t.Start();
+            return t;
+        }
     }
 }
